@@ -1,0 +1,13 @@
+---
+layout: post
+title: rubyのopenuriやnet/http でエラーが出ちゃうときの対処
+date: '2014-09-21T21:15:00.000+09:00'
+author: s sato
+tags:
+- ruby
+modified_time: '2014-09-21T21:23:17.450+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-6602556878094559849
+blogger_orig_url: http://satomemocho.blogspot.com/2014/09/rubyopenurinethttp.html
+---
+
+rubyのopenuriやnet/http で503とかのエラーがでるとき、何度かリトライしたいということがあります。 単純にアクセス繰り返すとＤＯＳってると思われてしまいます。 次のようにＧＥＴを行うコードのラッパーとなるメソッドを作り、これを呼ぶとよさそう アクセス前の待機時間を引数にとっておき、５０３エラーが出た場合などは同じメソッドを待機時間を延ばしてリトライします。 ４００秒待ってダメなような場合はあきらめます。  <pre><code>     def carefulGet(url,waittime)<br />    begin<br />      sleep waittime<br />      charset = nil<br />      html = open(url, :proxy => nil) do |f|<br />        charset = f.charset<br />        f.read<br />      end<br />      return html<br />    rescue => evar<br />      puts evar<br />      if waittime<400 then<br />        puts 'GET error!! retry '<br />       #ここで同じメソッドを待機時間を上げて再起呼び出し<br /> 　　　carefulGet(url,waittime+20)<br />      else<br />        puts 'GET error!! QUIT'<br />      end<br />    end<br />  end</code></pre>

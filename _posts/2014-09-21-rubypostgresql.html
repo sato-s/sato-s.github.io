@@ -1,0 +1,14 @@
+---
+layout: post
+title: rubyからPostgreSQLへのアクセス　その１
+date: '2014-09-21T21:50:00.000+09:00'
+author: s sato
+tags:
+- ruby
+- PostgreSQL
+modified_time: '2014-09-21T21:50:13.210+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-4817454902964733565
+blogger_orig_url: http://satomemocho.blogspot.com/2014/09/rubypostgresql.html
+---
+
+pgというgemでPostgreSQLへrubyからアクセスできます。<br>rubyには史上最強のO/R mapperであるActiveRecordが存在するため、PostgreSQLとのインターフェイスとしてはそちらを先に想定すべきです。<br>しかし、ちょっとＳＱＬを投げたいだけの場合にはむしろこちらのほうが便利です。<br><br><br><h3>基本:行数を表示するだけ</h3><pre><code><br />$LOAD_PATH << "."<br />require 'pg'<br /><br />#接続する<br />db = PG::connect("127.0.0.1",5432 ,"","","mydb","sato","password")<br /><br />#クエリの定義<br />sql="select count(*) from tbl";<br /><br />#クエリの実行<br />result=@db.exec(sql)<br /><br />#行数の表示<br />p result[0]["count"].to_i<br /></pre></code><br>注意していただきたいのはSELETしてきた結果の取り出しです。<br>pgでは結果はレコードを表すハッシュの配列として帰ってきます。<br>id,name.ageというテーブルがある場合、結果として帰ってくるのは次のような配列です。<br>result[0]['id']=>1<br>result[0]['name']=>sato<br>result[0]['age']=>26<br><br><br>result[1]には次の結果の行が入っています。<br>select max(id),max(age) のようなクエリを使った場合結果として帰ってくる行の名前が<br>同名であるため、maxというキーが２つ帰ってきます。<br>これでハッシュが上書きされるため正常に取り出せません。<br>AS 句をうまく使いましょう

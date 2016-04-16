@@ -1,0 +1,13 @@
+---
+layout: post
+title: sudoの設定
+date: '2015-02-21T17:37:00.003+09:00'
+author: s sato
+tags:
+- Linux
+modified_time: '2015-02-21T17:37:56.864+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-429691653329864370
+blogger_orig_url: http://satomemocho.blogspot.com/2015/02/sudo.html
+---
+
+ <p>sudo関連の設定はこれでＯＫ</p><p>rootユーザーからvisudoで編集</p><p>sudo権限を与えたいユーザーを登録。<br />NOPASSWORDでパスワードをいちいち問わせない</p><div class="codehilite"><pre><code><span class="vg">sato</span><span class="w">    </span><span class="vg">ALL</span><span class="o">=</span><span class="p">(</span><span class="vg">ALL</span><span class="p">)</span><span class="w">       </span><span class="nl">NOPASSWD:</span><span class="w"> </span><span class="vg">ALL</span><br /></code></pre></div>  <p>secure_pathをコメントアウト</p><div class="codehilite"><pre><code><span class="c">#Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin</span><br /></code></pre></div>  <p>env_keepにPATHを追加</p><div class="codehilite"><pre><code><span class="vg">Defaults</span><span class="w">    </span><span class="vg">env_keep</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY PATH&quot;</span><br /></code></pre></div>

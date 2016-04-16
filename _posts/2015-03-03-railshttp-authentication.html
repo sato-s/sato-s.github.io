@@ -1,0 +1,13 @@
+---
+layout: post
+title: railsでのHTTP authentication
+date: '2015-03-03T23:19:00.000+09:00'
+author: s sato
+tags:
+- Rails
+modified_time: '2015-03-03T23:19:04.467+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-6971696523098218029
+blogger_orig_url: http://satomemocho.blogspot.com/2015/03/railshttp-authentication.html
+---
+
+<body><h2 id="rails-http-authentication">railsでのHTTP authentication</h2><p>app/controllers/application_controller.rbに次のようにhttp_basic_authenticate_withを追加すればOK</p><pre><code>class ApplicationController &lt; ActionController::Base<br />  # Prevent CSRF attacks by raising an exception.<br />  # For APIs, you may want to use :null_session instead.<br />  protect_from_forgery with: :exception<br />  http_basic_authenticate_with name: &quot;sato&quot;, password: &quot;pass&quot;　#これを追加<br />end<br /></code></pre><p>こんな感じでURLでアクセス得きるので便利！</p><pre><code>http://sato:pass@localhost:3000/<br /></code></pre></body>

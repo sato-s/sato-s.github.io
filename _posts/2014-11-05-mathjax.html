@@ -1,0 +1,13 @@
+---
+layout: post
+title: MathJaxによる数式の書き方
+date: '2014-11-05T02:32:00.000+09:00'
+author: s sato
+tags:
+- javascript
+modified_time: '2014-11-15T11:22:12.221+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-6894543561268714797
+blogger_orig_url: http://satomemocho.blogspot.com/2014/11/mathjax.html
+---
+
+このブログに数式を書きたいのでMathJaxを使用することにした。<br><h1>つかいかた</h1>ヘッダに以下を追加 <br><a href="http://genkuroki.web.fc2.com/">参考</a>        <pre><code>&lt;script type="text/javascript"<br />src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"&gt;<br />&lt;/script&gt;</pre></code>   <h1>サンプル</h1>\(\TeX\)風に書けます。 <br><br>        <h3>ベイズの定理</h3><br>        \(p(Y|X)=\frac{p(X|Y)p(Y)}{p(X)}\) <pre><code>\(p(Y|X)=\frac{p(X|Y)p(Y)}{p(X)}\)</pre></code>          <h3>正規分布</h3><br>        \(         \mathcal{N}(\mathbf{x}|\mathbf{\mu},\Sigma)=         \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^T\Sigma^{-1} (\mathbf{x}-\mathbf{\mu}) \right\}         \) <pre><code> \(<br />\mathcal{N}(\mathbf{x}|\mathbf{\mu},\Sigma)=<br />\frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^T\Sigma^{-1} (\mathbf{x}-\mathbf{\mu}) \right\}<br />\)</code></pre>         <h3>ベイズ情報量基準</h3><br>        \(BIC=-2\ln(L)+k\ln(n)\)         <pre><code>\(BIC=-2\ln(L)+k\ln(n)\)</code></pre>

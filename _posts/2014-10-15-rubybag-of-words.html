@@ -1,0 +1,14 @@
+---
+layout: post
+title: rubyでBag-of-Wordsの計算
+date: '2014-10-15T03:03:00.001+09:00'
+author: s sato
+tags:
+- ruby
+- 機械学習
+modified_time: '2014-10-15T03:04:38.881+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-1223017514699253727
+blogger_orig_url: http://satomemocho.blogspot.com/2014/10/rubybag-of-words.html
+---
+
+Mecabという日本語の形態素解析機があります。<br><br><a href="http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html">Mecab公式</a><br><br> Bag-of-Wordsをつかっていろいろやってみたかったので、いろいろライブラリを探していました。<br>Mecabを使ったBag-of-Wordsの計算はＲでRmecabというライブラリが提供されていますが、Rでは大きなテキストに対応できないそうで、私の環境では数十Ｍ程度のテキストファイルでメモリ関連のエラーが頻発しました。公式サイトでも大きなファイルには対応できないと書いてあります。<br><br><a href="http://rmecab.jp/wiki/index.php?RMeCab">RMecab公式</a><br><br>そこで、rubyでBag-of-Wordsを計算してみました。<br>（Mecabを使って作ったのでTororoっていう名前にしました。）<br><br><a href="https://github.com/sato-s/Tororo">Tororo</a><br><br> 今はまだBag-of-Wordsの計算ぐらいにしか使えませんが、将来的にはMecabのラッパーとして、rubyからの日本語構文解析全般に使えるようにしたいです。 （あとgemの形にしたい） そのうち、READMEをもっとまともに書いて使える用にします。<br><br>githubのOVERVIEWに書かれている以下の文言は、これからこうしたい！という意気込みです。<br>Parse Japanese text with Mecab.<br>Simple ruby interface.

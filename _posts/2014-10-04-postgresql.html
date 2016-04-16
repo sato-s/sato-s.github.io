@@ -1,0 +1,13 @@
+---
+layout: post
+title: PostgreSQLでのレコードを返す関数の実行
+date: '2014-10-04T09:18:00.000+09:00'
+author: s sato
+tags:
+- PostgreSQL
+modified_time: '2014-10-04T09:18:04.070+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-5451963273561736095
+blogger_orig_url: http://satomemocho.blogspot.com/2014/10/postgresql.html
+---
+
+PostgreSQLで関数は普通こんな形でselect以下に書いて実行します。  <pre><code>postgres=# select sqrt(144);<br /> sqrt <br />------<br />   12<br />(1 row)<br /></pre></code> 普通の関数は上のでＯＫ<br> しかし、record型を返す関数の場合はこの形で指定するとレコードがすべて１カラムに入って帰ってくるのでみずらい <pre><code>postgres=# select pg_get_keywords();<br />                         pg_get_keywords                          <br />------------------------------------------------------------------<br /> (abort,U,unreserved)<br /> (absolute,U,unreserved)<br /> (access,U,unreserved)<br /> (action,U,unreserved)<br /> (add,U,unreserved)<br /> (admin,U,unreserved)<br /> (after,U,unreserved)<br /> (aggregate,U,unreserved)<br /> (all,R,reserved)<br /> (also,U,unreserved)<br /></pre></code> where句に入れるとレコードで帰ってくるよ<br>みやすい！ <pre><code>postgres=# select * from pg_get_keywords();<br />       word        | catcode |                   catdesc                    <br />-------------------+---------+----------------------------------------------<br /> abort             | U       | unreserved<br /> absolute          | U       | unreserved<br /> access            | U       | unreserved<br /> action            | U       | unreserved<br /> add               | U       | unreserved<br /> admin             | U       | unreserved<br /> after             | U       | unreserved<br /> aggregate         | U       | unreserved<br /> all               | R       | reserved<br /> also              | U       | unreserved<br /></pre></code> 

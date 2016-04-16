@@ -1,0 +1,14 @@
+---
+layout: post
+title: カラフルで素晴らしいPS１シェルプロンプト
+date: '2015-04-07T02:06:00.000+09:00'
+author: s sato
+tags:
+- Linux
+modified_time: '2015-04-07T02:24:42.504+09:00'
+thumbnail: http://1.bp.blogspot.com/-ZT_9mocLXdQ/VSLBGORFxII/AAAAAAAAACs/nQK5wJbxgog/s72-c/sato%40localhost%3A~-workspace-scikit-learn_003.png
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-2333320726231250137
+blogger_orig_url: http://satomemocho.blogspot.com/2015/04/ps.html
+---
+
+ <h2 id="ps-">PS１シェルプロンプト</h2><p>素晴らしいシェルプロンプトを作っている人が。。<br>gitのブランチをプロンプトにだすという素晴らしいアイディア<br><a href="http://unix.stackexchange.com/a/178817">http://unix.stackexchange.com/a/178817</a>  </p><p>Bash $PS1 Generator2.0を使ってさらに好みにしてみた<br><a href="https://www.kirsle.net/wizards/ps1.html">https://www.kirsle.net/wizards/ps1.html</a></p><p>~/.bashrc以下を追加</p><pre><code>git_branch () { git branch 2&gt; /dev/null | sed -e &#39;/^[^*]/d&#39; -e &#39;s/* \(.*\)/\1/&#39;; }<br /># Custom bash prompt via kirsle.net/wizards/ps1.html<br />export PS1=&quot;\[$(tput bold)\]\[$(tput setaf 2)\]\t \[$(tput setaf 4)\]\u@\h\[$(tput setaf 1)\] \W \[$(tput setaf 3)\]\$(git_branch)\[$(tput sgr0)\] $ \[$(tput sgr0)\]&quot;<br /></code></pre><p>gitないとき</p><pre><code># Custom bash prompt via kirsle.net/wizards/ps1.html<br />export PS1=&quot;\[$(tput bold)\]\[$(tput setaf 2)\]\t \[$(tput setaf 4)\]\u@\h\[$(tput setaf 1)\] \W \[$(tput sgr0)\] $ \[$(tput sgr0)\]&quot;<br /></code></pre> <p>完成！！</p> <div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-ZT_9mocLXdQ/VSLBGORFxII/AAAAAAAAACs/nQK5wJbxgog/s1600/sato%40localhost%3A~-workspace-scikit-learn_003.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-ZT_9mocLXdQ/VSLBGORFxII/AAAAAAAAACs/nQK5wJbxgog/s640/sato%40localhost%3A~-workspace-scikit-learn_003.png" /></a></div> </body></html>

@@ -1,0 +1,13 @@
+---
+layout: post
+title: rubyプロジェクトのフォルダ構成のベストプラクティス（？）
+date: '2014-09-23T16:14:00.001+09:00'
+author: s sato
+tags:
+- ruby
+modified_time: '2014-09-23T16:14:37.107+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-4390605935401066224
+blogger_orig_url: http://satomemocho.blogspot.com/2014/09/ruby.html
+---
+
+rubyのプロジェクトのフォルダ構成はこんな形がよいみたい<br>つーかgemはみんなこんな感じ<br><br> crawler/<br>&nbsp;        lib/<br> &nbsp;&nbsp;         crawler.rb  #動作用モジュールCrawler   <br>  &nbsp;&nbsp;        crawler/<br>&nbsp;&nbsp;&nbsp;            database.rb　#必要なクラス<br> &nbsp;&nbsp;&nbsp;           webpage.rb<br> &nbsp;&nbsp;&nbsp;           database_connection.yml #ＤＢの接続情報<br>   &nbsp;       bin/<br>  &nbsp;&nbsp;        exec_crawler.rb　#動作させるときに実際実行されるファイル<br><br><br>上記の例だと、exec_crawler.rbを実際に叩いて使う<br>exec_crawler.rbはcrawler.rbにあるメソッドを使う。<br>exec_crawler.rbが行うのはコマンドライン引数の解釈など<br>lib/をインクルードするとＡＰＩ的に使える。<br><br> exec_crawler.rbではこんな感じでロードパスにlib/を追加してreuireする<br><pre><code>$LOAD_PATH[0,0] = File.join(File.dirname(__FILE__), '..', 'lib')<br />require 'crawler'<br />include Cralwer<br /></pre></code> この場合、カレントディレクトリがbin/の状態で実行するのでlib/内でのファイルの読み込みはこんな感じ<br><pre><code>YAML::load_file(File.join(__dir__, 'database_connection.yml'))<br /></pre></code>

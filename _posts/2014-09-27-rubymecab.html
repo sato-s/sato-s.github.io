@@ -1,0 +1,14 @@
+---
+layout: post
+title: rubyからMecabを使う
+date: '2014-09-27T16:48:00.004+09:00'
+author: s sato
+tags:
+- ruby
+- 機械学習
+modified_time: '2014-09-27T23:31:56.066+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-3739612608458003590
+blogger_orig_url: http://satomemocho.blogspot.com/2014/09/rubymecab.html
+---
+
+<h3>ruby-mecabのインストール</h3>別途、Mecabのインストールが必要 参考： 　<a href="http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html#download">Mecab公式</a><br><pre><code>wget https://mecab.googlecode.com/files/mecab-ruby-0.996.tar.gz<br />tar zxf mecab-ruby-0.996.tar.gz <br />cd mecab-ruby-0.996<br /><br />ruby extconf.rb<br />su<br />make;make install<br /></pre></code> <h3>使ってみる。</h3><pre><code>require 'MeCab'<br />require 'csv'<br /><br />class Parser<br />  @targger<br />  def parse(str)<br />    node=@targger.parseToNode(str)<br /><br />    while node do<br />　　　#助動詞とかの情報はＣＳＶ形式だよ。<br />　　　#必要なのは１行目のみ<br />     feature=CSV.parse(node.feature)[0]<br />      puts node.surface+' '+feature[0].to_s<br />      node=node.next<br />    end<br />  end<br /><br />  def initialize<br />    @targger=MeCab::Tagger.new()<br />  end<br /><br />end<br /><br />obj=Parser.new<br />obj.parse('今宵は月が綺麗ですね')<br /></pre></code><br> <h3>実行結果</h3> <pre><code>[sato@localhost konbu]$ ruby parser.rb <br /> BOS/EOS<br />今宵 名詞<br />は 助詞<br />月 名詞<br />が 助詞<br />綺麗 名詞<br />です 助動詞<br />ね 助詞<br /> BOS/EOS<br /></pre></code><br>これは便利！

@@ -1,0 +1,14 @@
+---
+layout: post
+title: AmazonAPIとruby gem asin
+date: '2015-08-04T01:59:00.000+09:00'
+author: s sato
+tags:
+- その他
+- ruby
+modified_time: '2015-08-04T01:59:50.123+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-6699405843317616858
+blogger_orig_url: http://satomemocho.blogspot.com/2015/08/amazonapiruby-gem-asin.html
+---
+
+Amazonの商品情報の問い合わせにはrubyのgemのasinが便利。<br><a href="https://github.com/phoet/asin">https://github.com/phoet/asin</a><br><br>上記ではcurbを使ってアクセスしているが何故かうまくいかなかった。<br>かわりにhttpiを使うと動いた。<br>直接、ハッシュを返してくれるので楽。<br>   <pre><code>require 'asin'<br />require 'httpi'<br /><br /># Setting for amazon API<br />include ASIN::Client<br /><br />ASIN::Configuration.configure do |config|<br />config.secret        = 'SECRET'<br />config.key           = 'SECRET'<br />config.associate_tag = 'SECRET'<br />config.host = 'ecs.amazonaws.jp'<br />end<br />HTTPI.adapter = :net_http<br />client = ASIN::Client.instance<br /><br /># Define amazon api response group<br />RESPONSE_GROUP = [:Medium,:Reviews]<br /><br /># Search!!<br />api_responses = client.search({:Title => "我輩は猫である", :SearchIndex => :Books, :ResponseGroup => RESPONSE_GROUP})<br />p api_responses<br /></code></pre> <a href="http://docs.aws.amazon.com/AWSECommerceService/latest/DG/CHAP_ApiReference.html">アマゾンAPIの仕様</a>

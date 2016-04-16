@@ -1,0 +1,14 @@
+---
+layout: post
+title: Mongodbへのリモートアクセス
+date: '2014-09-21T14:08:00.002+09:00'
+author: s sato
+tags:
+- Linux
+- Mongodb
+modified_time: '2014-09-21T22:02:31.273+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-4063973802143686888
+blogger_orig_url: http://satomemocho.blogspot.com/2014/09/mongodb.html
+---
+
+最初にユーザーを作る<br />Mongodbはデフォルトでユーザーはいないので認証をＯＮにする前に作っておく<br />ユーザーはＤＢに所属するので、使用したいＤＢに切り替えてから作る<br />use mydb<br /><span style="background-color: white; font-family: Meiryo, serif, sans-serif; font-size: 19px; line-height: 36.0999984741211px;">db.addUser('sato','password')</span><br /><span style="background-color: white; font-family: Meiryo, serif, sans-serif; font-size: 19px; line-height: 36.0999984741211px;">/etc/mongodb.confの以下の行をコメント解除</span><br />auth=true<br /><br />以下の行をコメントにする<br />#bind_ip = 0.0.0.0<br /><br />mongodの再起動<br />service mongod restart<br /><br />IPTABLESを設定<br />iptables -A INPUT -p tcp --dport 27017 -j ACCEPT<br />iptables -A INPUT -p tcp --sport 27017 -j ACCEPT<br /><br />IPTABLESの設定を保存<br />/etc/init.d/iptables save<br /><br />再起動<br />service iptables restart<br /><br /><br />接続<br />mongo [host_IP]/ -u sato -p password

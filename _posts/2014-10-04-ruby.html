@@ -1,0 +1,13 @@
+---
+layout: post
+title: rubyは文字列のインクリメントができる！
+date: '2014-10-04T09:04:00.002+09:00'
+author: s sato
+tags:
+- ruby
+modified_time: '2014-10-04T09:04:48.875+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-4640215294365333875
+blogger_orig_url: http://satomemocho.blogspot.com/2014/10/ruby.html
+---
+
+rubyは文字列のインクリメントができます。<br>こういう細かいところに配慮されているっていうところが素晴らしい<br>こういった動作はＣであれば'x'を格納するアドレスをずらしていって実装するしかなかった。 <pre><code>str='x'<br />4.times{<br />   puts str<br />  str=str.next<br />}<br /></pre></code> <br> <h3>実行結果</h3><pre><code>x<br />y<br />z<br />aa</pre></code> <br> ちゃんと桁上げまでされます。

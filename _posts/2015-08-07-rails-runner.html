@@ -1,0 +1,18 @@
+---
+layout: post
+title: Rails runnerの簡単な使い方
+date: '2015-08-07T02:50:00.001+09:00'
+author: s sato
+tags:
+- Rails
+- ruby
+modified_time: '2015-08-07T02:51:48.690+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-146768825485873547
+blogger_orig_url: http://satomemocho.blogspot.com/2015/08/rails-runner.html
+---
+
+RailsのrunnerはRailsの環境の上で任意の処理を書くことができる。 Active Record経由でバッチ処理をするのには最適な機能。<br>実行の方法は2つある。 <ol>    <li>Railsで作成したアプリのメソッドを直に指定してやる</li>    <li>ファイルを読み込ませる</li></ol> 紹介されている例は(1)が圧倒的に多く、 lib/配下にTasks::XXXのようなモジュールを作りautoload_pathsを指定してRailsアプリにこのモジュールを読み込ませてやる様な事がされている。 (2)の場合、Webアプリでautoload_pathsやrequireをして処理を記載するファイルを読み込む必要がない。<br>個人的には、Webアプリと独立したバッチ処理を長々とWebアプリにメソッドとして追加するのは違和感があるので(2)の方が良い気がする。 それに、autoload_pathsを変更しなくていいので簡単。  <h5>例：</h5> 予めRailsルートはいかにrunner/を作っておく。 <pre><code>mkdir runner</code></pre> あとは適当なファイルを作って呼び出すだけ。<br>runner/runner.rb
+<pre><code class="language-ruby"># Railsでつくったアプリが読み込まれてから実行されるので、何もrequireしなくてもActive Record経由でモデルにアクセスできる<br />
+ # この場合はTagという名前のモデルが存在する環境<br />
+p Tag.count<br /></code></pre>
+成功。 <pre><code>$ rails runner runner/runner.rb<br />21931<br /></code></pre>

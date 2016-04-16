@@ -1,0 +1,13 @@
+---
+layout: post
+title: rubyでのファイル名に適したTimeの文字列表現
+date: '2015-05-05T00:39:00.000+09:00'
+author: s sato
+tags:
+- ruby
+modified_time: '2015-05-05T16:54:17.583+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-6858856043022727480
+blogger_orig_url: http://satomemocho.blogspot.com/2015/05/rubytime.html
+---
+
+<p>ファイルを作るスクリプトを何度も起動する必要がある場合いちいちファイル名を指定ルルのは面倒。 現在時刻から文字列を作成してファイル名にしておくといちいち指定する必要がなくて便利. しかしTime.now.to_s現在時刻の文字表現を取得すると、ファイル名にスペースが入って気持ちが悪い。 さらに、頭が年度だとタブでのファイル名保管が面倒</p><pre><code>2.1.4 :013 &gt; Time.now.to_s<br /> =&gt; &quot;2015-05-06 00:20:39 +0900&quot;<br /></code></pre><p>こんなかんじがよい</p><pre><code>2.1.4 :008 &gt; Time.now.strftime(&quot;m%M-h%H-d%d-%b-%Y&quot;)<br />=&gt; &quot;m53-h16-d06-May-2015&quot;<br /></code></pre>

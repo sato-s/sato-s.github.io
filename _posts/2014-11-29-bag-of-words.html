@@ -1,0 +1,13 @@
+---
+layout: post
+title: bag-of-wordsの次元削減法まとめ
+date: '2014-11-29T01:47:00.000+09:00'
+author: s sato
+tags:
+- 機械学習
+modified_time: '2014-11-29T01:47:44.493+09:00'
+blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-1490052733327749884
+blogger_orig_url: http://satomemocho.blogspot.com/2014/11/bag-of-words.html
+---
+
+ <p>bag-of-wordsはともかく次元が大きい。出現する単語の種類数分の次元がある。<br><br />１万次元などは余裕で行ってしまう。このままではまともに識別機を作ることは困難なので<br />何らかの手段で圧縮してやる必要性がある。<br><br />参考：<a href="http://www.cambridge.org/az/academic/subjects/computer-science/knowledge-management-databases-and-data-mining/text-mining-handbook-advanced-approaches-analyzing-unstructured-data">Text Mining Handbook</a></p><h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>単語頻度</h1><p>単純に単語の出現頻度が低いものを考慮から外して次元の削減をするというもの。上位１０パーセントの単語のみを使っても識別の精度は変わらないらしい。これは頻度が高い単語の重要度をあげるというTF/IDFの考えに真っ向から反しているが、低すぎる頻度の単語は意味がないのでこれでいいらしい。</p><h1 id="information-gain"><a name="user-content-information-gain" href="#information-gain" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Information Gain</h1><p>\(\text{InformationGain}(x|w)=H(x)-H(x|w)\)<br />ここで\(x\)は特徴量すなわちbag-of-wordsで\(w\)はある単語。<br />\(H(x)\)は特徴量のエントロピーで\(H(x|w)\)はある単語\(w\)が発生したとき（わかったとき）特徴量のエントロピー。<br />つまり$\text{Infomation Gain}$とは、ある単語（次元）を知ることによって、どの程度エントロピーが下がったかという指標。<br />もっと噛み砕くと、文書を何個かのクラスに分類しようとするとき、単語\(w\)を知ることで、どれだけ分類の特定をすすめられたかの指標になる。</p><h1 id="latent-semantic-indexing"><a name="user-content-latent-semantic-indexing" href="#latent-semantic-indexing" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Latent Semantic Indexing</h1><p>Latent Semantic Indexingとは、まんまSingular Value Decompositionのこと。<br />bag-of-wordsにＳＶＤを適用して次元削減することをこんな風に呼ぶらしい<br />ＳＶＤに関しては、過去の記事を参照<br /><a href="http://satomemocho.blogspot.jp/2014/10/rsvd.html">http://satomemocho.blogspot.jp/2014/10/rsvd.html</a></p><p>なぜわざわざLatent Semantic Indexingと呼ぶかというと、なんか同義語とかを処理できるようだが、詳しくは不明。<br />以下のサイトをよもう！<br /><a href="http://chasen.org/~taku/blog/archives/2005/11/_tfidf_1.html">http://chasen.org/~taku/blog/archives/2005/11/_tfidf_1.html</a></p>
