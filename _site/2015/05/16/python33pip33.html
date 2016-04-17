@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>python3.3、pip3.3インストール</title>
-  <meta name="description" content="python3.3インストールyum groupinstall -y developmentyum install -y zlib-dev openssl-devel sqlite-devel bzip2-develwget http://www.python.org/ftp/python/3.3.3/Pytho...">
+  <meta name="description" content="python3.3インストール">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -78,7 +78,20 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <h4 id="python3-3-">python3.3インストール</h4><pre><code>yum groupinstall -y development<br />yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel<br />wget http://www.python.org/ftp/python/3.3.3/Python-3.3.3.tar.xz<br />xz -d Python-3.3.3.tar.xz<br />tar -xvf Python-3.3.3.tar<br />make &amp;&amp; make altinstall<br /></code></pre><h4 id="pip3-3-">pip3.3インストール</h4><pre><code>wget https://pypi.python.org/packages/source/d/distribute/distribute-0.6.38.tar.gz#md5=a0bc8fdb8b7b36234dcb1ff3d1fc702d<br />tar zxvf distribute-0.6.38.tar.gz<br /> cd distribute-0.6.38/<br />sudo python3.3 setup.py install<br />sudo easy_install pip<br /></code></pre><h4 id="pyyaml-">pyyamlを入れてみる</h4><pre><code>sudo pip3.3 install pyyaml<br /></code></pre>
+    <p>python3.3インストール</p>
+<div class="highlight"><pre><code class="language-" data-lang="">yum groupinstall -y developmentyum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel
+wget http://www.python.org/ftp/python/3.3.3/Python-3.3.3.tar.xzxz -d Python-3.3.3.tar.xz
+tar -xvf Python-3.3.3.tarmake &amp;&amp; make altinstall
+</code></pre></div>
+<p>pip3.3インストール</p>
+<div class="highlight"><pre><code class="language-" data-lang="">wget https://pypi.python.org/packages/source/d/distribute/distribute-0.6.38.tar.gz
+tar zxvf distribute-0.6.38.tar.gz cd distribute-0.6.38/
+sudo python3.3 setup.py install
+sudo easy_install pip
+</code></pre></div>
+<p>pyyamlを入れてみる</p>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo pip3.3 install pyyaml
+</code></pre></div>
   </div>
 
 </article>

@@ -78,7 +78,52 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    会員情報の職業や性別のようなカテゴリ値を用いて、機械学習をする際には、何らかの形で数値にする必要がある。 通常は、「会社員」や「学生」のようなカテゴリ情報は、取り得る値の種類と等しいサイズの配列のその値のみを1にした物を使う。 倒えば、会社員=[1,0]、学生=[0,1]のような形式になる。この表現形式をone-hot encodingまたは1 of K encodingと呼ぶ。<br>pythonのscikit-learnで以下のように、この変換ができる。  <br><br>次のような、accounts.csvがあると仮定する。 <pre><code>name,occupation<br />sato,adventurer<br />ito,engineer<br />inoue,student<br />tanaka,engineer<br />oda,adventurer<br /></code></pre> 基本的にはDictVectorizerに入れるだけだが、その前に[(occupation=adventurer),(occupation=engineer)]のようなディクショナリの配列にする必要がある。 <pre><code><br /># -*- coding: utf-8 -*-<br />import pandas as pd<br />from sklearn.feature_extraction import DictVectorizer<br /><br />accounts=pd.read_csv('./accounts.csv', encoding='utf-8')<br /><br />occupation_vectorizer = DictVectorizer(sparse=False)<br /><br />i = [ dict(occupation=occupation) for occupation in accounts[u"occupation"] ]<br /><br />X = occupation_vectorizer.fit_transform(i)<br />names = occupation_vectorizer.get_feature_names()<br /><br /># original table<br />print accounts<br /># label names<br />print names<br /># transformed one-hot encoding<br />print X<br /></code></pre> 結果 <pre><code>     name  occupation<br />0    sato  adventurer<br />1     ito    engineer<br />2   inoue     student<br />3  tanaka    engineer<br />4     oda  adventurer<br />[u'occupation=adventurer', u'occupation=engineer', u'occupation=student']<br />[[ 1.  0.  0.]<br /> [ 0.  1.  0.]<br /> [ 0.  0.  1.]<br /> [ 0.  1.  0.]<br /> [ 1.  0.  0.]]<br /></code></pre>
+    <p>会員情報の職業や性別のようなカテゴリ値を用いて、機械学習をする際には、何らかの形で数値にする必要がある。 通常は、「会社員」や「学生」のようなカテゴリ情報は、取り得る値の種類と等しいサイズの配列のその値のみを1にした物を使う。 倒えば、会社員=[1,0]、学生=[0,1]のような形式になる。この表現形式をone-hot encodingまたは1 of K encodingと呼ぶ。
+pythonのscikit-learnで以下のように、この変換ができる。 </p>
+
+<p>次のような、accounts.csvがあると仮定する。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">name,occupation
+sato,adventurer
+ito,engineer
+inoue,student
+tanaka,engineer
+oda,adventurer
+</code></pre></div>
+<p>基本的にはDictVectorizerに入れるだけだが、その前に[(occupation=adventurer),(occupation=engineer)]のようなディクショナリの配列にする必要がある。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">DictVectorizer</span>
+
+<span class="n">accounts</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'./accounts.csv'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span>
+
+<span class="n">occupation_vectorizer</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">dict</span><span class="p">(</span><span class="n">occupation</span><span class="o">=</span><span class="n">occupation</span><span class="p">)</span> <span class="k">for</span> <span class="n">occupation</span> <span class="ow">in</span> <span class="n">accounts</span><span class="p">[</span><span class="s">u"occupation"</span><span class="p">]</span> <span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">occupation_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">occupation_vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+
+<span class="c"># original table</span>
+<span class="k">print</span> <span class="n">accounts</span>
+<span class="c"># label names</span>
+<span class="k">print</span> <span class="n">names</span>
+<span class="c"># transformed one-hot encoding</span>
+<span class="k">print</span> <span class="n">X</span>
+</code></pre></div>
+<p>結果</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python">     <span class="n">name</span>  <span class="n">occupation</span>
+<span class="mi">0</span>    <span class="n">sato</span>  <span class="n">adventurer</span>
+<span class="mi">1</span>     <span class="n">ito</span>    <span class="n">engineer</span>
+<span class="mi">2</span>   <span class="n">inoue</span>     <span class="n">student</span>
+<span class="mi">3</span>  <span class="n">tanaka</span>    <span class="n">engineer</span>
+<span class="mi">4</span>     <span class="n">oda</span>  <span class="n">adventurer</span>
+<span class="p">[</span><span class="s">u'occupation=adventurer'</span><span class="p">,</span> <span class="s">u'occupation=engineer'</span><span class="p">,</span> <span class="s">u'occupation=student'</span><span class="p">]</span>
+<span class="p">[[</span> <span class="mf">1.</span>  <span class="mf">0.</span>  <span class="mf">0.</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.</span>  <span class="mf">1.</span>  <span class="mf">0.</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.</span>  <span class="mf">0.</span>  <span class="mf">1.</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.</span>  <span class="mf">1.</span>  <span class="mf">0.</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1.</span>  <span class="mf">0.</span>  <span class="mf">0.</span><span class="p">]]</span>
+</code></pre></div>
   </div>
 
 </article>
