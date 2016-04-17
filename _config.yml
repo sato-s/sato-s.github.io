@@ -18,4 +18,7 @@ kramdown:
   input: GFM
 
 markdown: redcarpet
-highlighter: jekyll-prism-plugin
+
+gems: [jekyll-paginate]
+paginate: 5
+

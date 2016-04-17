@@ -43,7 +43,23 @@
       <div class="trigger">
         
           
-          <a class="page-link" href="/about/">About</a>
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/tags/">tags</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
           
         
           
@@ -73,71 +89,57 @@
     <p>rubyの勉強をしていくうちに、好ましい記述法や技術が分かってきた。</p>
 
 <p>正規表現でマッチした文字を取り出したいだけ時にはmatchメソッドや=^メソッドではなくString型の[]メソッドが最も短く書ける</p>
-
-<pre><code class="language-ruby">    p "@@@@@hoge@@@@@"[/[a-z]+/] #=&gt; "hoge"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">p</span> <span class="s2">"@@@@@hoge@@@@@"</span><span class="p">[</span><span class="sr">/[a-z]+/</span><span class="p">]</span> <span class="c1">#=&gt; "hoge"</span>
+</code></pre></div>
 <p>パーセント記法はとても便利、場合によってはかなりみやすくなる。</p>
-
-<pre><code class="language-ruby">    p %s|symbol|  #=&gt; :symbol
-    p %w|abc def gh| #=&gt; ["abc", "def", "gh"]
-    p %x|ruby -v| #=&gt; "ruby 2.1.4p265 (2014-10-27 revision 48166) [x86_64-linux]\n"
-    p %r|[A-Z]| #=&gt; /[A-Z]/
-</code></pre>
-
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="nb">p</span> <span class="sx">%s|symbol|</span>  <span class="c1">#=&gt; :symbol</span>
+    <span class="nb">p</span> <span class="sx">%w|abc def gh|</span> <span class="c1">#=&gt; ["abc", "def", "gh"]</span>
+    <span class="nb">p</span> <span class="sx">%x|ruby -v|</span> <span class="c1">#=&gt; "ruby 2.1.4p265 (2014-10-27 revision 48166) [x86_64-linux]\n"</span>
+    <span class="nb">p</span> <span class="sr">%r|[A-Z]|</span> <span class="c1">#=&gt; /[A-Z]/</span>
+</code></pre></div>
 <p>ある配列から他の配列を作りたいときなどに、以下のようにeachの前で結果を入れるための配列を初期化しておくのは冗長</p>
-
-<pre><code class="language-ruby">    array=[1,2,3,4,5,6]
-    array2=[]
-    array.each{|i| array2 &lt;&lt; i * 2}
-    p array2 #=&gt; [2, 4, 6, 8, 10, 12]
-</code></pre>
-
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">array</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">array2</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">array</span><span class="p">.</span><span class="nf">each</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">array2</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="nb">p</span> <span class="n">array2</span> <span class="c1">#=&gt; [2, 4, 6, 8, 10, 12]</span>
+</code></pre></div>
 <p>以下のようにmapメソッドで関数型言語の流儀で書くべき。</p>
-
-<pre><code class="language-ruby">    array=[1,2,3,4,5,6]
-    array2 = array.map{|i| i * 2}
-    p array2 #=&gt; [2, 4, 6, 8, 10, 12]
-</code></pre>
-
-<p>条件によって要素を外したい、条件に合う要素のみの配列を作りたい場合にはreject,selectメソッドがよい。<br />
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">array</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">array2</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="nb">p</span> <span class="n">array2</span> <span class="c1">#=&gt; [2, 4, 6, 8, 10, 12]</span>
+</code></pre></div>
+<p>条件によって要素を外したい、条件に合う要素のみの配列を作りたい場合にはreject,selectメソッドがよい。<br>
 さらに、配列からハッシュを作りたいときなどには、以下のようにreduceメソッドがよい。</p>
-
-<pre><code class="language-ruby">    array=[1,2,3,4,5,6]
-    hash = array.reduce({}){|h,i| h[i]= i*2; h }
-    p hash #=&gt; {1=&gt;2, 2=&gt;4, 3=&gt;6, 4=&gt;8, 5=&gt;10, 6=&gt;12}
-</code></pre>
-
-<p>case文は===演算子で含有関係が評価されため、単純な一致の場合以外にも使える。<br />
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">array</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="nb">hash</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">reduce</span><span class="p">({}){</span><span class="o">|</span><span class="n">h</span><span class="p">,</span><span class="n">i</span><span class="o">|</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span> <span class="n">h</span> <span class="p">}</span>
+    <span class="nb">p</span> <span class="nb">hash</span> <span class="c1">#=&gt; {1=&gt;2, 2=&gt;4, 3=&gt;6, 4=&gt;8, 5=&gt;10, 6=&gt;12}</span>
+</code></pre></div>
+<p>case文は===演算子で含有関係が評価されため、単純な一致の場合以外にも使える。<br>
 Integerの場合にはRangeがそれを含むかどうかを評価できる。</p>
-
-<pre><code class="language-ruby">    i = 10
-    case i
-    when 1..50
-      puts 'small'
-    when 51..10
-      puts 'big'
-    end
-</code></pre>
-
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">case</span> <span class="n">i</span>
+    <span class="k">when</span> <span class="mi">1</span><span class="p">.</span><span class="nf">.</span><span class="mi">50</span>
+      <span class="nb">puts</span> <span class="s1">'small'</span>
+    <span class="k">when</span> <span class="mi">51</span><span class="p">.</span><span class="nf">.</span><span class="mi">10</span>
+      <span class="nb">puts</span> <span class="s1">'big'</span>
+    <span class="k">end</span>
+</code></pre></div>
 <p>Stringの場合には正規表現が使える。</p>
-
-<pre><code class="language-ruby">    str = 'dojadf@ss'
-    case str
-    when /@/
-      puts "include @"
-    when /[a-z]+/
-      puts "only small letter"
-    end
-</code></pre>
-
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="n">str</span> <span class="o">=</span> <span class="s1">'dojadf@ss'</span>
+    <span class="k">case</span> <span class="n">str</span>
+    <span class="k">when</span> <span class="sr">/@/</span>
+      <span class="nb">puts</span> <span class="s2">"include @"</span>
+    <span class="k">when</span> <span class="sr">/[a-z]+/</span>
+      <span class="nb">puts</span> <span class="s2">"only small letter"</span>
+    <span class="k">end</span>
+</code></pre></div>
   </div>
 
 </article>
 
       </div>
     </div>
-s
+
     <script src="/assets/append_prismtag_to_code_elem.js"></script>
     <script src="/assets/prism.js"></script>
     <footer class="site-footer">
