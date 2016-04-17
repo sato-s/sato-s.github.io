@@ -11,6 +11,20 @@
   <script type="text/javascript" async
           src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="/assets/jquery.novacancy.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.site-title').novacancy({
+        'reblinkProbability': 0.1,
+        'blinkMin': 0.2,
+        'blinkMax': 0.6,
+        'loopMin': 8,
+        'loopMax': 10,
+      });
+    });
+  </script>
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">

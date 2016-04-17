@@ -7,16 +7,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Python2.6からMecab</title>
-  <meta name="description" content="Mecab from pythonrubyから使おうとしたときは苦労したし、python3から使おうとするとかなり面倒なようだがpython2.6(CentOS標準)からならかなり楽に使える。Mecabが既にインストールされていることが前提ダウンロードwget https://mecab.googlecode.c...">
+  <meta name="description" content="Mecab from python">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
   <script type="text/javascript" async
           src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="/assets/jquery.novacancy.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.site-title').novacancy({
+        'reblinkProbability': 0.1,
+        'blinkMin': 0.2,
+        'blinkMax': 0.6,
+        'loopMin': 8,
+        'loopMax': 10,
+      });
+    });
+  </script>
 
   <link rel="canonical" href="http://yourdomain.com/2015/01/01/python26mecab.html">
-  <link rel="alternate" type="application/rss+xml" title="satonomemocho" href="http://yourdomain.com/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="sato_no_memo" href="http://yourdomain.com/feed.xml">
 </head>
 
   <head>
@@ -29,7 +43,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">satonomemocho</a>
+    <a class="site-title" href="/">sato_no_memo</a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -78,7 +92,36 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <article class="markdown-body"><p>Mecab from python</p><p>rubyから使おうとしたときは苦労したし、python3から使おうとするとかなり面倒なようだが<br />python2.6(CentOS標準)からならかなり楽に使える。<br />Mecabが既にインストールされていることが前提</p><h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>ダウンロード</h1><div class="codehilite"><pre><code><span class="vg">wget</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">mecab</span><span class="o">.</span><span class="vg">googlecode</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">files</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">python</span><span class="mf">-0.994</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span><br /><span class="vg">tar</span><span class="w"> </span><span class="vg">zxf</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">python</span><span class="mf">-0.994</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span><br /><span class="vg">cd</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">python</span><span class="mf">-0.994</span><br /><span class="vg">su</span><br /><span class="vg">python</span><span class="w"> </span><span class="vg">setup</span><span class="o">.</span><span class="vg">py</span><span class="w"> </span><span class="vg">install</span><br /></code></pre></div>  <h1 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>テストプログラム</h1><p>test.py</p><div class="codehilite"><pre><code><span class="c"># coding: UTF-8</span><br /><span class="kn">import</span> <span class="nn">sys</span><br /><span class="kn">import</span> <span class="nn">MeCab</span><br /><span class="n">tagger</span> <span class="o">=</span> <span class="n">MeCab</span><span class="o">.</span><span class="n">Tagger</span> <span class="p">()</span><br /><span class="k">print</span> <span class="n">tagger</span><span class="o">.</span><span class="n">parse</span> <span class="p">(</span><span class="s">&quot;吾輩は猫である&quot;</span><span class="p">)</span><br /></code></pre></div>  <h1 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>結果</h1><div class="codehilite"><pre><code><span class="cp">[</span><span class="nx">sato</span><span class="p">@</span><span class="nx">localhost</span> <span class="nx">python_training</span><span class="cp">]</span><span class="x">$ python test.py </span><br /><span class="x">吾輩  名詞,代名詞,一般,*,*,*,吾輩,ワガハイ,ワガハイ</span><br /><span class="x">は   助詞,係助詞,*,*,*,*,は,ハ,ワ</span><br /><span class="x">猫   名詞,一般,*,*,*,*,猫,ネコ,ネコ</span><br /><span class="x">で   助動詞,*,*,*,特殊・ダ,連用形,だ,デ,デ</span><br /><span class="x">ある  助動詞,*,*,*,五段・ラ行アル,基本形,ある,アル,アル</span><br /><span class="x">EOS</span><br /></code></pre></div></article>
+    <p>Mecab from python</p>
+
+<p>rubyから使おうとしたときは苦労したし、python3から使おうとするとかなり面倒なようだが
+python2.6(CentOS標準)からならかなり楽に使える。
+Mecabが既にインストールされていることが前提</p>
+
+<p>ダウンロード</p>
+<div class="highlight"><pre><code class="language-" data-lang="">wget https://mecab.googlecode.com/files/mecab-python-0.994.tar.gz
+tar zxf mecab-python-0.994.tar.gz
+cd mecab-python-0.994
+su
+python setup.py install
+</code></pre></div>
+<p>テストプログラム<br>
+test.py</p>
+<div class="highlight"><pre><code class="language-" data-lang=""># coding: UTF-8
+import sys
+import MeCab
+tagger = MeCab.Tagger ()
+print tagger.parse ("吾輩は猫である")
+</code></pre></div>
+<p>結果</p>
+<div class="highlight"><pre><code class="language-" data-lang="">[sato@localhost python_training]$ python test.py 
+吾輩  名詞,代名詞,一般,*,*,*,吾輩,ワガハイ,ワガハイ
+は   助詞,係助詞,*,*,*,*,は,ハ,ワ
+猫   名詞,一般,*,*,*,*,猫,ネコ,ネコ
+で   助動詞,*,*,*,特殊・ダ,連用形,だ,デ,デ
+ある  助動詞,*,*,*,五段・ラ行アル,基本形,ある,アル,アル
+EOS
+</code></pre></div>
   </div>
 
 </article>
@@ -92,12 +135,12 @@
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">satonomemocho</h2>
+    <h2 class="footer-heading">sato_no_memo</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>satonomemocho</li>
+          <li>sato_no_memo</li>
           <li><a href="mailto:s.sato.desu@gmail.com">s.sato.desu@gmail.com</a></li>
         </ul>
       </div>
