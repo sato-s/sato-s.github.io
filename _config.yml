@@ -17,4 +17,5 @@ github_username:  sato-s
 kramdown:
   input: GFM
 
+markdown: redcarpet
 highlighter: jekyll-prism-plugin
