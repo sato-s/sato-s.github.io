@@ -5,36 +5,9 @@
     <description></description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Apr 2016 13:38:34 +0900</pubDate>
-    <lastBuildDate>Sun, 17 Apr 2016 13:38:34 +0900</lastBuildDate>
+    <pubDate>Sun, 17 Apr 2016 14:41:20 +0900</pubDate>
+    <lastBuildDate>Sun, 17 Apr 2016 14:41:20 +0900</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 17 Apr 2016 04:03:12 +0900</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2016/04/17/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/04/17/welcome-to-jekyll.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
     
       <item>
         <title>.screenrc</title>
@@ -59,7 +32,13 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>pythonのスクリプトファイルとの相対パス</title>
-        <description>&lt;pre&gt;&lt;code&gt;import os&lt;br /&gt;&lt;br /&gt;this_dir = os.path.dirname(os.path.realpath(__file__))&lt;br /&gt;filename = os.path.join(this_dir, &#39;lib&#39;)&lt;br /&gt;print filename&lt;/pre&gt;&lt;/code&gt;</description>
+        <description>&lt;p&gt;pythonで特定のスクリプトからの相対パスをえる方法は次のような感じ&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;br&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;br&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;realpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__file__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;this_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;lib&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;rubyの&lt;code&gt;require_relative&lt;/code&gt;のようなことは,パッケージシステムのpythonでは基本的にしないが、自分はついやってしまう。&lt;/p&gt;
+</description>
         <pubDate>Sat, 20 Feb 2016 09:47:00 +0900</pubDate>
         <link>http://yourdomain.com/2016/02/20/python.html</link>
         <guid isPermaLink="true">http://yourdomain.com/2016/02/20/python.html</guid>
@@ -71,7 +50,8 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>python によるPID のロック</title>
-        <description>&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+        <description>&lt;p&gt;pythonでpidを使った、多重実行の防止は以下のようにする。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
 
@@ -102,7 +82,127 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>MRIをでバックビルドしてgdbでデバッグ</title>
-        <description>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Untitled Document.md&lt;/title&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;&lt;body id=&quot;preview&quot;&gt;&lt;h3&gt;&lt;a id=&quot;MRI_1&quot;&gt;&lt;/a&gt;MRIのビルド&lt;/h3&gt;&lt;p&gt;./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;./configure --enable-debug-env --prefix /home/sato/ruby/ CFLAGS=&amp;quot;-g3 -O0&amp;quot;&lt;br /&gt;make&lt;br /&gt;make install&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a id=&quot;_10&quot;&gt;&lt;/a&gt;環境変数を設定&lt;/h3&gt;&lt;p&gt;さっきインストールしたrubyの実行ファイルが呼び出されるように環境変数を設定してやる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;RUBYPATH=$HOME/ruby/bin&lt;br /&gt;export RUBYPATH&lt;br /&gt;export PATH=$RUBYPATH:$PATH&lt;br /&gt;export RUBYLIB=$RUBYPATH/lib/ruby&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a id=&quot;gdb_19&quot;&gt;&lt;/a&gt;gdb用のヘルパーをホームディレクトリに入れておく&lt;/h3&gt;&lt;p&gt;rubyの内部のデータは殆どがVALUEポインタで表現され、後でキャストしてから使用される。 この時、キャスト後が何のデータであるかがわからなければ、gdbのprintで中を覗くことができない。 このため、rubyのソースにバンドルされているgdb用のヘルパーを使う。&lt;/p&gt;&lt;p&gt;以下からダウンロード&lt;br&gt;&lt;a href=&quot;https://github.com/ruby/ruby/blob/trunk/.gdbinit&quot;&gt;https://github.com/ruby/ruby/blob/trunk/.gdbinit&lt;/a&gt;&lt;/p&gt;&lt;pre&gt;&lt;code&gt;cp .gdbinit ~/&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;定義されたヘルパーの一覧はhelp user-definedで見ることができる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;(gdb) help user-defined&lt;br /&gt;User-defined commands.&lt;br /&gt;The commands in this class are those defined by the user.&lt;br /&gt;Use the &amp;quot;define&amp;quot; command to define a command.&lt;br /&gt;&lt;br /&gt;List of commands:&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;＊＊＊＊＊＊略＊＊＊＊＊＊&lt;br /&gt;&lt;br /&gt;rb_p -- User-defined&lt;br /&gt;rb_ps -- Dump all threads and their callstacks&lt;br /&gt;rb_ps_thread -- User-defined&lt;br /&gt;rb_ps_vm -- Dump all threads in a (rb_vm_t*) and their callstacks&lt;br /&gt;rbi -- User-defined&lt;br /&gt;rp --   Print a Ruby&#39;s VALUE&lt;br /&gt;rp_class --   Print the content of a Class/Module&lt;br /&gt;rp_id --   Print an ID&lt;br /&gt;rp_imemo --   Print the content of a memo&lt;br /&gt;rp_string --   Print the content of a String&lt;br /&gt;ruby_gdb_init -- User-defined&lt;br /&gt;sdr -- User-defined&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重要なのはrpで、これでVALUEの中身を知ることができる。&lt;/p&gt;&lt;h3&gt;&lt;a id=&quot;irbgdb_60&quot;&gt;&lt;/a&gt;irbを起動しgdbをアタッチ&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;irb&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;まず、起動したirbのプロセスIDを調べる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;$ ps x|grep irb&lt;br /&gt;1742 pts/1    Sl+    0:00 irb&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;別のターミナルから起動したirbにアタッチする。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;gdb /home/sato/ruby/bin/irb -p 1742&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a id=&quot;_73&quot;&gt;&lt;/a&gt;ブレークポイントを設定してみる。&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;  (gdb) b proc_curry&lt;br /&gt;  Breakpoint 3 at 0x7f60aa2bff64: file proc.c, line 2755.&lt;br /&gt;  (gdb) c&lt;br /&gt;  Continuing&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;proc_curryはProc#curryのC側での実装。 以下の関数がそれにあたる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  rb_define_method(rb_cMethod, &amp;quot;curry&amp;quot;, rb_method_curry, -1);&lt;br /&gt;&lt;br /&gt;  static VALUE&lt;br /&gt;  proc_curry(int argc, const VALUE *argv, VALUE self)&lt;br /&gt;  {&lt;br /&gt;      int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;amp;max_arity);&lt;br /&gt;      VALUE arity;&lt;br /&gt;&lt;br /&gt;      rb_scan_args(argc, argv, &amp;quot;01&amp;quot;, &amp;amp;arity);&lt;br /&gt;      if (NIL_P(arity)) {&lt;br /&gt;    arity = INT2FIX(min_arity);&lt;br /&gt;      }&lt;br /&gt;      else {&lt;br /&gt;    sarity = FIX2INT(arity);&lt;br /&gt;    if (rb_proc_lambda_p(self)) {&lt;br /&gt;        rb_check_arity(sarity, min_arity, max_arity);&lt;br /&gt;    }&lt;br /&gt;      }&lt;br /&gt;&lt;br /&gt;      return make_curry_proc(self, rb_ary_new(), arity);&lt;br /&gt;  }&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;この状態で、irb側から以下のようにProc#curryを呼び出す&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  Proc.new {|x,y|x+y}.curry&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;gdbがbreakする。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  Breakpoint 1, proc_curry (argc=0, argv=0x7f48ea86d258, self=139951178000880) at proc.c:2755&lt;br /&gt;  warning: Source file is more recent than executable.&lt;br /&gt;  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;amp;max_arity);&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;コードの中の現在位置を確認&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  (gdb) l&lt;br /&gt;  2750      *     p b.curry[]                  #=&amp;gt; :foo&lt;br /&gt;  2751      */&lt;br /&gt;  2752    static VALUE&lt;br /&gt;  2753    proc_curry(int argc, const VALUE *argv, VALUE self)&lt;br /&gt;  2754    {&lt;br /&gt;  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;amp;max_arity);&lt;br /&gt;  2756        VALUE arity;&lt;br /&gt;  2757&lt;br /&gt;  2758        rb_scan_args(argc, argv, &amp;quot;01&amp;quot;, &amp;amp;arity);&lt;br /&gt;  2759        if (NIL_P(arity)) {&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;selfのVALUEポインタを見てみる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;  (gdb) rp self&lt;br /&gt;  T_DATA(proc): $4 = (struct RTypedData *) 0x7f48ec4029f0&lt;br /&gt;  (gdb) print *(struct RTypedData *) self&lt;br /&gt;  $5 = {basic = {flags = 12, klass = 139951178175800}, type = 0x7f48eae51ca0 &amp;lt;proc_data_type&amp;gt;,&lt;br /&gt;  typed_flag = 1, data = 0x7f48ec85bd80}&lt;br /&gt;  (gdb) print (*(struct RTypedData *) self)-&amp;gt;basic&lt;br /&gt;  $6 = {flags = 12, klass = 139951178175800}&lt;br /&gt;  (gdb) print (*(struct RTypedData *) self)-&amp;gt;basic-&amp;gt;klass&lt;br /&gt;  $7 = 139951178175800&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt; &lt;/body&gt;&lt;/html&gt;</description>
+        <description>&lt;h1&gt;MRIのビルド&lt;/h1&gt;
+
+&lt;p&gt;./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-command&quot; data-lang=&quot;command&quot;&gt;./configure --enable-debug-env --prefix /home/sato/ruby/ CFLAGS=&quot;-g3 -O0&quot;
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;環境変数を設定&lt;/h1&gt;
+
+&lt;p&gt;さっきインストールしたrubyの実行ファイルが呼び出されるように環境変数を設定してやる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;RUBYPATH=$HOME/ruby/bin
+export RUBYPATH
+export PATH=$RUBYPATH:$PATH
+export RUBYLIB=$RUBYPATH/lib/ruby
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;gdb用のヘルパーをホームディレクトリに入れておく&lt;/h1&gt;
+
+&lt;p&gt;rubyの内部のデータは殆どがVALUEポインタで表現され、後でキャストしてから使用される。 この時、キャスト後が何のデータであるかがわからなければ、gdbのprintで中を覗くことができない。 このため、rubyのソースにバンドルされているgdb用のヘルパーを使う。&lt;/p&gt;
+
+&lt;p&gt;以下からダウンロード
+https://github.com/ruby/ruby/blob/trunk/.gdbinit&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cp .gdbinit ~/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;定義されたヘルパーの一覧はhelp user-definedで見ることができる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;(gdb) help user-defined
+User-defined commands.
+The commands in this class are those defined by the user.
+Use the &quot;define&quot; command to define a command.
+
+List of commands:
+
+
+＊＊＊＊＊＊略＊＊＊＊＊＊
+
+rb_p -- User-defined
+rb_ps -- Dump all threads and their callstacks
+rb_ps_thread -- User-defined
+rb_ps_vm -- Dump all threads in a (rb_vm_t*) and their callstacks
+rbi -- User-defined
+rp --   Print a Ruby&#39;s VALUE
+rp_class --   Print the content of a Class/Module
+rp_id --   Print an ID
+rp_imemo --   Print the content of a memo
+rp_string --   Print the content of a String
+ruby_gdb_init -- User-defined
+sdr -- User-defined
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;重要なのはrpで、これでVALUEの中身を知ることができる。&lt;/p&gt;
+
+&lt;h1&gt;irbを起動しgdbをアタッチ&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-irb```&quot; data-lang=&quot;irb```&quot;&gt;
+まず、起動したirbのプロセスIDを調べる。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;$ ps x|grep irb
+1742 pts/1    Sl+    0:00 irb
+```&lt;/p&gt;
+
+&lt;p&gt;別のターミナルから起動したirbにアタッチする。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;gdb /home/sato/ruby/bin/irb -p 1742
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ブレークポイントを設定してみる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  (gdb) b proc_curry
+  Breakpoint 3 at 0x7f60aa2bff64: file proc.c, line 2755.
+  (gdb) c
+  Continuing
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;proc_curryはProc#curryのC側での実装。 以下の関数がそれにあたる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;  &lt;span class=&quot;n&quot;&gt;rb_define_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rb_cMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;curry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rb_method_curry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VALUE&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;proc_curry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VALUE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;VALUE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_arity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rb_proc_min_max_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;VALUE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;rb_scan_args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NIL_P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INT2FIX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sarity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FIX2INT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rb_proc_lambda_p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;rb_check_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_curry_proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rb_ary_new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この状態で、irb側から以下のようにProc#curryを呼び出す&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;  &lt;span class=&quot;no&quot;&gt;Proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;curry&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;gdbがbreakする。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  Breakpoint 1, proc_curry (argc=0, argv=0x7f48ea86d258, self=139951178000880) at proc.c:2755
+  warning: Source file is more recent than executable.
+  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;amp;max_arity);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;コードの中の現在位置を確認&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;  (gdb) l
+  2750      *     p b.curry[]                  #=&amp;gt; :foo
+  2751      */
+  2752    static VALUE
+  2753    proc_curry(int argc, const VALUE *argv, VALUE self)
+  2754    {
+  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;amp;max_arity);
+  2756        VALUE arity;
+  2757
+  2758        rb_scan_args(argc, argv, &quot;01&quot;, &amp;amp;arity);
+  2759        if (NIL_P(arity)) {
+selfのVALUEポインタを見てみる。
+
+  (gdb) rp self
+  T_DATA(proc): $4 = (struct RTypedData *) 0x7f48ec4029f0
+  (gdb) print *(struct RTypedData *) self
+  $5 = {basic = {flags = 12, klass = 139951178175800}, type = 0x7f48eae51ca0 &amp;lt;proc_data_type&amp;gt;,
+  typed_flag = 1, data = 0x7f48ec85bd80}
+  (gdb) print (*(struct RTypedData *) self)-&amp;gt;basic
+  $6 = {flags = 12, klass = 139951178175800}
+  (gdb) print (*(struct RTypedData *) self)-&amp;gt;basic-&amp;gt;klass
+  $7 = 139951178175800
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
         <pubDate>Thu, 31 Dec 2015 15:39:00 +0900</pubDate>
         <link>http://yourdomain.com/2015/12/31/mrigdb.html</link>
         <guid isPermaLink="true">http://yourdomain.com/2015/12/31/mrigdb.html</guid>
@@ -128,7 +228,91 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>Ruby Net::HTTPの使い方と（直接）使うべきでない時</title>
-        <description> &lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Untitled Document.md&lt;/title&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;&lt;body id=&quot;preview&quot;&gt;&lt;p&gt;rubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。&lt;br&gt;しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;GET_4&quot;&gt;&lt;/a&gt;最も単純なGET&lt;/h2&gt;&lt;p&gt;Net::HTTPでのgetは以下のようになる。  この程度ならopenuriを使った方が良い。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;require &amp;quot;net/http&amp;quot;&lt;br /&gt;&lt;br /&gt;# レスポンスをブロックの外で使いたい時には事前に定義しておこう&lt;br /&gt;# ブロックがクロージャであることを忘れずに&lt;br /&gt;response=nil&lt;br /&gt;&lt;br /&gt;uri = URI.parse(&amp;quot;http://example.net/&amp;quot;)&lt;br /&gt;Net::HTTP.start(uri.host, uri.port) do |http|&lt;br /&gt;  response = http.get(&amp;quot;/index.html&amp;quot;)&lt;br /&gt;  puts response.code # ステータスコード&lt;br /&gt;  puts response.message # メッセージ&lt;br /&gt;  puts response.body # レスポンスボディ&lt;br /&gt;end&lt;br /&gt;&lt;br /&gt;puts response.message # =&amp;gt; OK&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以下のようにインスタンスを作成してからコネクションを開く事もできる。&lt;br&gt;しかしこの場合には、最後にクローズしないとだめ。忘れるとシツレイ。&lt;br&gt;startにブロックを渡せば、ファイルオープンと同じように最後にクローズを勝手にやってくれるので安心。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;http = Net::HTTP.new(uri.host, uri.port)&lt;br /&gt;request = Net::HTTP::Get.new(&amp;quot;/index.html&amp;quot;)&lt;br /&gt;http.close&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;HTTPSGET_32&quot;&gt;&lt;/a&gt;HTTPSへのGET&lt;/h2&gt;&lt;p&gt;以下のようにstartの引数に:use_ssl=&amp;gt;trueを渡してやる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;require &amp;quot;net/http&amp;quot;&lt;br /&gt;&lt;br /&gt;uri = URI.parse(&amp;quot;https://example.net/&amp;quot;)&lt;br /&gt;Net::HTTP.start(uri.host, uri.port,:use_ssl=&amp;gt;true) do |http|&lt;br /&gt;  response = http.get(&amp;quot;/index.html&amp;quot;)&lt;br /&gt;  puts response.body&lt;br /&gt;end&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;POST_44&quot;&gt;&lt;/a&gt;POSTの場合&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;require &amp;quot;net/http&amp;quot;&lt;br /&gt;&lt;br /&gt;uri = URI.parse(&amp;quot;http://example.net/&amp;quot;)&lt;br /&gt;Net::HTTP.start(uri.host, uri.port) do |http|&lt;br /&gt;  response = http.post(&amp;quot;/search.cgi&amp;quot;,&#39;query=foo&#39;,header=nil)&lt;br /&gt;  puts response.code&lt;br /&gt;  puts response.message&lt;br /&gt;  puts response.body&lt;br /&gt;end&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;NetHTTP_56&quot;&gt;&lt;/a&gt;素晴らしいNet::HTTP解説のリンク&lt;/h2&gt;&lt;p&gt;チートシート&lt;br&gt;&lt;a href=&quot;http://www.rubyinside.com/nethttp-cheat-sheet-2940.html&quot;&gt;http://www.rubyinside.com/nethttp-cheat-sheet-2940.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;RestでJSONリクエストを投げる例。&lt;br&gt;&lt;a href=&quot;https://www.socialtext.net/open/very_simple_rest_in_ruby_part_3_post_to_create_a_new_workspace&quot;&gt;https://www.socialtext.net/open/very_simple_rest_in_ruby_part_3_post_to_create_a_new_workspace&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://altarf.net/computer/ruby/2890&quot;&gt;http://altarf.net/computer/ruby/2890&lt;/a&gt;&lt;/p&gt;&lt;p&gt;restを作る時に便利なgem&lt;br&gt;&lt;a href=&quot;https://github.com/rest-client/rest-client&quot;&gt;https://github.com/rest-client/rest-client&lt;/a&gt;&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;NetHTTP_68&quot;&gt;&lt;/a&gt;以下に該当する場合にはNet::HTTPを使うべきでない。&lt;/h2&gt;&lt;h3&gt;&lt;a id=&quot;GET_70&quot;&gt;&lt;/a&gt;単純なGETしかしない&lt;/h3&gt;&lt;p&gt;→openuriを使う&lt;br&gt;&lt;a href=&quot;http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html&quot;&gt;http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a id=&quot;_74&quot;&gt;&lt;/a&gt;クローラーを作りたい&lt;/h3&gt;&lt;p&gt;→anemoneを使う&lt;br&gt;&lt;a href=&quot;https://github.com/chriskite/anemone&quot;&gt;https://github.com/chriskite/anemone&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a id=&quot;AmazonAPI_78&quot;&gt;&lt;/a&gt;Amazonの商品検索、操作APIを使いたい&lt;/h3&gt;&lt;p&gt;→asinを使う&lt;br&gt;&lt;a href=&quot;https://github.com/phoet/asin&quot;&gt;https://github.com/phoet/asin&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a id=&quot;AWSREST_82&quot;&gt;&lt;/a&gt;AWSのRESTを使いたい&lt;/h3&gt;&lt;p&gt;→aws-sdk-rubyを使う&lt;br&gt;&lt;a href=&quot;https://github.com/aws/aws-sdk-ruby&quot;&gt;https://github.com/aws/aws-sdk-ruby&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a id=&quot;REST_86&quot;&gt;&lt;/a&gt;なんかRESTを使いたい。&lt;/h3&gt;&lt;p&gt;→rest-clientを使う&lt;br&gt;&lt;a href=&quot;https://github.com/rest-client/rest-client&quot;&gt;https://github.com/rest-client/rest-client&lt;/a&gt;&lt;/p&gt; &lt;/body&gt;&lt;/html&gt;</description>
+        <description>&lt;p&gt;rubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。
+しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。&lt;/p&gt;
+
+&lt;h1&gt;最も単純なGET&lt;/h1&gt;
+
+&lt;p&gt;Net::HTTPでのgetは以下のようになる。 この程度ならopenuriを使った方が良い。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;net/http&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#レスポンスをブロックの外で使いたい時には事前に定義しておこう&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#ブロックがクロージャであることを忘れずに&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://example.net/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# ステータスコード&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# メッセージ&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# レスポンスボディ&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# =&amp;gt; OK&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;以下のようにインスタンスを作成してからコネクションを開く事もできる。
+しかしこの場合には、最後にクローズしないとだめ。忘れるとシツレイ。
+startにブロックを渡せば、ファイルオープンと同じように最後にクローズを勝手にやってくれるので安心。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;close&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;HTTPSへのGET&lt;/h1&gt;
+
+&lt;p&gt;以下のようにstartの引数に:use_ssl=&amp;gt;trueを渡してやる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;net/http&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://example.net/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:use_ssl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;POSTの場合&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;net/http&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://example.net/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/search.cgi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;query=foo&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;code&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;message&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;Net::HTTP解説のリンク&lt;/h1&gt;
+
+&lt;p&gt;チートシート&lt;br&gt;
+http://www.rubyinside.com/nethttp-cheat-sheet-2940.html&lt;/p&gt;
+
+&lt;p&gt;RestでJSONリクエストを投げる例。
+https://www.socialtext.net/open/very&lt;em&gt;simple&lt;/em&gt;rest&lt;em&gt;in&lt;/em&gt;ruby&lt;em&gt;part&lt;/em&gt;3&lt;em&gt;post&lt;/em&gt;to&lt;em&gt;create&lt;/em&gt;a&lt;em&gt;new&lt;/em&gt;workspace
+http://altarf.net/computer/ruby/2890&lt;/p&gt;
+
+&lt;p&gt;restを作る時に便利なgem&lt;br&gt;
+https://github.com/rest-client/rest-client&lt;/p&gt;
+
+&lt;p&gt;以下に該当する場合にはNet::HTTPを使うべきでない。&lt;/p&gt;
+
+&lt;p&gt;単純なGETしかしない
+→openuriを使う
+http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html&lt;/p&gt;
+
+&lt;p&gt;クローラーを作りたい&lt;br&gt;
+→anemoneを使う&lt;br&gt;
+https://github.com/chriskite/anemone&lt;/p&gt;
+
+&lt;p&gt;Amazonの商品検索、操作APIを使いたい
+→asinを使う
+https://github.com/phoet/asin&lt;/p&gt;
+
+&lt;p&gt;AWSのRESTを使いたい
+→aws-sdk-rubyを使う
+https://github.com/aws/aws-sdk-ruby&lt;/p&gt;
+
+&lt;p&gt;なんかRESTを使いたい。
+→rest-clientを使う
+https://github.com/rest-client/rest-client&lt;/p&gt;
+</description>
         <pubDate>Fri, 23 Oct 2015 00:17:00 +0900</pubDate>
         <link>http://yourdomain.com/2015/10/23/ruby-nethttp.html</link>
         <guid isPermaLink="true">http://yourdomain.com/2015/10/23/ruby-nethttp.html</guid>
@@ -152,7 +336,74 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>10分でdocker入門</title>
-        <description> &lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Untitled Document.md&lt;/title&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;&lt;body id=&quot;preview&quot;&gt;&lt;h2&gt;&lt;a id=&quot;10docker_0&quot;&gt;&lt;/a&gt;10分でdocker入門&lt;/h2&gt;&lt;p&gt;近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの中にコンテナと呼ばれる仮想のマシン環境を作っていくことができるらしい。VMwareやVirtualBoxとくらべて、区画を作るだけな分、リソースの使用効率が良く、高速らしい。 使ってみた感想は、兎に角速い。VMwareやVirtualBoxに比べて、とにかく仮想環境の作成が早くできる。 コンテナはむこうと違って異るカーネルの環境は作れないが、この速さは一定の環境でのソフトウェアの動作を検証したい時などにとても便利。 たとえばインストーラの動作確認をするなら是非使いたい。&lt;/p&gt;&lt;h2&gt;インストール&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;cat &amp;gt;/etc/yum.repos.d/docker.repo &amp;lt;&amp;lt;-EOF&lt;br /&gt;[dockerrepo]&lt;br /&gt;name=Docker Repository&lt;br /&gt;baseurl=https://yum.dockerproject.org/repo/main/centos/7&lt;br /&gt;enabled=1&lt;br /&gt;gpgcheck=1&lt;br /&gt;gpgkey=https://yum.dockerproject.org/gpg&lt;br /&gt;EOF&lt;br /&gt;yum install docker-engine -y&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;_22&quot;&gt;&lt;/a&gt;起動&lt;/h2&gt;&lt;p&gt;docker daemon&lt;/p&gt;&lt;p&gt;(service docker startでも良いはずだがそっちはエラーが出た)&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;_28&quot;&gt;&lt;/a&gt;イメージのダウンロード&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://hub.docker.com/explore/%E3%81%A7%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6&quot;&gt;https://hub.docker.com/explore/でイメージを探して&lt;/a&gt;&lt;/p&gt;&lt;pre&gt;&lt;code&gt;sudo docker pull centos&lt;br /&gt;sudo docker images&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;shell_36&quot;&gt;&lt;/a&gt;コンテナの中でshellを立ち上げて、ユーザーを作ってみる。&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;07:15:19 sato@localhost docker $ sudo docker run -i -t centos /bin/bash&lt;br /&gt;[sudo] password for sato:&lt;br /&gt;[root@d0f14de7ac35 home]# useradd nyanchu&lt;br /&gt;[root@d0f14de7ac35 home]# su - nyanchu&lt;br /&gt;[nyanchu@d0f14de7ac35 ~]$&lt;br /&gt;[nyanchu@d0f14de7ac35 ~]$ exits&lt;br /&gt;[root@d0f14de7ac35 /]# exit&lt;br /&gt;exit&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;_47&quot;&gt;&lt;/a&gt;さっき抜けたコンテナを確認&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;07:16:26 sato@localhost docker $ sudo docker ps -a&lt;br /&gt;CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS                        PORTS               NAMES&lt;br /&gt;d0f14de7ac35        centos              &amp;quot;/bin/bash&amp;quot;         About a minute ago   Exited (130) 44 seconds ago                       hopeful_engelbart&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;_53&quot;&gt;&lt;/a&gt;再度コンテナに接続&lt;/h2&gt;&lt;p&gt;終了しているので最初に起動してやる必要がある。&lt;br&gt;さっき作ったユーザーが存在しているのがわかる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;07:17:17 sato@localhost docker $ sudo docker start d0f&lt;br /&gt;d0f&lt;br /&gt;07:17:27 sato@localhost docker $ sudo docker attach d0f&lt;br /&gt;[root@d0f14de7ac35 /]# su nyanchu&lt;br /&gt;[nyanchu@d0f14de7ac35 /]$ ls&lt;br /&gt;bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;_65&quot;&gt;&lt;/a&gt;コンテナからイメージを作成&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;12:28:49 root@localhost ~  $ docker commit d0f my_image&lt;br /&gt;d583edebf68931c8aa5b52565a3b0182f759a79b4b0924d040468c8241bfa19a&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;docker_images_70&quot;&gt;&lt;/a&gt;docker imagesでできたイメージの確認&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;12:29:10 root@localhost ~  $ docker images&lt;br /&gt;REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE&lt;br /&gt;my_image            latest              d583edebf689        10 seconds ago      263.7 MB&lt;br /&gt;centos              latest              e9fa5d3a0d0e        3 days ago          172.3 MB&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;_77&quot;&gt;&lt;/a&gt;作ったイメージからコンテナを作成&lt;/h2&gt;&lt;p&gt;作成したイメージに作って置いたユーザーが最初から存在することが確認できる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;12:30:36 root@localhost ~  $ docker run -i -t my_image /bin/bash&lt;br /&gt;[root@e12f0ec2d79f /]# su - nyanchu&lt;br /&gt;Last login: Sat Oct 17 03:22:52 UTC 2015 on console&lt;br /&gt;[nyanchu@e12f0ec2d79f ~]$&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt; &lt;/body&gt;&lt;/html&gt;</description>
+        <description>&lt;p&gt;近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの中にコンテナと呼ばれる仮想のマシン環境を作っていくことができるらしい。VMwareやVirtualBoxとくらべて、区画を作るだけな分、リソースの使用効率が良く、高速らしい。 使ってみた感想は、兎に角速い。VMwareやVirtualBoxに比べて、とにかく仮想環境の作成が早くできる。 コンテナはむこうと違って異るカーネルの環境は作れないが、この速さは一定の環境でのソフトウェアの動作を検証したい時などにとても便利。 たとえばインストーラの動作確認をするなら是非使いたい。&lt;/p&gt;
+
+&lt;h1&gt;インストール&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;cat &amp;gt;/etc/yum.repos.d/docker.repo &amp;lt;&amp;lt;-EOF
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+yum install docker-engine -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;起動&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;docker daemon
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(service docker startでも良いはずだがそっちはエラーが出た)&lt;/p&gt;
+
+&lt;h1&gt;イメージのダウンロード&lt;/h1&gt;
+
+&lt;p&gt;https://hub.docker.com/explore/でイメージを探して&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;sudo docker pull centos
+sudo docker images
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;コンテナの中でshellを立ち上げて、ユーザーを作ってみる。&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;07:15:19 sato@localhost docker $ sudo docker run -i -t centos /bin/bash
+[sudo] password for sato:
+[root@d0f14de7ac35 home]# useradd nyanchu
+[root@d0f14de7ac35 home]# su - nyanchu
+[nyanchu@d0f14de7ac35 ~]$
+[nyanchu@d0f14de7ac35 ~]$ exits
+[root@d0f14de7ac35 /]# exit
+exit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;さっき抜けたコンテナを確認&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;07:16:26 sato@localhost docker $ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS                        PORTS               NAMES
+d0f14de7ac35        centos              &quot;/bin/bash&quot;         About a minute ago   Exited (130) 44 seconds ago                       hopeful_engelbart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;再度コンテナに接続&lt;/h1&gt;
+
+&lt;p&gt;終了しているので最初に起動してやる必要がある。
+さっき作ったユーザーが存在しているのがわかる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;07:17:17 sato@localhost docker $ sudo docker start d0f
+d0f
+07:17:27 sato@localhost docker $ sudo docker attach d0f
+[root@d0f14de7ac35 /]# su nyanchu
+[nyanchu@d0f14de7ac35 /]$ ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;コンテナからイメージを作成&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;12:28:49 root@localhost ~  $ docker commit d0f my_image
+d583edebf68931c8aa5b52565a3b0182f759a79b4b0924d040468c8241bfa19a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;docker imagesでできたイメージの確認&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;12:29:10 root@localhost ~  $ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+my_image            latest              d583edebf689        10 seconds ago      263.7 MB
+centos              latest              e9fa5d3a0d0e        3 days ago          172.3 MB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;作ったイメージからコンテナを作成&lt;/h1&gt;
+
+&lt;p&gt;作成したイメージに作って置いたユーザーが最初から存在することが確認できる。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;12:30:36 root@localhost ~  $ docker run -i -t my_image /bin/bash
+[root@e12f0ec2d79f /]# su - nyanchu
+Last login: Sat Oct 17 03:22:52 UTC 2015 on console
+[nyanchu@e12f0ec2d79f ~]$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
         <pubDate>Sat, 17 Oct 2015 12:42:00 +0900</pubDate>
         <link>http://yourdomain.com/2015/10/17/10docker.html</link>
         <guid isPermaLink="true">http://yourdomain.com/2015/10/17/10docker.html</guid>
@@ -164,7 +415,16 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
     
       <item>
         <title>bundlerで管理されたrubyプロジェクトを完全に単体で動作させる。</title>
-        <description>  &lt;p&gt;rubyはbundlerによるgemの管理で依存関係にあるライブラリを簡単に導入できる。&lt;br&gt;しかし、セキュリティに厳しい環境や開発者以外のユーザーに配布したい場合には、yum ruby installやbundle install でリモートからソースコードを取得させるのが困難な場合もある。&lt;br&gt;そのようなプロジェクトの場合には、プロジェクト内に全ての依存関係にあるライブラリを入れて管理する必要がある。&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;rubyRPM_7&quot;&gt;&lt;/a&gt;rubyインタープリンタのRPMをつくる。&lt;/h2&gt;&lt;p&gt;RPMの形でプロジェクトのリポジトリに入れておけば、オフラインで簡単にインストールできる。&lt;br&gt;gemを含むいくつかのライブラリがインストールされる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;yum install make gcc rpm-build libyaml-devel readline-devel ncurses-devel tcl-devel gdbm-devel openssl-devel db4-devel byacc libyaml libffi-devel -y&lt;br /&gt;mkdir rpmbuild/&lt;br /&gt;mkdir rpmbuild/SOURCES&lt;br /&gt;mkdir rpmbuild/SRPMS&lt;br /&gt;mkdir rpmbuild/SPECS&lt;br /&gt;wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz -P rpmbuild/SOURCES&lt;br /&gt;wget https://raw.githubusercontent.com/hansode/ruby-2.1.x-rpm/master/ruby21x.spec -P rpmbuild/SPECS&lt;br /&gt;cd rpmbuild/SPECS&lt;br /&gt;rpmbuild -bb ruby21x.spec&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;rpmbuild/SOURCES配下のrpmを同梱しよう。&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;bundler_24&quot;&gt;&lt;/a&gt;bundlerの同梱&lt;/h2&gt;&lt;p&gt;必要なgemはbundlerを使ってインストールするが、bundler自体は上では入らない。&lt;br&gt;以下のように事前にとっておく。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;wget https://rubygems.org/downloads/bundler-1.10.6.gem&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;bundlerの.gemがカレントディレクトリにある場合にはgem install でそれが使われる。 インストール時は以下でOK&lt;/p&gt;&lt;pre&gt;&lt;code&gt;gem install bundler --local&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;gem_36&quot;&gt;&lt;/a&gt;依存gemの同梱&lt;/h2&gt;&lt;p&gt;以下のようなGemfileがあると仮定する。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;#Gemfile&lt;br /&gt;gem &#39;rspec&#39;&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Gemfileがある場所で以下のコマンドを入力すると,vendor/cache/に依存関係にあるgemファイルをすべて出力してくれる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;bundle package&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;vendor/cache/をプロジェクトに同梱してやるとbundle installした際の探索パスとして使用されるため、オフラインでのbundle installが可能。 ただし、普通にbundle installした場合にはvendor/cache/ruby/にgemがインストールされる。&lt;br&gt;この場合、bundle execで実行するか適切にパスを通す必要がある。&lt;br&gt;gemがrspecなどの実行ファイルを含みこれを他人につかわせる場合、これは不便。&lt;br&gt;以下の用にすることで普通にインストールされる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;bundle install --system&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt; &lt;/body&gt;&lt;/html&gt;</description>
+        <description>  &lt;p&gt;rubyはbundlerによるgemの管理で依存関係にあるライブラリを簡単に導入できる。&lt;br&gt;しかし、セキュリティに厳しい環境や開発者以外のユーザーに配布したい場合には、yum ruby installやbundle install でリモートからソースコードを取得させるのが困難な場合もある。&lt;br&gt;そのようなプロジェクトの場合には、プロジェクト内に全ての依存関係にあるライブラリを入れて管理する必要がある。&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;rubyRPM_7&quot;&gt;&lt;/a&gt;rubyインタープリンタのRPMをつくる。&lt;/h2&gt;&lt;p&gt;RPMの形でプロジェクトのリポジトリに入れておけば、オフラインで簡単にインストールできる。&lt;br&gt;gemを含むいくつかのライブラリがインストールされる。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum install make gcc rpm-build libyaml-devel readline-devel ncurses-devel tcl-devel gdbm-devel openssl-devel db4-devel byacc libyaml libffi-devel -y
+mkdir rpmbuild/
+mkdir rpmbuild/SOURCES
+mkdir rpmbuild/SRPMS
+mkdir rpmbuild/SPECS
+wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz -P rpmbuild/SOURCES
+wget https://raw.githubusercontent.com/hansode/ruby-2.1.x-rpm/master/ruby21x.spec -P rpmbuild/SPECS
+cd rpmbuild/SPECS&lt;br /&gt;rpmbuild -bb ruby21x.spec&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;rpmbuild/SOURCES配下のrpmを同梱しよう。&lt;/p&gt;&lt;h2&gt;&lt;a id=&quot;bundler_24&quot;&gt;&lt;/a&gt;bundlerの同梱&lt;/h2&gt;&lt;p&gt;必要なgemはbundlerを使ってインストールするが、bundler自体は上では入らない。&lt;br&gt;以下のように事前にとっておく。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;wget https://rubygems.org/downloads/bundler-1.10.6.gem&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;bundlerの.gemがカレントディレクトリにある場合にはgem install でそれが使われる。 インストール時は以下でOK&lt;/p&gt;&lt;pre&gt;&lt;code&gt;gem install bundler --local&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a id=&quot;gem_36&quot;&gt;&lt;/a&gt;依存gemの同梱&lt;/h2&gt;&lt;p&gt;以下のようなGemfileがあると仮定する。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;#Gemfile&lt;br /&gt;gem &#39;rspec&#39;&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Gemfileがある場所で以下のコマンドを入力すると,vendor/cache/に依存関係にあるgemファイルをすべて出力してくれる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;bundle package&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;vendor/cache/をプロジェクトに同梱してやるとbundle installした際の探索パスとして使用されるため、オフラインでのbundle installが可能。 ただし、普通にbundle installした場合にはvendor/cache/ruby/にgemがインストールされる。&lt;br&gt;この場合、bundle execで実行するか適切にパスを通す必要がある。&lt;br&gt;gemがrspecなどの実行ファイルを含みこれを他人につかわせる場合、これは不便。&lt;br&gt;以下の用にすることで普通にインストールされる。&lt;/p&gt;&lt;pre&gt;&lt;code&gt;bundle install --system&lt;br /&gt;&lt;/code&gt;&lt;/pre&gt; &lt;/body&gt;&lt;/html&gt;</description>
         <pubDate>Thu, 01 Oct 2015 22:33:00 +0900</pubDate>
         <link>http://yourdomain.com/2015/10/01/bundlerruby.html</link>
         <guid isPermaLink="true">http://yourdomain.com/2015/10/01/bundlerruby.html</guid>
@@ -172,6 +432,18 @@ hardstatus string &#39;%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%
         <category>Linux</category>
         
         <category>ruby</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>プログラミング用フォント</title>
+        <description> &lt;a href=&quot;http://hivelogic.com/articles/top-10-programming-fonts&quot;&gt;Top 10 programing font&lt;/a&gt;を見ていたら &lt;a href=&quot;http://www.dafont.com/monofur.font&quot;&gt;monofur&lt;/a&gt;というのがあった。&lt;br&gt;プログラミングに適した固定幅フォントだが、かなり独特で面白い。  &lt;div class=&quot;separator&quot; style=&quot;clear: both; text-align: center;&quot;&gt;&lt;a href=&quot;http://1.bp.blogspot.com/-EydYv49vx6g/Vgf9RWGWg2I/AAAAAAAAAEM/NadBZS8FyAc/s1600/snapshot2.png&quot; imageanchor=&quot;1&quot; style=&quot;margin-left: 1em; margin-right: 1em;&quot;&gt;&lt;img border=&quot;0&quot; src=&quot;http://1.bp.blogspot.com/-EydYv49vx6g/Vgf9RWGWg2I/AAAAAAAAAEM/NadBZS8FyAc/s320/snapshot2.png&quot; /&gt;&lt;/a&gt;&lt;/div&gt;</description>
+        <pubDate>Sun, 27 Sep 2015 23:32:00 +0900</pubDate>
+        <link>http://yourdomain.com/2015/09/27/blog-post.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2015/09/27/blog-post.html</guid>
+        
+        <category>その他</category>
         
         
       </item>

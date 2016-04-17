@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>MRIをでバックビルドしてgdbでデバッグ</title>
-  <meta name="description" content="Untitled Document.mdMRIのビルド./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。./configure -...">
+  <meta name="description" content="MRIのビルド./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,127 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document.md</title><style></style></head><body id="preview"><h3><a id="MRI_1"></a>MRIのビルド</h3><p>./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。</p><pre><code>./configure --enable-debug-env --prefix /home/sato/ruby/ CFLAGS=&quot;-g3 -O0&quot;<br />make<br />make install<br /></code></pre><h3><a id="_10"></a>環境変数を設定</h3><p>さっきインストールしたrubyの実行ファイルが呼び出されるように環境変数を設定してやる。</p><pre><code>RUBYPATH=$HOME/ruby/bin<br />export RUBYPATH<br />export PATH=$RUBYPATH:$PATH<br />export RUBYLIB=$RUBYPATH/lib/ruby<br /></code></pre><h3><a id="gdb_19"></a>gdb用のヘルパーをホームディレクトリに入れておく</h3><p>rubyの内部のデータは殆どがVALUEポインタで表現され、後でキャストしてから使用される。 この時、キャスト後が何のデータであるかがわからなければ、gdbのprintで中を覗くことができない。 このため、rubyのソースにバンドルされているgdb用のヘルパーを使う。</p><p>以下からダウンロード<br><a href="https://github.com/ruby/ruby/blob/trunk/.gdbinit">https://github.com/ruby/ruby/blob/trunk/.gdbinit</a></p><pre><code>cp .gdbinit ~/<br /></code></pre><p>定義されたヘルパーの一覧はhelp user-definedで見ることができる。</p><pre><code>(gdb) help user-defined<br />User-defined commands.<br />The commands in this class are those defined by the user.<br />Use the &quot;define&quot; command to define a command.<br /><br />List of commands:<br /><br /><br />＊＊＊＊＊＊略＊＊＊＊＊＊<br /><br />rb_p -- User-defined<br />rb_ps -- Dump all threads and their callstacks<br />rb_ps_thread -- User-defined<br />rb_ps_vm -- Dump all threads in a (rb_vm_t*) and their callstacks<br />rbi -- User-defined<br />rp --   Print a Ruby's VALUE<br />rp_class --   Print the content of a Class/Module<br />rp_id --   Print an ID<br />rp_imemo --   Print the content of a memo<br />rp_string --   Print the content of a String<br />ruby_gdb_init -- User-defined<br />sdr -- User-defined<br /></code></pre><p>重要なのはrpで、これでVALUEの中身を知ることができる。</p><h3><a id="irbgdb_60"></a>irbを起動しgdbをアタッチ</h3><pre><code>irb<br /></code></pre><p>まず、起動したirbのプロセスIDを調べる。</p><pre><code>$ ps x|grep irb<br />1742 pts/1    Sl+    0:00 irb<br /></code></pre><p>別のターミナルから起動したirbにアタッチする。</p><pre><code>gdb /home/sato/ruby/bin/irb -p 1742<br /></code></pre><h3><a id="_73"></a>ブレークポイントを設定してみる。</h3><pre><code>  (gdb) b proc_curry<br />  Breakpoint 3 at 0x7f60aa2bff64: file proc.c, line 2755.<br />  (gdb) c<br />  Continuing<br /></code></pre><p>proc_curryはProc#curryのC側での実装。 以下の関数がそれにあたる。</p><pre><code>  rb_define_method(rb_cMethod, &quot;curry&quot;, rb_method_curry, -1);<br /><br />  static VALUE<br />  proc_curry(int argc, const VALUE *argv, VALUE self)<br />  {<br />      int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;max_arity);<br />      VALUE arity;<br /><br />      rb_scan_args(argc, argv, &quot;01&quot;, &amp;arity);<br />      if (NIL_P(arity)) {<br />    arity = INT2FIX(min_arity);<br />      }<br />      else {<br />    sarity = FIX2INT(arity);<br />    if (rb_proc_lambda_p(self)) {<br />        rb_check_arity(sarity, min_arity, max_arity);<br />    }<br />      }<br /><br />      return make_curry_proc(self, rb_ary_new(), arity);<br />  }<br /></code></pre><p>この状態で、irb側から以下のようにProc#curryを呼び出す</p><pre><code>  Proc.new {|x,y|x+y}.curry<br /></code></pre><p>gdbがbreakする。</p><pre><code>  Breakpoint 1, proc_curry (argc=0, argv=0x7f48ea86d258, self=139951178000880) at proc.c:2755<br />  warning: Source file is more recent than executable.<br />  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;max_arity);<br /></code></pre><p>コードの中の現在位置を確認</p><pre><code>  (gdb) l<br />  2750      *     p b.curry[]                  #=&gt; :foo<br />  2751      */<br />  2752    static VALUE<br />  2753    proc_curry(int argc, const VALUE *argv, VALUE self)<br />  2754    {<br />  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;max_arity);<br />  2756        VALUE arity;<br />  2757<br />  2758        rb_scan_args(argc, argv, &quot;01&quot;, &amp;arity);<br />  2759        if (NIL_P(arity)) {<br /></code></pre><p>selfのVALUEポインタを見てみる。</p><pre><code>  (gdb) rp self<br />  T_DATA(proc): $4 = (struct RTypedData *) 0x7f48ec4029f0<br />  (gdb) print *(struct RTypedData *) self<br />  $5 = {basic = {flags = 12, klass = 139951178175800}, type = 0x7f48eae51ca0 &lt;proc_data_type&gt;,<br />  typed_flag = 1, data = 0x7f48ec85bd80}<br />  (gdb) print (*(struct RTypedData *) self)-&gt;basic<br />  $6 = {flags = 12, klass = 139951178175800}<br />  (gdb) print (*(struct RTypedData *) self)-&gt;basic-&gt;klass<br />  $7 = 139951178175800<br /></code></pre> </body></html>
+    <h1>MRIのビルド</h1>
+
+<p>./configure時の–enable-debug-envオプションは、コンパイラによる最適化を抑止してgdbでソースをおえるようにしてくれているはず。 システムのrubyと競合しないように–prefixでインストール先を指定する。</p>
+<div class="highlight"><pre><code class="language-command" data-lang="command">./configure --enable-debug-env --prefix /home/sato/ruby/ CFLAGS="-g3 -O0"
+make
+make install
+</code></pre></div>
+<h1>環境変数を設定</h1>
+
+<p>さっきインストールしたrubyの実行ファイルが呼び出されるように環境変数を設定してやる。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">RUBYPATH=$HOME/ruby/bin
+export RUBYPATH
+export PATH=$RUBYPATH:$PATH
+export RUBYLIB=$RUBYPATH/lib/ruby
+</code></pre></div>
+<h1>gdb用のヘルパーをホームディレクトリに入れておく</h1>
+
+<p>rubyの内部のデータは殆どがVALUEポインタで表現され、後でキャストしてから使用される。 この時、キャスト後が何のデータであるかがわからなければ、gdbのprintで中を覗くことができない。 このため、rubyのソースにバンドルされているgdb用のヘルパーを使う。</p>
+
+<p>以下からダウンロード
+https://github.com/ruby/ruby/blob/trunk/.gdbinit</p>
+<div class="highlight"><pre><code class="language-" data-lang="">cp .gdbinit ~/
+</code></pre></div>
+<p>定義されたヘルパーの一覧はhelp user-definedで見ることができる。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">(gdb) help user-defined
+User-defined commands.
+The commands in this class are those defined by the user.
+Use the "define" command to define a command.
+
+List of commands:
+
+
+＊＊＊＊＊＊略＊＊＊＊＊＊
+
+rb_p -- User-defined
+rb_ps -- Dump all threads and their callstacks
+rb_ps_thread -- User-defined
+rb_ps_vm -- Dump all threads in a (rb_vm_t*) and their callstacks
+rbi -- User-defined
+rp --   Print a Ruby's VALUE
+rp_class --   Print the content of a Class/Module
+rp_id --   Print an ID
+rp_imemo --   Print the content of a memo
+rp_string --   Print the content of a String
+ruby_gdb_init -- User-defined
+sdr -- User-defined
+</code></pre></div>
+<p>重要なのはrpで、これでVALUEの中身を知ることができる。</p>
+
+<h1>irbを起動しgdbをアタッチ</h1>
+<div class="highlight"><pre><code class="language-irb```" data-lang="irb```">
+まず、起動したirbのプロセスIDを調べる。
+</code></pre></div>
+<p>$ ps x|grep irb
+1742 pts/1    Sl+    0:00 irb
+```</p>
+
+<p>別のターミナルから起動したirbにアタッチする。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">gdb /home/sato/ruby/bin/irb -p 1742
+</code></pre></div>
+<p>ブレークポイントを設定してみる。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">  (gdb) b proc_curry
+  Breakpoint 3 at 0x7f60aa2bff64: file proc.c, line 2755.
+  (gdb) c
+  Continuing
+</code></pre></div>
+<p>proc_curryはProc#curryのC側での実装。 以下の関数がそれにあたる。</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c">  <span class="n">rb_define_method</span><span class="p">(</span><span class="n">rb_cMethod</span><span class="p">,</span> <span class="s">"curry"</span><span class="p">,</span> <span class="n">rb_method_curry</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="k">static</span> <span class="n">VALUE</span>
+  <span class="nf">proc_curry</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="n">VALUE</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="n">VALUE</span> <span class="n">self</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">sarity</span><span class="p">,</span> <span class="n">max_arity</span><span class="p">,</span> <span class="n">min_arity</span> <span class="o">=</span> <span class="n">rb_proc_min_max_arity</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">max_arity</span><span class="p">);</span>
+      <span class="n">VALUE</span> <span class="n">arity</span><span class="p">;</span>
+
+      <span class="n">rb_scan_args</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">"01"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arity</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">NIL_P</span><span class="p">(</span><span class="n">arity</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">arity</span> <span class="o">=</span> <span class="n">INT2FIX</span><span class="p">(</span><span class="n">min_arity</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+    <span class="n">sarity</span> <span class="o">=</span> <span class="n">FIX2INT</span><span class="p">(</span><span class="n">arity</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rb_proc_lambda_p</span><span class="p">(</span><span class="n">self</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">rb_check_arity</span><span class="p">(</span><span class="n">sarity</span><span class="p">,</span> <span class="n">min_arity</span><span class="p">,</span> <span class="n">max_arity</span><span class="p">);</span>
+    <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="n">make_curry_proc</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">rb_ary_new</span><span class="p">(),</span> <span class="n">arity</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>この状態で、irb側から以下のようにProc#curryを呼び出す</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby">  <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">|</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">}.</span><span class="nf">curry</span>
+</code></pre></div>
+<p>gdbがbreakする。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">  Breakpoint 1, proc_curry (argc=0, argv=0x7f48ea86d258, self=139951178000880) at proc.c:2755
+  warning: Source file is more recent than executable.
+  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;max_arity);
+</code></pre></div>
+<p>コードの中の現在位置を確認</p>
+<div class="highlight"><pre><code class="language-" data-lang="">  (gdb) l
+  2750      *     p b.curry[]                  #=&gt; :foo
+  2751      */
+  2752    static VALUE
+  2753    proc_curry(int argc, const VALUE *argv, VALUE self)
+  2754    {
+  2755        int sarity, max_arity, min_arity = rb_proc_min_max_arity(self, &amp;max_arity);
+  2756        VALUE arity;
+  2757
+  2758        rb_scan_args(argc, argv, "01", &amp;arity);
+  2759        if (NIL_P(arity)) {
+selfのVALUEポインタを見てみる。
+
+  (gdb) rp self
+  T_DATA(proc): $4 = (struct RTypedData *) 0x7f48ec4029f0
+  (gdb) print *(struct RTypedData *) self
+  $5 = {basic = {flags = 12, klass = 139951178175800}, type = 0x7f48eae51ca0 &lt;proc_data_type&gt;,
+  typed_flag = 1, data = 0x7f48ec85bd80}
+  (gdb) print (*(struct RTypedData *) self)-&gt;basic
+  $6 = {flags = 12, klass = 139951178175800}
+  (gdb) print (*(struct RTypedData *) self)-&gt;basic-&gt;klass
+  $7 = 139951178175800
+</code></pre></div>
   </div>
 
 </article>

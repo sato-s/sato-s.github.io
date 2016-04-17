@@ -15,7 +15,7 @@ $base-line-height: 1.5;
 $spacing-unit:     30px;
 
 $text-color: #303030;
-$background-color: #f2fcff;
+$background-color: #fefdff;
 $brand-color:      #2a7ae2;
 
 $grey-color:       #828282;
@@ -43,6 +43,30 @@ $on-laptop:        800px;
     }
 }
 
+// user define style
+// pagination
+.pagination{
+  text-align: center;
+  padding-bottom: 50px;
+}
+.previous{
+  padding-right: 40px;
+}
+.next{
+  padding-left: 40px;
+}
+
+// tag
+
+.tags{
+  margin-left: 30px;
+}
+
+.tag{
+  color: #424242;
+  font-size: 70% ;
+  margin: 0px 10px 0px 10px;
+}
 
 
 // Import partials from `sass_dir` (defaults to `_sass`)

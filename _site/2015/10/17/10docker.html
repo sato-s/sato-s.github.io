@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>10分でdocker入門</title>
-  <meta name="description" content=" Untitled Document.md10分でdocker入門近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの...">
+  <meta name="description" content="近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの中にコンテナと呼ばれる仮想のマシン環境を作っていくことができるらし...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,74 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-     <!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document.md</title><style></style></head><body id="preview"><h2><a id="10docker_0"></a>10分でdocker入門</h2><p>近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの中にコンテナと呼ばれる仮想のマシン環境を作っていくことができるらしい。VMwareやVirtualBoxとくらべて、区画を作るだけな分、リソースの使用効率が良く、高速らしい。 使ってみた感想は、兎に角速い。VMwareやVirtualBoxに比べて、とにかく仮想環境の作成が早くできる。 コンテナはむこうと違って異るカーネルの環境は作れないが、この速さは一定の環境でのソフトウェアの動作を検証したい時などにとても便利。 たとえばインストーラの動作確認をするなら是非使いたい。</p><h2>インストール</h2><pre><code>cat &gt;/etc/yum.repos.d/docker.repo &lt;&lt;-EOF<br />[dockerrepo]<br />name=Docker Repository<br />baseurl=https://yum.dockerproject.org/repo/main/centos/7<br />enabled=1<br />gpgcheck=1<br />gpgkey=https://yum.dockerproject.org/gpg<br />EOF<br />yum install docker-engine -y<br /></code></pre><h2><a id="_22"></a>起動</h2><p>docker daemon</p><p>(service docker startでも良いはずだがそっちはエラーが出た)</p><h2><a id="_28"></a>イメージのダウンロード</h2><p><a href="https://hub.docker.com/explore/%E3%81%A7%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6">https://hub.docker.com/explore/でイメージを探して</a></p><pre><code>sudo docker pull centos<br />sudo docker images<br /></code></pre><h2><a id="shell_36"></a>コンテナの中でshellを立ち上げて、ユーザーを作ってみる。</h2><pre><code>07:15:19 sato@localhost docker $ sudo docker run -i -t centos /bin/bash<br />[sudo] password for sato:<br />[root@d0f14de7ac35 home]# useradd nyanchu<br />[root@d0f14de7ac35 home]# su - nyanchu<br />[nyanchu@d0f14de7ac35 ~]$<br />[nyanchu@d0f14de7ac35 ~]$ exits<br />[root@d0f14de7ac35 /]# exit<br />exit<br /></code></pre><h2><a id="_47"></a>さっき抜けたコンテナを確認</h2><pre><code>07:16:26 sato@localhost docker $ sudo docker ps -a<br />CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS                        PORTS               NAMES<br />d0f14de7ac35        centos              &quot;/bin/bash&quot;         About a minute ago   Exited (130) 44 seconds ago                       hopeful_engelbart<br /></code></pre><h2><a id="_53"></a>再度コンテナに接続</h2><p>終了しているので最初に起動してやる必要がある。<br>さっき作ったユーザーが存在しているのがわかる。</p><pre><code>07:17:17 sato@localhost docker $ sudo docker start d0f<br />d0f<br />07:17:27 sato@localhost docker $ sudo docker attach d0f<br />[root@d0f14de7ac35 /]# su nyanchu<br />[nyanchu@d0f14de7ac35 /]$ ls<br />bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br /></code></pre><h2><a id="_65"></a>コンテナからイメージを作成</h2><pre><code>12:28:49 root@localhost ~  $ docker commit d0f my_image<br />d583edebf68931c8aa5b52565a3b0182f759a79b4b0924d040468c8241bfa19a<br /></code></pre><h2><a id="docker_images_70"></a>docker imagesでできたイメージの確認</h2><pre><code>12:29:10 root@localhost ~  $ docker images<br />REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE<br />my_image            latest              d583edebf689        10 seconds ago      263.7 MB<br />centos              latest              e9fa5d3a0d0e        3 days ago          172.3 MB<br /></code></pre><h2><a id="_77"></a>作ったイメージからコンテナを作成</h2><p>作成したイメージに作って置いたユーザーが最初から存在することが確認できる。</p><pre><code>12:30:36 root@localhost ~  $ docker run -i -t my_image /bin/bash<br />[root@e12f0ec2d79f /]# su - nyanchu<br />Last login: Sat Oct 17 03:22:52 UTC 2015 on console<br />[nyanchu@e12f0ec2d79f ~]$<br /></code></pre> </body></html>
+    <p>近年、Linuxカーネが導入したcgroupなどの機能によって、コンテナによる仮想化が可能になった。 OSのファイルシステムや、CPU、メモリなどのリソースをプロセスごとに割り振り、お互いを孤立されることができるようになったことで、 1つのマシンの中にコンテナと呼ばれる仮想のマシン環境を作っていくことができるらしい。VMwareやVirtualBoxとくらべて、区画を作るだけな分、リソースの使用効率が良く、高速らしい。 使ってみた感想は、兎に角速い。VMwareやVirtualBoxに比べて、とにかく仮想環境の作成が早くできる。 コンテナはむこうと違って異るカーネルの環境は作れないが、この速さは一定の環境でのソフトウェアの動作を検証したい時などにとても便利。 たとえばインストーラの動作確認をするなら是非使いたい。</p>
+
+<h1>インストール</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">cat &gt;/etc/yum.repos.d/docker.repo &lt;&lt;-EOF
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+yum install docker-engine -y
+</code></pre></div>
+<h1>起動</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">docker daemon
+</code></pre></div>
+<p>(service docker startでも良いはずだがそっちはエラーが出た)</p>
+
+<h1>イメージのダウンロード</h1>
+
+<p>https://hub.docker.com/explore/でイメージを探して</p>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo docker pull centos
+sudo docker images
+</code></pre></div>
+<h1>コンテナの中でshellを立ち上げて、ユーザーを作ってみる。</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">07:15:19 sato@localhost docker $ sudo docker run -i -t centos /bin/bash
+[sudo] password for sato:
+[root@d0f14de7ac35 home]# useradd nyanchu
+[root@d0f14de7ac35 home]# su - nyanchu
+[nyanchu@d0f14de7ac35 ~]$
+[nyanchu@d0f14de7ac35 ~]$ exits
+[root@d0f14de7ac35 /]# exit
+exit
+</code></pre></div>
+<h1>さっき抜けたコンテナを確認</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">07:16:26 sato@localhost docker $ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS                        PORTS               NAMES
+d0f14de7ac35        centos              "/bin/bash"         About a minute ago   Exited (130) 44 seconds ago                       hopeful_engelbart
+</code></pre></div>
+<h1>再度コンテナに接続</h1>
+
+<p>終了しているので最初に起動してやる必要がある。
+さっき作ったユーザーが存在しているのがわかる。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">07:17:17 sato@localhost docker $ sudo docker start d0f
+d0f
+07:17:27 sato@localhost docker $ sudo docker attach d0f
+[root@d0f14de7ac35 /]# su nyanchu
+[nyanchu@d0f14de7ac35 /]$ ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+</code></pre></div>
+<h1>コンテナからイメージを作成</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">12:28:49 root@localhost ~  $ docker commit d0f my_image
+d583edebf68931c8aa5b52565a3b0182f759a79b4b0924d040468c8241bfa19a
+</code></pre></div>
+<h1>docker imagesでできたイメージの確認</h1>
+<div class="highlight"><pre><code class="language-" data-lang="">12:29:10 root@localhost ~  $ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+my_image            latest              d583edebf689        10 seconds ago      263.7 MB
+centos              latest              e9fa5d3a0d0e        3 days ago          172.3 MB
+</code></pre></div>
+<h1>作ったイメージからコンテナを作成</h1>
+
+<p>作成したイメージに作って置いたユーザーが最初から存在することが確認できる。</p>
+<div class="highlight"><pre><code class="language-" data-lang="">12:30:36 root@localhost ~  $ docker run -i -t my_image /bin/bash
+[root@e12f0ec2d79f /]# su - nyanchu
+Last login: Sat Oct 17 03:22:52 UTC 2015 on console
+[nyanchu@e12f0ec2d79f ~]$
+</code></pre></div>
   </div>
 
 </article>

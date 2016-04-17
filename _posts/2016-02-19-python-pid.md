@@ -10,6 +10,8 @@ blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-81629333607537970
 blogger_orig_url: http://satomemocho.blogspot.com/2016/02/python-pid.html
 ---
 
+pythonでpidを使った、多重実行の防止は以下のようにする。
+
 ```python
 import time
 import os

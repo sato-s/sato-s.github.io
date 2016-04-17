@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>CentOSでrubyにnokogiri</title>
-  <meta name="description" content="普通にgem install nokogiriだといろんな依存ライブラリが足りないこんな感じでyum install libxslt libxslt-devel libxml2 libxml2-devel -ygem install nokogiri --use-system-libraries">
+  <meta name="description" content="普通にgem install nokogiriだといろんな依存ライブラリが足りないこんな感じで">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,11 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    普通にgem install nokogiriだといろんな依存ライブラリが足りない<br /><br />こんな感じで<br />yum install libxslt libxslt-devel libxml2 libxml2-devel -y<br />gem install nokogiri --use-system-libraries
+    <p>普通にgem install nokogiriだといろんな依存ライブラリが足りない<br>
+こんな感じで</p>
+<div class="highlight"><pre><code class="language-markup" data-lang="markup">yum install libxslt libxslt-devel libxml2 libxml2-devel -y
+gem install nokogiri --use-system-libraries
+</code></pre></div>
   </div>
 
 </article>

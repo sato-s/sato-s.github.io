@@ -10,4 +10,10 @@ blogger_id: tag:blogger.com,1999:blog-1054230703994559763.post-10572116232564714
 blogger_orig_url: http://satomemocho.blogspot.com/2014/09/centosrubynokogiri.html
 ---
 
-普通にgem install nokogiriだといろんな依存ライブラリが足りない<br /><br />こんな感じで<br />yum install libxslt libxslt-devel libxml2 libxml2-devel -y<br />gem install nokogiri --use-system-libraries
+普通にgem install nokogiriだといろんな依存ライブラリが足りない  
+こんな感じで
+
+```markup
+yum install libxslt libxslt-devel libxml2 libxml2-devel -y
+gem install nokogiri --use-system-libraries
+```

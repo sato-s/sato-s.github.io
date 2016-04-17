@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Ruby Net::HTTPの使い方と（直接）使うべきでない時</title>
-  <meta name="description" content=" Untitled Document.mdrubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。最も単純なGETNet::HTT...">
+  <meta name="description" content="rubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,91 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-     <!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document.md</title><style></style></head><body id="preview"><p>rubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。<br>しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。</p><h2><a id="GET_4"></a>最も単純なGET</h2><p>Net::HTTPでのgetは以下のようになる。  この程度ならopenuriを使った方が良い。</p><pre><code>require &quot;net/http&quot;<br /><br /># レスポンスをブロックの外で使いたい時には事前に定義しておこう<br /># ブロックがクロージャであることを忘れずに<br />response=nil<br /><br />uri = URI.parse(&quot;http://example.net/&quot;)<br />Net::HTTP.start(uri.host, uri.port) do |http|<br />  response = http.get(&quot;/index.html&quot;)<br />  puts response.code # ステータスコード<br />  puts response.message # メッセージ<br />  puts response.body # レスポンスボディ<br />end<br /><br />puts response.message # =&gt; OK<br /></code></pre><p>以下のようにインスタンスを作成してからコネクションを開く事もできる。<br>しかしこの場合には、最後にクローズしないとだめ。忘れるとシツレイ。<br>startにブロックを渡せば、ファイルオープンと同じように最後にクローズを勝手にやってくれるので安心。</p><pre><code>http = Net::HTTP.new(uri.host, uri.port)<br />request = Net::HTTP::Get.new(&quot;/index.html&quot;)<br />http.close<br /></code></pre><h2><a id="HTTPSGET_32"></a>HTTPSへのGET</h2><p>以下のようにstartの引数に:use_ssl=&gt;trueを渡してやる。</p><pre><code>require &quot;net/http&quot;<br /><br />uri = URI.parse(&quot;https://example.net/&quot;)<br />Net::HTTP.start(uri.host, uri.port,:use_ssl=&gt;true) do |http|<br />  response = http.get(&quot;/index.html&quot;)<br />  puts response.body<br />end<br /></code></pre><h2><a id="POST_44"></a>POSTの場合</h2><pre><code>require &quot;net/http&quot;<br /><br />uri = URI.parse(&quot;http://example.net/&quot;)<br />Net::HTTP.start(uri.host, uri.port) do |http|<br />  response = http.post(&quot;/search.cgi&quot;,'query=foo',header=nil)<br />  puts response.code<br />  puts response.message<br />  puts response.body<br />end<br /></code></pre><h2><a id="NetHTTP_56"></a>素晴らしいNet::HTTP解説のリンク</h2><p>チートシート<br><a href="http://www.rubyinside.com/nethttp-cheat-sheet-2940.html">http://www.rubyinside.com/nethttp-cheat-sheet-2940.html</a></p><p>RestでJSONリクエストを投げる例。<br><a href="https://www.socialtext.net/open/very_simple_rest_in_ruby_part_3_post_to_create_a_new_workspace">https://www.socialtext.net/open/very_simple_rest_in_ruby_part_3_post_to_create_a_new_workspace</a><br><a href="http://altarf.net/computer/ruby/2890">http://altarf.net/computer/ruby/2890</a></p><p>restを作る時に便利なgem<br><a href="https://github.com/rest-client/rest-client">https://github.com/rest-client/rest-client</a></p><h2><a id="NetHTTP_68"></a>以下に該当する場合にはNet::HTTPを使うべきでない。</h2><h3><a id="GET_70"></a>単純なGETしかしない</h3><p>→openuriを使う<br><a href="http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html">http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html</a></p><h3><a id="_74"></a>クローラーを作りたい</h3><p>→anemoneを使う<br><a href="https://github.com/chriskite/anemone">https://github.com/chriskite/anemone</a></p><h3><a id="AmazonAPI_78"></a>Amazonの商品検索、操作APIを使いたい</h3><p>→asinを使う<br><a href="https://github.com/phoet/asin">https://github.com/phoet/asin</a></p><h3><a id="AWSREST_82"></a>AWSのRESTを使いたい</h3><p>→aws-sdk-rubyを使う<br><a href="https://github.com/aws/aws-sdk-ruby">https://github.com/aws/aws-sdk-ruby</a></p><h3><a id="REST_86"></a>なんかRESTを使いたい。</h3><p>→rest-clientを使う<br><a href="https://github.com/rest-client/rest-client">https://github.com/rest-client/rest-client</a></p> </body></html>
+    <p>rubyで単純なHTTP Getをするのであれば、openuriが圧倒的に便利ファイルと同じように、http getリクエストを扱えてしまう。
+しかし、比較的複雑なリクエスト（例：POST、ヘッダに何か入れる）の場合、net/httpを使う。</p>
+
+<h1>最も単純なGET</h1>
+
+<p>Net::HTTPでのgetは以下のようになる。 この程度ならopenuriを使った方が良い。</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">"net/http"</span>
+
+<span class="c1">#レスポンスをブロックの外で使いたい時には事前に定義しておこう</span>
+<span class="c1">#ブロックがクロージャであることを忘れずに</span>
+<span class="n">response</span><span class="o">=</span><span class="kp">nil</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"http://example.net/"</span><span class="p">)</span>
+<span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">response</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">code</span> <span class="c1"># ステータスコード</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">message</span> <span class="c1"># メッセージ</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">body</span> <span class="c1"># レスポンスボディ</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">message</span> <span class="c1"># =&gt; OK</span>
+</code></pre></div>
+<p>以下のようにインスタンスを作成してからコネクションを開く事もできる。
+しかしこの場合には、最後にクローズしないとだめ。忘れるとシツレイ。
+startにブロックを渡せば、ファイルオープンと同じように最後にクローズを勝手にやってくれるので安心。</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">http</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+<span class="n">http</span><span class="p">.</span><span class="nf">close</span>
+</code></pre></div>
+<h1>HTTPSへのGET</h1>
+
+<p>以下のようにstartの引数に:use_ssl=&gt;trueを渡してやる。</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">"net/http"</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://example.net/"</span><span class="p">)</span>
+<span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span><span class="ss">:use_ssl</span><span class="o">=&gt;</span><span class="kp">true</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">response</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/index.html"</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">body</span>
+<span class="k">end</span>
+</code></pre></div>
+<h1>POSTの場合</h1>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">"net/http"</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"http://example.net/"</span><span class="p">)</span>
+<span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+  <span class="n">response</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/search.cgi"</span><span class="p">,</span><span class="s1">'query=foo'</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">code</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">message</span>
+  <span class="nb">puts</span> <span class="n">response</span><span class="p">.</span><span class="nf">body</span>
+<span class="k">end</span>
+</code></pre></div>
+<h1>Net::HTTP解説のリンク</h1>
+
+<p>チートシート<br>
+http://www.rubyinside.com/nethttp-cheat-sheet-2940.html</p>
+
+<p>RestでJSONリクエストを投げる例。
+https://www.socialtext.net/open/very<em>simple</em>rest<em>in</em>ruby<em>part</em>3<em>post</em>to<em>create</em>a<em>new</em>workspace
+http://altarf.net/computer/ruby/2890</p>
+
+<p>restを作る時に便利なgem<br>
+https://github.com/rest-client/rest-client</p>
+
+<p>以下に該当する場合にはNet::HTTPを使うべきでない。</p>
+
+<p>単純なGETしかしない
+→openuriを使う
+http://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html</p>
+
+<p>クローラーを作りたい<br>
+→anemoneを使う<br>
+https://github.com/chriskite/anemone</p>
+
+<p>Amazonの商品検索、操作APIを使いたい
+→asinを使う
+https://github.com/phoet/asin</p>
+
+<p>AWSのRESTを使いたい
+→aws-sdk-rubyを使う
+https://github.com/aws/aws-sdk-ruby</p>
+
+<p>なんかRESTを使いたい。
+→rest-clientを使う
+https://github.com/rest-client/rest-client</p>
+
   </div>
 
 </article>

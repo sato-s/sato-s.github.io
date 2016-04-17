@@ -4,19 +4,21 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <h1 class="page-heading">posts</h1>
 
   <ul class="post-list">
     {% for post in paginator.posts %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="tags"></span>
+          {% for tag in post.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
 
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
-        {% for tag in post.tags %}
-          {{ tag }}
-        {% endfor %}
+
       </li>
     {% endfor %}
   </ul>
@@ -25,7 +27,7 @@ layout: default
     {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
     {% else %}
-    <span class="previous">Previous</span>
+    <span class="previous">Prev</span>
     {% endif %}
     <span class="page_number "> {{ paginator.page }} of {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}

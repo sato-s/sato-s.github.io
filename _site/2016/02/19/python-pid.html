@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>python によるPID のロック</title>
-  <meta name="description" content="import timeimport osimport sys">
+  <meta name="description" content="pythonでpidを使った、多重実行の防止は以下のようにする。">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,8 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+    <p>pythonでpidを使った、多重実行の防止は以下のようにする。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 

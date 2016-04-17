@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>pythonのスクリプトファイルとの相対パス</title>
-  <meta name="description" content="import osthis_dir = os.path.dirname(os.path.realpath(__file__))filename = os.path.join(this_dir, 'lib')print filename">
+  <meta name="description" content="pythonで特定のスクリプトからの相対パスをえる方法は次のような感じ">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/assets/prism.css">
@@ -60,14 +60,6 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
       </div>
     </nav>
 
@@ -86,7 +78,13 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <pre><code>import os<br /><br />this_dir = os.path.dirname(os.path.realpath(__file__))<br />filename = os.path.join(this_dir, 'lib')<br />print filename</pre></code>
+    <p>pythonで特定のスクリプトからの相対パスをえる方法は次のような感じ</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span><span class="o">&lt;</span><span class="n">br</span> <span class="o">/&gt;&lt;</span><span class="n">br</span> <span class="o">/&gt;</span><span class="n">this_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s">'lib'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">filename</span>
+</code></pre></div>
+<p>rubyの<code>require_relative</code>のようなことは,パッケージシステムのpythonでは基本的にしないが、自分はついやってしまう。</p>
+
   </div>
 
 </article>

@@ -1,3 +1,21 @@
+.pagination {
+  text-align: center;
+  padding-bottom: 50px; }
+
+.previous {
+  padding-right: 40px; }
+
+.next {
+  padding-left: 40px; }
+
+.tags {
+  margin-left: 30px; }
+
+.tag {
+  color: #424242;
+  font-size: 70%;
+  margin: 0px 10px 0px 10px; }
+
 /**
  * Reset some basic elements
  */
@@ -13,7 +31,7 @@ dl, dd, ol, ul, figure {
 body {
   font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #303030;
-  background-color: #f2fcff;
+  background-color: #fefdff;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -178,7 +196,7 @@ pre {
       position: absolute;
       top: 9px;
       right: 15px;
-      background-color: #f2fcff;
+      background-color: #fefdff;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
       text-align: right; }
@@ -288,6 +306,13 @@ pre {
  */
 .post-header {
   margin-bottom: 30px; }
+
+.post {
+  border: #424242;
+  border: solid;
+  border-width: 1px;
+  padding: 30px 30px 30px 30px;
+  width: 100%; }
 
 .post-title {
   font-size: 42px;

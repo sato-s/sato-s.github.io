@@ -203,6 +203,14 @@
     margin-bottom: $spacing-unit;
 }
 
+.post{
+    border: #424242;
+    border: solid;
+    border-width: 1px;
+    padding: 30px 30px 30px 30px;
+    width: 100%;
+}
+
 .post-title {
     font-size: 42px;
     letter-spacing: -1px;
