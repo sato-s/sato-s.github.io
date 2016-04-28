@@ -1,3 +1,12 @@
+---
+layout: post
+title: ".ssh/config"
+date: '2016-04-27T01:04:00.001+09:00'
+author: s sato
+tags:
+- Linux
+---
+
 .ssh/configの設定はこんな感じにすべきか  
 上ですべてのマシン共通の設定をして、下でホストごとの設定をかく
 
