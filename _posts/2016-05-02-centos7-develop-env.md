@@ -11,7 +11,7 @@ CentOSにruby,rails,postgreSQLをインストールするまでに、以下の�
 
 
 
-```bash
+```markup
 sudo yum update -y;
 sudo yum install wget zlib zlib-devel -y;
 
