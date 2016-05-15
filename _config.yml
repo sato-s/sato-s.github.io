@@ -17,6 +17,8 @@ github_username:  sato-s
 kramdown:
   input: GFM
 
+markdown: redcarpet
+
 gems: [jekyll-paginate]
 paginate: 10
 
