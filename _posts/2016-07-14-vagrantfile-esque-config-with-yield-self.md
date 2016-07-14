@@ -1,7 +1,7 @@
 ---
 layout: post
 title: yield selfによるVagrantfile風の設定ファイル
-date: '2016-07-14T18:16:00.001+09:00'
+date: '2016-07-15T18:16:00.001+09:00'
 author: s sato
 tags:
 - ruby
