@@ -1,0 +1,89 @@
+" vim内部で使われる文字エンコーディングをutf-8に設定する
+set encoding=utf-8
+
+" 想定される改行コードの指定する
+set fileformats=unix,dos,mac
+
+" ハイライトを有効化する
+syntax enable
+
+" 挿入モードでTABを挿入するとき、代わりに適切な数の空白を使う
+set expandtab
+
+" 新しい行を開始したとき、新しい行のインデントを現在行と同じにする
+set autoindent
+
+" ファイル形式の検出の有効化する
+" ファイル形式別プラグインのロードを有効化する
+" ファイル形式別インデントのロードを有効化する
+filetype plugin indent on
+set backspace=indent,eol,start
+
+
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'maxbrunsfeld/vim-emacs-bindings'
+
+Plugin 'elixir-lang/vim-elixir'
+
+
+set autoread
+set wildmenu
+set nu
+set ruler
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch 
+
+try
+  colorscheme desert
+catch
+endtry
+
+set nobackup
+set nowb
+set noswapfile
+
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+
+execute pathogen#infect()
+call pathogen#helptags()

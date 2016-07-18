@@ -1,0 +1,18 @@
+term screen-256color
+escape ^Oo
+termcapinfo xterm* [ti@:te@]
+
+hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%t%n*%f%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+
+defscrollback 1000
+
+deflog on
+logfile '/tmp/screenlog.%H.%Y%m%d-%02c:%s-%n.%t.log'
+logtstamp on
+logtstamp string "\n-- SCREEN [%Y/%m/%d%02c:%s] %n:%t --\n"
+
+caption always "%-w%10L>%{=b bw}%n %t%{-}%+w%-0="
+
+
+
+shell "/usr/bin/fish"
