@@ -1,41 +1,33 @@
-" vim内部で使われる文字エンコーディングをutf-8に設定する
 set encoding=utf-8
 
-" 想定される改行コードの指定する
 set fileformats=unix,dos,mac
 
-" ハイライトを有効化する
 syntax enable
 
-" 挿入モードでTABを挿入するとき、代わりに適切な数の空白を使う
 set expandtab
 
-" 新しい行を開始したとき、新しい行のインデントを現在行と同じにする
 set autoindent
 
-" ファイル形式の検出の有効化する
-" ファイル形式別プラグインのロードを有効化する
-" ファイル形式別インデントのロードを有効化する
 filetype plugin indent on
 set backspace=indent,eol,start
 
 
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 
-Plugin 'maxbrunsfeld/vim-emacs-bindings'
+"Plugin 'maxbrunsfeld/vim-emacs-bindings'
 
-Plugin 'elixir-lang/vim-elixir'
+"Plugin 'elixir-lang/vim-elixir'
 
 
 set autoread
@@ -48,7 +40,7 @@ set hlsearch
 set incsearch 
 
 try
-  colorscheme desert
+  colorscheme railscast
 catch
 endtry
 
@@ -63,9 +55,8 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -87,3 +78,18 @@ set laststatus=2
 
 execute pathogen#infect()
 call pathogen#helptags()
+
+
+"let g:solarized_termcolors=16
+colorscheme railscasts
+
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" ignore compiled files
+set wildignore=*.o,*~,*.pyc
+
+map <leader>ss :setlocal spell!<cr>
+
+map <silent> <C-n> :NERDTreeFocus<CR>
+
