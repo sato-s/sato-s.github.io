@@ -1,0 +1,32 @@
+@import "base.css";
+
+.terminal-like{
+    background-color: floralwhite;
+}
+
+.terminal-like .terminal-like-header {
+    background-color: dimgray;
+}
+
+.terminal-like .terminal-like-title{
+    color: white;
+    background-color: inherit;
+}
+
+.terminal-like .terminal-like-buttons{
+    color: white;
+    background-color: inherit;
+}
+
+.terminal-like .terminal-like-button{
+    background-color: inherit;
+}
+
+.terminal-like .terminal-like-prompt{
+    color: lawngreen;
+}
+
+.terminal-like .terminal-like-textArea {
+    background-color: black;
+    color: white;
+}

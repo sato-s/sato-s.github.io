@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./css/default.css">
+    <script type="text/javascript" src="./js/terminal.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+            terminalLike({
+                    'prompt': 'user@localhost $ ',
+                    'title' : 'Example Terminal'
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<p>example1</p>
+
+<pre class="terminal-like">
+wget https://www.example.com/terminal-like.tar.gz
+tar zxf terminal-like.tar.gz
+
+cd terminal-like
+./configure
+make
+sudo make install</pre>
+
+</body>
