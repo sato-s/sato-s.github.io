@@ -11,25 +11,6 @@ set autoindent
 filetype plugin indent on
 set backspace=indent,eol,start
 
-
-
-" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-" let Vundle manage Vundle, required
-" Plugin 'VundleVim/Vundle.vim'
-
-"Plugin 'tpope/vim-fugitive'
-
-"Plugin 'scrooloose/nerdtree'
-
-"Plugin 'kien/ctrlp.vim'
-
-"Plugin 'maxbrunsfeld/vim-emacs-bindings'
-
-"Plugin 'elixir-lang/vim-elixir'
-
-
 set autoread
 set wildmenu
 set nu
@@ -81,7 +62,7 @@ call pathogen#helptags()
 
 
 "let g:solarized_termcolors=16
-colorscheme railscasts
+colorscheme summerfruit256
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -92,4 +73,8 @@ set wildignore=*.o,*~,*.pyc
 map <leader>ss :setlocal spell!<cr>
 
 map <silent> <C-n> :NERDTreeFocus<CR>
+
+set cursorline
+autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
+autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
 
