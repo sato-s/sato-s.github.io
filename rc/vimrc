@@ -78,3 +78,8 @@ set cursorline
 autocmd InsertEnter * highlight CursorLine guibg=#000050 guifg=fg
 autocmd InsertLeave * highlight CursorLine guibg=#004000 guifg=fg
 
+nmap <C-j> :bnext<CR>
+nmap <C-k> :bprevious<CR>
+nmap <C-l> :ls<CR>
+
+let g:airline#extensions#tabline#enabled = 1
