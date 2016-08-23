@@ -83,3 +83,12 @@ nmap <C-k> :bprevious<CR>
 nmap <C-l> :ls<CR>
 
 let g:airline#extensions#tabline#enabled = 1
+imap <leader>' ''<ESC>i
+imap <leader>[ []<ESC>i
+imap <leader>" ""<ESC>i
+imap <leader>( ()<ESC>i
+
+nmap gO o<ESC>k
+
+nmap n nzz
+nmap N Nzz
