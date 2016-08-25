@@ -92,3 +92,9 @@ nmap gO o<ESC>k
 
 nmap n nzz
 nmap N Nzz
+
+nmap <C-e> $ 
+imap <C-e> <ESC>A
+nmap <C-a> 0
+omap <C-a> 0
+omap <C-e> $ 
