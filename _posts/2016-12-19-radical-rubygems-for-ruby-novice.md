@@ -169,12 +169,12 @@ RPG風の2dのマップ上を歩くAIが作りステージを攻略していくg
 ```ruby
 class Player
   def play_turn(warrior)
-		# warrior.feelで敵が存在するかを感知し、いればwarrior.attack!で攻撃。
     forward = warrior.feel :forward
     if forward.enemy?
+		# warrior.feelで敵が存在するかを感知し、いればwarrior.attack!で攻撃
       warrior.attack! :forward
-    # 敵がいなければwarror.walkでそのまま進んでいく
     else
+    # 敵がいなければwarror.walkでそのまま進んでいく
       warrior.walk! :forward
     end
   end
