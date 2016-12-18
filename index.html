@@ -9,7 +9,6 @@ layout: default
   <ul class="post-list">
     {% for post in paginator.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <span class="tags"></span>
           {% for tag in post.tags %}
           <span class="tag">{{ tag }}</span>
