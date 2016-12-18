@@ -1,6 +1,7 @@
 ---
 layout: post
-title: ruby知らない人にもおすすめ!イケてるrubygem4選
+title: ruby知らない人にもおすすめ!イケてるgem4選
+date: '2016-12-19T00:00:00.000+09:00'
 author: s sato 
 tags:
 - ruby
@@ -9,25 +10,10 @@ tags:
 
 ### はじめに
 
-私がrubyを始めたきっかけはRuby on Railsでした。
-当時rubyはおろかhtml/cssさえもまともに書いたことはありませんでしたが、数カ月後にはRailsの生産性すごい！と思えるようになりました。
+gemとはrubyのパッケージのことです。rails, chef, rspec, capybaraなどプロのデベロッパーが開発のために使用する鉄板gemは数多くありますが、
+ここではrubyでのソフトウェア開発から離れ、rubyを普段使わない人も思わず使いたくなってしまうかもしれないイケてるgemについて紹介したいと思います。 
 
-私がrubyを始めた理由は、Railsという強力なgem(ruby用のライブラリのことをそう言います)でした。しかし、Rails自体の開発者
-にとってはどうだったでしょうか？  
-Railsの登場以前のrubyはマイナー言語の部類で、特に著名なライブラリがあったわけでもありません。革新的なWebアプリケーションフレームワークを作ろうと思ったのであれば
-rubyとよく比較される軽量プログラミング言語で使用者の多いpythonの方が、もっと妥当な選択肢に思われるかもしれません。
-私はrubyを採用した最も大きな理由は、rubyの文法の美しさなのだと思います。
-([実際にRailsの製作者のDHHことDavid Heinemeier Hansson氏はrubyを選んだ理由として美しさを挙げています](http://gihyo.jp/dev/serial/01/alpha-geek/0004))
-
-私は、美しく書けるという特性がrubyと他の言語を分ける最も重要な特性なのではないかと思います。  
-美しく書けるといってもとても伝わりずらいですが、実はvagrantのVagrantfleやchefのrecipeなどはただの設定ファイルではなく、とても美しく書かれた
-rubyのソースコードそのものだったりするんです!
-
-しかし、新しいプログラミング言語をやってみようという人に対するアピールとしては、みんな使ってるpython、すごい流行ってるGo、とにかく革新的なHaskellにくらべてよくわからないし伝わりずらいものです。
-
-というわけで、rubyやRailsを仕事で使う人以外も使ってみたくなるかもしれない、イケてるrubygemを紹介します。
-
-ここで紹介するgemはrubyをインストールすると入っているgemコマンドをたたくと、簡単にインストールできます。
+ここで紹介するgemはrubyをインストールすると入っているgemコマンドをたたくと、インストールできます。
 
 ```
 gem install gemの名前
@@ -37,7 +23,6 @@ gem install gemの名前
 
 jeykyllはmarkdownブログが作れるWebアプリケーションフレームワークです。  
 markdown形式なので、簡単に記事が書ける上に好きなjavascriptライブラリやjekyllプラグインを使ってカスタマイズできるのが特徴です。
-
 
 ```
 jekyll new myblog
@@ -119,7 +104,7 @@ jekyllのディレクトリをgithubにpushするだけでgithubが勝手にホ�
 
 サンプル
 
-```
+```ruby
 require 'axlsx'
 
 Axlsx::Package.new do |p|
@@ -138,7 +123,7 @@ end
 
 悪名高いExcel方眼紙も簡単！
 
-```
+```ruby
 require 'axlsx'
 
 text = <<'EOS'
@@ -167,7 +152,7 @@ end
 
 ### [rubywarrior](https://github.com/ryanb/ruby-warrior)
 
-RPG風の2dのマップ上を歩くAIが作れるgemです。  
+RPG風の2dのマップ上を歩くAIが作りステージを攻略していくgemです。  
 道中の敵を攻撃したり、回避したり、危険な場合には休んで体力を回復したりしてゴールを目指すのが目的です。  
 
 ![ruby warrior](https://raw.githubusercontent.com/sato-s/sato-s.github.io/master/assets/ruby-warrior.gif)
@@ -181,13 +166,13 @@ RPG風の2dのマップ上を歩くAIが作れるgemです。
 
 基本的な使い方は以下のように、```play_turn```メソッドの中で、```warrior```の様々なメソッドを呼び出して、プレイヤーの行動を決めていくことになります。  
 
-```
+```ruby
 class Player
   def play_turn(warrior)
 		# warrior.feelで敵が存在するかを感知し、いればwarrior.attack!で攻撃。
     if warrior.feel.enemy?
       warrior.attack!
-    #敵がいなければwarror.walkでそのまま進んでいく
+    # 敵がいなければwarror.walkでそのまま進んでいく
     else
       warrior.walk!
     end
@@ -202,5 +187,51 @@ end
 
 ### [reality](https://github.com/molybdenum-99/reality)
 
+realityはrubyのオブジェクトにwikipediaの記事などをマッピングしてくれるgemです。  
+rubyのオブジェクトを返してくれるのでメソッドチェインで複雑な問い合わせが実現できます。
+
+```ruby
+require 'reality'
+include Reality
+
+ru = Entity('Russia')
+# ロシアの首都は？
+p ru.capital # => Moscow
+# ロシアの面積は？
+p ru.area # => #<Reality::Measure(17,075,400 km²)> 
+# ロシアの公式サイトは？
+p ru.official_website # => http://gov.ru/
+# ロシアはどの大陸に属しているか？
+p ru.continent # => #<Reality::Entity?(Europe)>
+
+# ロシアの前の国は？
+p ru.follows # => #<Reality::Entity?(Russian Soviet Federative Socialist Republic)> 
+# ロシアの前の前の国は？
+p ru.follows.follows # => #<Reality::Entity?(Russian Republic)>
+# ロシアの前の前の国の公式サイトは？
+p ru.follows.follows.official_website # => nil
+```
+
+国以外の記事ももちろん検索できます。
+
+```ruby
+o = Entity("Olympic Games")
+# オリンピックのツイッターアカウント名は？ 
+p o.twitter_username # => "olympics"
+# オリンピックの公式Webサイトは？
+p o.official_website # => "http://www.olympic.org/"
+
+s = Entity("Star Wars (film)")
+# スターウォーズが公開された日は？
+p s.published_at # => Wed, 25 May 1977
+# スターウォーズの出演者一覧
+p s.actors # => [#<Reality::Entity?(Harrison Ford)>, #<Reality::Entity?(Alec Guinness)>, .............
+# ハリソンフォードの年齢は？ 
+p s.actors.first.age # => 74
+```
+
+Siriみたいな検索システムが作れそうで、とても面白いgemです。  
+似たようなことができるgemに[factbook](https://github.com/factbook/factbook)があります。こちらは
+データソースがwikipediaではなくCIAが発行しているWorld Factbookです。
 
 
