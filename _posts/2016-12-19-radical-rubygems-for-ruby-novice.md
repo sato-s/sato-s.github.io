@@ -121,7 +121,7 @@ end
 
 ![axlsx example]({{ site.url }}assets/axlsx-example.JPG)
 
-悪名高いExcel方眼紙も簡単！
+あの有名なExcel方眼紙も簡単！
 
 ```ruby
 require 'axlsx'
@@ -170,11 +170,12 @@ RPG風の2dのマップ上を歩くAIが作りステージを攻略していくg
 class Player
   def play_turn(warrior)
 		# warrior.feelで敵が存在するかを感知し、いればwarrior.attack!で攻撃。
-    if warrior.feel.enemy?
-      warrior.attack!
+    forward = warrior.feel :forward
+    if forward.enemy?
+      warrior.attack! :forward
     # 敵がいなければwarror.walkでそのまま進んでいく
     else
-      warrior.walk!
+      warrior.walk! :forward
     end
   end
 end
