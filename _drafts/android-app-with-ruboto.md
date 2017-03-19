@@ -1,5 +1,6 @@
+ruboto
+------------------------------
 
-インストールはかなり簡単。
 
 ```markup
 gem install ruboto
@@ -10,3 +11,17 @@ ruboto setup
 
 
 https://github.com/ruboto/ruboto/wiki/Setting-Up-a-Ruboto-Development-Environment
+
+
+run android emulator
+
+```
+emulator -avd test 
+```
+
+
+install app
+
+```
+rake install 
+```
