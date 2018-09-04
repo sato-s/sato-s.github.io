@@ -14,10 +14,12 @@ url: "http://sato-s.github.io./" # the base hostname & protocol for your site
 github_username:  sato-s
 
 # Build settings
-kramdown:
-  input: GFM
 
-markdown: redcarpet
+highlighter: none
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+  disable : true
 
 gems: [jekyll-paginate]
 paginate: 10
