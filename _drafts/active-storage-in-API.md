@@ -10,7 +10,8 @@ tags:
 ---
 
 Rails 5.2からの新機能としてActive Storageが追加された。  
-これを使う利点は以下のような感じ  
+これを使う利点は以下のような感じ    
+
 - Userモデルに対するアバターのイメージのようなRailsのモデルと紐づくファイルを定義できる  
 - 特定のモデルが複数のファイルを持つ場合にも対応  
 - 画像のリサイズのような前処理を入れられる。  
@@ -38,7 +39,7 @@ curl $host -X POST \
 
 このサンプルでは、`users`テーブルを以下のように、`name`のみを以たシンプルなテーブルに定義している。   
  
-```
+```ruby
 create_table "users", force: :cascade do |t|
   t.string "name"
   t.datetime "created_at", null: false
@@ -48,7 +49,7 @@ end
 
 モデルには、以下のように`avatar`というActive Storageのファイルを持っている。  
 
-```
+```ruby
 class User < ApplicationRecord
   has_one_attached :avatar
   has_many_attached :documents
@@ -99,7 +100,8 @@ $ curl -H 'Content-Type:application/json'  -XPUT localhost:3000/users/3.json -d 
 
 ## イメージのアップロード
 
-JSONによるavatarの更新は不可能だが、上記のサンプルアプリケーションでは`avatar`の更新は可能   
+JSONによるavatarの更新は不可能だが、普通のフォームを使うことで、
+上記のサンプルアプリケーションでは`avatar`の更新は可能   
 
 ```
 $ curl -XPUT localhost:3000/users/3 -F "user[avatar]=@avatar.png"
@@ -107,8 +109,8 @@ $ curl -XPUT localhost:3000/users/3 -F "user[avatar]=@avatar.png"
 
 Active Storage付きのモデルを作成する際には、以下のような流れでよさそう   
 
-- POST users/ でユーザーを作成
-- PUT users/ でavatarをアップロード
+- `POST users/` でユーザーを作成
+- `PUT users/` でavatarをアップロード
 
 ## レスポンスにイメージ格納先のURLを追加する。  
 
@@ -131,7 +133,7 @@ Active Storage付きのモデルを作成する際には、以下のような流
 
 このために、URLを表示するためのメソッドを以下のように定義する。   
 
-```
+```ruby
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   has_one_attached :avatar
@@ -150,14 +152,14 @@ end
 また、`url_for`で表示するURLのホスト名を`config/environments/development.rb`で設定してやる必要がある。  
 (本番環境では、`production.rb`)   
 
-```
+```ruby
 Rails.application.routes.default_url_options[:host] = 'localhost'
 Rails.application.routes.default_url_options[:port] = 3000
 ```
 
 あとは、コントローラー側で、JSONを返却する際に、先程の`avatar_url`もJSONの属性として返すようにしてやる。  
 
-```
+```ruby
 # GET /users/1
 def show
 	render json: @user, methods: [:avatar_url] 
