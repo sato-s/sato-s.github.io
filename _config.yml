@@ -15,7 +15,6 @@ github_username:  sato-s
 
 # Build settings
 
-highlighter: none
 markdown: kramdown
 kramdown:
   syntax_highlighter_opts:
