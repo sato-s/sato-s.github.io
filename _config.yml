@@ -16,10 +16,14 @@ github_username:  sato-s
 # Build settings
 
 markdown: kramdown
+
 kramdown:
+  input: GFM
+  hard_wrap: false
   syntax_highlighter_opts:
-  disable : true
+    disable: true
 
 gems: [jekyll-paginate]
 paginate: 10
+
 
