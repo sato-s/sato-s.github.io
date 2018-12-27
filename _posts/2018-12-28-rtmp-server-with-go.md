@@ -14,7 +14,8 @@ tags:
 
 *wikipediaより*  
 
-RTMPの動画を再生するには、基本的にFlash Playerがひつようになる。Flash Playerを使うようなことは、いまからさすがにないだろう。  
+RTMPはライブ配信の為のプロトコルだが、RTMPで配信した動画を
+再生するには、基本的にFlash Playerがひつようになる。Flash Playerを使うようなことは、いまからさすがにないだろう。  
 Flashの終了やHLSの登場に伴い、RTMPは徐々に廃れつつあるらしい。  
 が、それはあくまでPlayer側の話。  
 Youtube LiveやFacebook Live、Twitchなどのライブ配信サービスでは、依然として配信データをRTMPで受け付けているし、
@@ -78,7 +79,7 @@ ffmpeg -i test.mov -ss 00:00:03 -t 10 test_short.mov
 `-f flv`で動画をflvに変換して送信している。`-re`オプションで元動画の経過時間を元に配信タイミングを決めてくれる。  
 (これがないとすぐに配信が終わってしまう。)   
 
-```
+```bash
 ffmpeg -re -i test.mov -c copy -f flv rtmp://********/*****
 ```
 
@@ -87,7 +88,7 @@ ffmpeg -re -i test.mov -c copy -f flv rtmp://********/*****
 Nginxでも拡張モジュールRTMPサーバーが立てられるが、かなり細かな制御がしたかったので、[joy4](https://github.com/nareix/joy4/)というのを使ってみた。  
 [example](https://github.com/nareix/joy4/tree/master/examples)にいろいろな例が載っているが、最小限のRTMPサーバーは以下でできる。  
 
-```
+```go
 package main
 
 import (
@@ -126,7 +127,7 @@ func main() {
 送信(動画はH264で圧縮されている必要がある。)  
 
 ```
-ffmpeg -i sample.mp4 -c copy -f flv rtmp://localhost/
+ffmpeg -re -i sample.mp4 -c copy -f flv rtmp://localhost/
 ```
 
 受信(プレイヤーが立ち上がって、中身が見えるはず)  
@@ -140,26 +141,48 @@ ffplay rtmp://localhost/
 せっかくなので、Nginxだと(たぶん)できなさそうなことをしてみる。  
 ライブ配信の再生要求が来た際に、特定の動画を流してみる。  
 
-```
+```go
+package main
+
+import (
+	"github.com/nareix/joy4/av/avutil"
+	"github.com/nareix/joy4/av/pubsub"
+	"github.com/nareix/joy4/format"
+	"github.com/nareix/joy4/format/mp4"
+	"github.com/nareix/joy4/format/rtmp"
+	"os"
+)
+
+var queue *pubsub.Queue
+
+func init() {
+	format.RegisterAll()
+	queue = pubsub.NewQueue()
+}
+
 func main() {
-  server := &rtmp.Server{}
+	server := &rtmp.Server{}
 
-  server.HandlePlay = func(conn *rtmp.Conn) {
-    f, _ := os.Open("title.mp4")
-    defer f.Close()
-    title := mp4.NewDemuxer(f)
-    avutil.CopyFile(conn, title)
-    avutil.CopyFile(conn, queue.Latest())
-  }
+	server.HandlePlay = func(conn *rtmp.Conn) {
+		f, _ := os.Open("title.mp4")
+		defer f.Close()
+		title := mp4.NewDemuxer(f)
+		avutil.CopyFile(conn, title)
+		avutil.CopyFile(conn, queue.Latest())
+	}
 
-  server.HandlePublish = func(conn *rtmp.Conn) {
-    avutil.CopyFile(queue, conn)
-  }
+	server.HandlePublish = func(conn *rtmp.Conn) {
+		avutil.CopyFile(queue, conn)
+	}
 
-  server.ListenAndServe()
+	server.ListenAndServe()
 }
 ```
 
 上のように、先ほどのコードの`HandlePlay`で`queue`の中身よりも先に、特定の動画の中身を再生要求コネクションに渡す。  
 
+![rtmp_movie example]({{ site.url }}assets/title_with_low.gif)
+
+ffplayでRTMPサーバーに接続すると最初にtitle.mp4の中身が流れ、その後にffmpegで送信された動画が流れるようになった  
+Nginxの拡張モジュールと違い、やれることに制限がないので、Twitchみたいに、サブスクライバーが増えたら特定の動画を画面の一部に流したりも出来そう  
 
