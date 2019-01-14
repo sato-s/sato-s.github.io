@@ -1,13 +1,15 @@
 ---
 layout: post
-title: GPSデータ入門
-date: '2019-01-12T00:00:00.000+09:00'
+title: GPSデータの取り扱いのためのライブラリ・サービス
+date: '2019-01-15T00:00:00.000+09:00'
 author: s sato 
 tags:
 - gps
 - python
 - javascript
 ---
+
+最近、GPSデータを扱う機会がやたらと多いのでメモ  
 
 #### [Leaflet.js](https://leafletjs.com/)
 
@@ -23,8 +25,13 @@ Leafletで使用可能なフリーのタイルレイヤー集
 
 #### [OpenLayers](https://openlayers.org/)
 
-地図描画ライブラリ。Leafletよりもハードルが高い。  
+地図描画ライブラリ。Leafletよりもすこしハードルが高い  
 Leafletではできない。地図の回転ができる。  
+
+#### [Proj4](https://proj4.org/)
+
+GPS座標のプロジェクションの変換ライブラリ。  
+OpenlayersやLeafletでプロジェクションを変更する際には、これの仕様を意識する必要がある。  
 
 #### [kepler.gl](http://kepler.gl/#/)
 
