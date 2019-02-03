@@ -1,6 +1,6 @@
 ---
 layout: post
-title: インクスケープとHTML
+title: InkscapeとHTML
 date: '2018-10-24T00:17:00.000+09:00'
 author: s sato
 tags:
