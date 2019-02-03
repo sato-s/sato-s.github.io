@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Array継承問題
+title: Enumerable,Iterableを使った設計
 date: '2019-01-24T00:17:00.000+09:00'
 author: s sato
 tags:
@@ -13,10 +13,15 @@ tags:
 
 rubyにEnumerable、pythonにIterableという仕組みがある。  
 これらはいずれも、イテレート可能なオブジェクトを作るための機能になっている。  
+自分はこのEnumerable,Iterableを使用して、`Accounts(複数形)`,`Account(単数形)`のように複数形と単数形のクラスを作成するという設計を頻繁に用いる。  
+`Account(単数形)`は、誰が作ったとしても`#name`や、`#id`のようなアカウントの属性用のゲッターや、`#valid?`,`#child?`のようなメソッドを持つことになるだろう。
+  
+問題は、複数のアカウントにまたがる処理だ、例えば複数のアカウントをJSONやHTMLに変換したり、アカウントの平均年齢などの統計情報の取得などになる。  
+これは、Enumerableを使う人と使わない人によって2パターンに分かれる。  
+Enumerableを使う場合には、次のような設計になるだろう  
 
 例:  
-
-*`Accounts#to_table`は複数の`Account`をHTMLテーブルに変換するメソッド、内部で`Account#to_tr`を呼び出し各`Account`を行に変換している*
+複数のアカウントをHTMLテーブルに変更するプログラム   
 
 ```ruby
 class Account
@@ -79,19 +84,72 @@ accounts = Accounts.new((1...5).map{|id| Account.new(id, rand(100))})
 puts accounts.to_table
 ```
 
-
 結果:  
 
 {% include sample_table.html}
 
-上の例では、`Accounts`と`Account`という2つのクラスを定義している。  
-`Accounts`には、上記の`#average_age`や`#to_table`のような**複数の**`Account`に固有の処理を実装することが出来る。  
-単に複数の`Account`をArrayにいれるだけでももちろんイテレーションは可能だが、
-この場合、`AccountsSerializer`や`AccountsHelper`のようなモジュールを別途定義し、
-そこで、平均年齢の計算や`table`への変換を実装することになるだろう。  
-EnumerableやIterableをつかった設計は、そういった設計よりもオブジェクト指向的で理解しやすいものになると個人的にはおもう。  
+上の例では`Account(単数形)`は、`id`と`age`という属性と、2つのメソッドを持っている。  
+`#child?`は、そのアカウントが子どもかどうかを判定するメソッド、`#to_tr`は、そのアカウントをHTMLテーブルの`<tr>(行要素)`に変換するメソッドだ。  
+`Accounts`には、上記の`#average_age`や`#to_table`のような**複数の**`Account`に固有の処理を実装している。  
 
-## Enumerable,Iterableの問題点
 
-便利なEnumerableだが、問題もある。  
+## Enumerable,Iterableを使わない場合
+
+一方で、`Enumerable`を使わなくても当然このような処理を書くことはできる。  
+この場合、`AccountsRenderer`や、`AccountsHelper`の様なモジュールを定義することになるだろう。  
+
+```ruby
+class Account
+  attr_reader :id, :age
+
+  def initialize(id, age)
+    @id = id
+    @age = age
+  end
+
+  def child?
+    @age < 20
+  end
+
+end
+
+module AccountsRenderer
+  module_function
+  def render(accounts)
+    average_age = accounts.map(&:age).sum / accounts.size
+    <<~TABLE
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>AGE</th>
+        </tr>
+        #{accounts.map{|account| _account_to_tr(account)}.join}
+        <tr>
+          <td>Average</td>
+          <td>#{average_age}</td>
+        </tr>
+      </table>
+    TABLE
+  end
+
+  def _account_to_tr(account)
+    <<~TR
+      <tr>
+        <td>#{account.id}</td>
+        <td>#{account.age}</td>
+      </tr>
+    TR
+  end
+end
+
+accounts = (1...5).map{|id| Account.new(id, rand(100))}
+puts AccountsRenderer.render(accounts)
+```
+
+## Enumerableを使う意義
+
+どちらが正しいとも言うことができないが、よりオブジェクト指向的なのは、Enumerableを使った場合だ。  
+`Accounts`というモノ、`#average_age`や、`#to_table`のようなメソッドをもつというのは、現実世界のモデル化という意味で分かり易い。  
+一方で`AccountsRenderer`というのは、現実世界に存在しない少し抽象的な概念だ。`Accounts`のケースに比べると直観的な理解のしやすさという点では劣っているように思う。  
+また、HTMLだけでなく、JSONやその他の形式に変更したくなった場合、それらに共通の処理の場所も問題になる。  
 

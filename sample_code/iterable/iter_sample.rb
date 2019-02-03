@@ -57,4 +57,5 @@ class Accounts
 end
 
 accounts = Accounts.new((1...5).map{|id| Account.new(id, rand(100))})
+
 puts accounts.to_table
