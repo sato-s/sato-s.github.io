@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Enumerable,Iterableを使った設計
-date: '2019-02-12:17:00.000+09:00'
+date: '2019-02-12T00:00:00.000+09:00'
 author: s sato
 tags:
 - ruby
@@ -149,7 +149,7 @@ puts accounts.to_table
 
 結果:  
 
-{% include sample_table.html}
+{% include sample_table.html %}
 
 上の例では、`Accounts(複数形)`が`Account(単数形)`を抱えるEnumerableとして定義されている。  
 単体のアカウントをテーブルのレコードに変換する処理は`Account(単数形)`に定義されており、
