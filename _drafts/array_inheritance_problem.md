@@ -1,27 +1,90 @@
 ---
 layout: post
 title: Enumerable,Iterableを使った設計
-date: '2019-01-24T00:17:00.000+09:00'
+date: '2019-02-12:17:00.000+09:00'
 author: s sato
 tags:
 - ruby
-- javascript
 - python
 ---
 
-## Enumerableを使った設計
+## Enumerable,Iterableとは
 
 rubyにEnumerable、pythonにIterableという仕組みがある。  
-これらはいずれも、イテレート可能なオブジェクトを作るための機能になっている。  
-自分はこのEnumerable,Iterableを使用して、`Accounts(複数形)`,`Account(単数形)`のように複数形と単数形のクラスを作成するという設計を頻繁に用いる。  
-`Account(単数形)`は、誰が作ったとしても`#name`や、`#id`のようなアカウントの属性用のゲッターや、`#valid?`,`#child?`のようなメソッドを持つことになるだろう。
-  
-問題は、複数のアカウントにまたがる処理だ、例えば複数のアカウントをJSONやHTMLに変換したり、アカウントの平均年齢などの統計情報の取得などになる。  
-これは、Enumerableを使う人と使わない人によって2パターンに分かれる。  
-Enumerableを使う場合には、次のような設計になるだろう  
+これらはいずれも、イテレート可能なオブジェクトを作るための機能だ。  
+例えば、rubyでは以下のように、Enumerableなクラスを作ることができる。  
+
+```ruby
+class MyIntegers
+  include Enumerable
+
+  def initialize(_integers)
+    @_integers = _integers
+  end
+
+  def each
+    @_integers.each{|i| yield i}
+  end
+
+end
+
+integers = MyIntegers.new([1, 2, 3, 4, 5, 6, 7, 8 ,9, 10])
+
+p integers.select(&:even?) # => [2, 4, 6, 8, 10]
+p integers.sum # => 55
+p integers.reduce(&:*) # => 3628800
+```
+
+上の様に、rubyではEnumerableをIncludeした後に、`#each`メソッドを定義し、そこで、イテレーションの対象を`yield`してやることで、Enumerableなクラスが作成できる。  
+`#each`を実装したことによって、`#select`、`#sum`,`#reduce`などの、Enumerableなクラスに特有のメソッドが自動的にクラスに追加され利用可能になる。  
+
+pythonの場合には、以下の様に、`__iter__`と`__next__`メソッドを実装すると言う形で、Iterableなクラスを作る事ができる。  
+
+```python
+# -*- coding: utf-8 -*-
+
+from functools import reduce
+class MyIntegers:
+    def __init__(self, _integers):
+        self._integers = _integers
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current > len(self._integers) - 1:
+            raise StopIteration
+        else:
+            self.current += 1
+            return self._integers[self.current - 1]
+
+integers = MyIntegers([1, 2, 3, 4, 5, 6, 7, 8 ,9, 10])
+
+print(list(filter(lambda i: i % 2 == 0, integers))) # => [2, 4, 6, 8, 10]
+integers.current = 0 # reset iterator
+print(reduce(lambda i,acc: i + acc, integers, 0)) # => 55
+integers.current = 0
+print(reduce(lambda i,acc: i * acc, integers)) # => 3628800
+```
+
+## Enumerableを使った設計
+
+`#sum`,`#reduce`,`#select`などのメソッドを使いたいだけであれば、Arrayのなかに、値を入れてしまえばいいだけである。   
+例えば、以下のコードは問題なく動作する。  
+
+```ruby
+integers = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10]
+
+p integers.select(&:even?) # => [2, 4, 6, 8, 10]
+p integers.sum # => 55
+p integers.reduce(&:*) # => 3628800
+```
+
+Enumerableを使う意義は、Arrayの標準的なメソッド以外を自分で定義できる点にあると思う。  
+もう少し実用的な例として、複数のアカウントをHTMLテーブルに変更するプログラムを考えてみる。   
 
 例:  
-複数のアカウントをHTMLテーブルに変更するプログラム   
 
 ```ruby
 class Account
@@ -88,15 +151,12 @@ puts accounts.to_table
 
 {% include sample_table.html}
 
-上の例では`Account(単数形)`は、`id`と`age`という属性と、2つのメソッドを持っている。  
-`#child?`は、そのアカウントが子どもかどうかを判定するメソッド、`#to_tr`は、そのアカウントをHTMLテーブルの`<tr>(行要素)`に変換するメソッドだ。  
-`Accounts`には、上記の`#average_age`や`#to_table`のような**複数の**`Account`に固有の処理を実装している。  
+上の例では、`Accounts(複数形)`が`Account(単数形)`を抱えるEnumerableとして定義されている。  
+単体のアカウントをテーブルのレコードに変換する処理は`Account(単数形)`に定義されており、
+複数のアカウントをテーブルに治す処理や、複数のアカウントの平均年齢を求める処理は、`Accounts(複数系)`に定義することができる。  
+複数のアカウントに関する処理もメソッド呼び出しの形式で掛けるのでよりオブジェクト志向なコーディングができると思う。  
 
-
-## Enumerable,Iterableを使わない場合
-
-一方で、`Enumerable`を使わなくても当然このような処理を書くことはできる。  
-この場合、`AccountsRenderer`や、`AccountsHelper`の様なモジュールを定義することになるだろう。  
+なお、Enumerableを使わずに同様の処理するならば、以下のように、`AccountsRenderer`の様なモジュールを定義することになるだろう。  
 
 ```ruby
 class Account
@@ -146,10 +206,75 @@ accounts = (1...5).map{|id| Account.new(id, rand(100))}
 puts AccountsRenderer.render(accounts)
 ```
 
-## Enumerableを使う意義
+このような設計もよくあるものだが、オブジェクト指向原理主義としては、やはりEnumerableを使った方が気持ちがいい。  
 
-どちらが正しいとも言うことができないが、よりオブジェクト指向的なのは、Enumerableを使った場合だ。  
-`Accounts`というモノ、`#average_age`や、`#to_table`のようなメソッドをもつというのは、現実世界のモデル化という意味で分かり易い。  
-一方で`AccountsRenderer`というのは、現実世界に存在しない少し抽象的な概念だ。`Accounts`のケースに比べると直観的な理解のしやすさという点では劣っているように思う。  
-また、HTMLだけでなく、JSONやその他の形式に変更したくなった場合、それらに共通の処理の場所も問題になる。  
+## Enumerableの問題点
 
+便利なEnumerableだが不満点もある。  
+それは、自動的に追加されたメソッドを読んだ場合に、Arrayが帰ってきてしまうという問題だ。  
+
+```ruby
+class Account
+  attr_reader :age
+
+  def initialize(age)
+    @age = age
+  end
+
+  def child?
+    @age < 20
+  end
+
+end
+
+class Accounts
+  include Enumerable
+
+  def initialize(_accounts)
+    @_accounts = _accounts
+  end
+
+  def each
+    @_accounts.each{|account| yield account}
+  end
+
+  def average_age
+    @_accounts.map(&:age).sum / @_accounts.size
+  end
+
+end
+
+accounts = Accounts.new((1...5).map{Account.new(rand(100))})
+
+accounts.select(&:child?).class # => Array
+accounts.select(&:child?).average_age # => Method Missing!
+```
+
+例えば、上の例では、`Accounts`に対して、`#select`を呼び出した後に返却されるのは、`Accounts`ではなく、`Account`のArrayになっている。  
+このため、`#select`された結果に対して`#average_age`を呼び出そうとすると、エラーになってしまう。  
+
+これを防ぐためには、以下のように、自前の`#select`で、Arrayを`Accounts`に変換してから返却する必要がある。  
+
+```ruby
+class Accounts
+  include Enumerable
+
+  # 略
+
+  # この部分を追加
+  def select(*args, &block)
+    self.class.new(@_accounts.select(*args, &block))
+  end
+
+end
+```
+
+同様のArrayを返すメソッドは他にもあり、`#drop`、`#take`、`#reject`あるいは、オペレーターの`+`や`|`も同じ様に`self.class.new`でラップすれば、対応できる。  
+メタプログラミングで、Arrayを返すメソッドは全部、ラップしてやればいいのではと思ったが、`#group_by`,`#partition`,`#chunk`など、単純には対応できないメソッドがけっこうある。  
+また、`#map`や、`#to_a`などは、そもそも、Arrayを返す挙動にしておくのが正しい対応だろう。  
+結局、`#select`などの使うメソッドだけ、自分で望ましい形に定義してやるのがいいのかもしれない。  
+
+## まとめ
+
+- Enumerable,IterableでよりよいOOP
+- 自動で定義されたメソッドの内、Arrayを返却するのもは、状況に応じて自分で再定義する

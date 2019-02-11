@@ -22,10 +22,12 @@ class Accounts
     @_accounts.each{|account| yield account}
   end
 
-  def select(*args, &block)
-    self.class.new(@_accounts.select(*args, &block))
-  end
+  # def select(*args, &block)
+  #   self.class.new(@_accounts.select(*args, &block))
+  # end
 
 end
 
-children = accounts.select(&:child?)
+accounts = Accounts.new((1...5).map{Account.new(rand(100))})
+
+accounts.select(&:child?).class # => Array
