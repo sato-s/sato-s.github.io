@@ -278,3 +278,5 @@ end
 
 - Enumerable,IterableでよりよいOOP
 - 自動で定義されたメソッドの内、Arrayを返却するのもは、状況に応じて自分で再定義する
+
+
