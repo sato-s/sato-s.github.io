@@ -11,6 +11,7 @@ tags:
 [MIT Open Course](https://www.youtube.com/watch?v=ENyox7kNKeY&list=WL&index=34&t=0s)を見ていたら、
 テキストの折り返しに動的計画法を利用する方法が紹介されていた。
 動的計画法といえば、大学の時にナップザックを問題はならったが、いまいち何の役に立つのかよくわからないものだった、実際に使えそうな例を紹介してくれるとは流石MIT。  
+実際、LaTexの折り返しは動的計画法を使って計算されているらしい。  
 
 というわけで実装してみた。折角の動的計画法なので、関数形言語のelixirでBottom-upのアプローチを取ってみる。  
 
@@ -99,7 +100,7 @@ dddddd
 
 ```elixir
 defmodule TextWrap do
-  @limit 30
+  @limit 40
   def trailing_white_spaces(lengths, from, to) when from == 0 and to == 0 do
     @limit - Enum.at(lengths, 0)
   end
@@ -111,7 +112,7 @@ end
 
 ```elixir
 defmodule TextWrap do
-  @limit 30
+  @limit 40
   def trailing_white_spaces(lengths, from, to) when from == to do
     @limit - Enum.at(lengths, from)
   end
@@ -134,7 +135,7 @@ end
 
 ```elixir
 defmodule TextWrap do
-  @limit 30
+  @limit 40
   def trailing_white_spaces(lengths, from, to) when from == to do
     @limit - Enum.at(lengths, from)
   end
@@ -229,10 +230,17 @@ aaa
 bb cc
 ```
 
-このため、  
-\\( cost(n)=\\\
-Min(linecost(0,n), cost(0) + linecost(1,n), cost(1) + linecost(2,n) .. ,cost(n-1) + linecost(n-1, n-1) ) \\)
+n番目の最小コストを求めるためには、n-1番目だけではなく、n-2番、n-3番...の最小コストに、それ以降の文字列を新しい行として付け足した場合に関しても考慮する必要がある。  
+n-1番目までの最小コストにn番目の文字を"新しい行として付け足す"場合のコストは`cost(lengths, 0, n -1) + line_cost(lengths, n, n)`で計算できていた。  
+一般にi番目までの最小コストに、新しい行として、i+1からnまでの文字列を付け足した際のコストは
+`cost(lengths, 0, i) + line_cost(lengths, i + 1, n)`となる。  
+この値を0<i<n-1の範囲で計算したものと、0からnまでを全て1行に入れた際のコスト`line_cost(lengths, 0, n)`を全て求める必要がある。それらの中で最小のコストがn番目の最小コストになる。  
+式で書くと次のようになる。  
 
+\\( cost(n)=\\\
+Min(linecost(0,n), cost(0) + linecost(1,n), cost(1) + linecost(2,n) .. ,cost(n-1) + linecost(n, n) ) \\)
+
+これをelixirで折り返し位置を返却することを考慮しつつ書けばn番目の最小コストが求められる。
 
 ```elixir
 def cost(lengths, n) do
@@ -248,5 +256,178 @@ def cost(lengths, n) do
   one_line_cost = {TextWrap.line_cost(lengths, 0, n), []}
   [one_line_cost | costs]
     |> Enum.min_by(fn({cost, _wraps}) -> cost end)
+end
+```
+
+### メモ化
+
+ここまでで、最小コストと折り返し位置を求められたので、あとは表示するための関数を用意すればテキストの折りたたみができるが、
+組み合わせ爆発しているので、すぐに計算が困難になる。(26ワードの文章で、34秒かかった、それ以降はもう無理。。。)  
+動的計画法の要のメモ化を導入する必要がある。  
+以下のライブラリを使うと、`def`で定義していた関数を`defmemo`に置き換えるだけなので簡単に出来る。  
+[https://github.com/melpon/memoize](https://github.com/melpon/memoize)
+
+### 表示
+
+テキストを文字列として受け取り、それを`cost`にいれて、計算された折り返しを元に、出力する`wrap`を次のように作った。
+
+```elixir
+  def wrap(string) do
+    words = String.split(string, " ")
+    lengths = Enum.map(words, &String.length/1)
+    {cost, wraps} = TextWrap.cost(lengths, length(lengths) - 1)
+    IO.inspect {cost, wraps}, label: "cost"
+
+    # Print wrapped text
+    Enum.chunk_every([1] ++ wraps ++ [length(words)], 2, 1,:discard)
+      |> Enum.map(fn(x) ->
+        from = List.first(x)
+        to = List.last(x)
+        if from == 1 do
+          Enum.slice(words, (0..to))
+        else
+          Enum.slice(words, (from+1..to))
+        end
+      end)
+      |> Enum.each(fn(words) ->
+        line =  Enum.join(words, " ")
+        len = String.length(line)
+        white_spaces = String.duplicate(".", @limit - len)
+        IO.puts "#{line}#{white_spaces}(#{len}/#{@limit})"
+      end)
+  end
+```
+
+### 結果
+
+以下のように実行する。
+
+```elixir
+# メモ化ようライブラリをスタート
+Application.ensure_all_started(:memoize)
+
+target = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+TextWrap.wrap(target)
+```
+
+結果
+
+```
+$ mix run sample.ex
+Compiling 1 file (.ex)
+cost: {1324.0, [5, 11, 17, 23, 27, 34, 40, 45, 51, 56, 62]}
+Lorem ipsum dolor sit amet, consectetur.(39/40)
+adipiscing elit, sed do eiusmod tempor..(38/40)
+incididunt ut labore et dolore magna....(36/40)
+aliqua. Ut enim ad minim veniam,........(32/40)
+quis nostrud exercitation ullamco.......(33/40)
+laboris nisi ut aliquip ex ea commodo...(37/40)
+consequat. Duis aute irure dolor in.....(35/40)
+reprehenderit in voluptate velit esse...(37/40)
+cillum dolore eu fugiat nulla pariatur..(39/40)
+Excepteur sint occaecat cupidatat non...(37/40)
+proident, sunt in culpa qui officia.....(35/40)
+deserunt mollit anim id est laborum.....(36/40)
+```
+
+評価関数のコスト1324でバランスよく折り返せている  
+なお、同じ文章を40文字を超えないように最初から文字を取り出していくという単純な方法で表示すると以下のようになる。  
+(この時の評価関数の値は15832)  
+
+```
+Lorem ipsum dolor sit amet, consectetur.(39/40)
+adipiscing elit, sed do eiusmod tempor..(38/40)
+incididunt ut labore et dolore magna....(36/40)
+aliqua. Ut enim ad minim veniam, quis...(37/40)
+nostrud exercitation ullamco laboris....(36/40)
+nisi ut aliquip ex ea commodo consequat.(40/40)
+Duis aute irure dolor in reprehenderit..(38/40)
+in voluptate velit esse cillum dolore eu(40/40)
+fugiat nulla pariatur. Excepteur sint...(37/40)
+occaecat cupidatat non proident, sunt in(40/40)
+culpa qui officia deserunt mollit anim..(38/40)
+id est laborum..........................(15/40)
+```
+
+### コード全文
+
+```elixir
+defmodule TextWrap do
+  use Memoize
+  @limit 40
+  @infinity 100_000_000_000
+
+  def wrap(string) do
+    words = String.split(string, " ")
+    lengths = Enum.map(words, &String.length/1)
+    {cost, wraps} = TextWrap.cost(lengths, length(lengths) - 1)
+    IO.inspect {cost, wraps}, label: "cost"
+
+    # Print wrapped text
+    Enum.chunk_every([1] ++ wraps ++ [length(words)], 2, 1,:discard)
+      |> Enum.map(fn(x) ->
+        from = List.first(x)
+        to = List.last(x)
+        if from == 1 do
+          Enum.slice(words, (0..to))
+        else
+          Enum.slice(words, (from+1..to))
+        end
+      end)
+      |> Enum.each(fn(words) ->
+        line =  Enum.join(words, " ")
+        len = String.length(line)
+        white_spaces = String.duplicate(".", @limit - len)
+        IO.puts "#{line}#{white_spaces}(#{len}/#{@limit})"
+      end)
+  end
+
+  # Calculate optimized accumulated cost from 0 to n
+  def cost(lengths, n) when n == 0 do
+    {TextWrap.line_cost(lengths, 0, 0), []}
+  end
+
+  defmemo cost(lengths, n) do
+    # Calculate all combination of word wrap
+    costs = (0..n-1)
+      |> Enum.map(
+        fn(wrap) ->
+          {prev_cost, prev_wrap} = cost(lengths, wrap)
+          new_line_cost = TextWrap.line_cost(lengths, wrap + 1, n)
+          # Sum of optimized cost(`wrap`) and new line cost after `wrap`
+          cost = prev_cost + new_line_cost
+          wraps = prev_wrap ++ [wrap]
+          {cost, wraps}
+        end)
+    # Place all word in one line
+    one_line_cost = {TextWrap.line_cost(lengths, 0, n), []}
+    [one_line_cost | costs]
+      |> Enum.min_by(fn({cost, _wraps}) -> cost end)
+  end
+
+  def line_cost(lengths, from, to) do
+    if trailing_white_spaces(lengths, from, to) < 0 do
+      # Return (almost) infinity cost if words in from-to can't arrange in one line.
+      @infinity
+    else
+      :math.pow(trailing_white_spaces(lengths, from, to), 3)
+    end
+  end
+
+  # Count trailing white spaces of from-to in lengths array
+  def trailing_white_spaces(lengths, from, to) when from == to do
+    # if from == to, we only have one word.
+    # Just return limit minus word length
+    @limit - Enum.at(lengths, from)
+  end
+
+  def trailing_white_spaces(_, from, to) when from > to do
+    raise "Something is very wrong"
+  end
+
+  defmemo trailing_white_spaces(lengths, from, to) when from != to do
+    trailing_white_spaces(lengths, from, to - 1) - Enum.at(lengths, to) - 1
+  end
+
 end
 ```
