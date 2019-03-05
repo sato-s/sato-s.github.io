@@ -1,7 +1,7 @@
 ---
 layout: post
 title: テキストの折り返しと動的計画法
-date: '2019-03-04T00:00:00.000+09:00'
+date: '2019-03-06T00:00:00.000+09:00'
 author: s sato
 tags:
 - elixir
