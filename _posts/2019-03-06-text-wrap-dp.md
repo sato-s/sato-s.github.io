@@ -431,3 +431,8 @@ defmodule TextWrap do
 
 end
 ```
+
+### 参考
+- https://www.youtube.com/watch?v=ENyox7kNKeY&list=WL&index=34&t=0s  
+- https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
+
