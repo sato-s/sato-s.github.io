@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="97.653938mm"
+   height="70.863792mm"
+   viewBox="0 0 97.653937 70.863791"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (unknown)"
+   sodipodi:docname="array_unshift.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.8101934"
+     inkscape:cx="288.642"
+     inkscape:cy="135.18516"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-7.8938248,-2.8119468)">
+    <g
+       id="g135">
+      <g
+         transform="translate(11.032978,-3.070229)"
+         id="g4549">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544"><tspan
+             sodipodi:role="line"
+             id="tspan4542"
+             x="10.373693"
+             y="21.085972"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';stroke-width:0.26458332">1</tspan></text>
+      </g>
+      <g
+         id="g4549-3"
+         transform="translate(21.828771,-3.070229)">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10-8"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544-2"><tspan
+             id="tspan4689"
+             sodipodi:role="line"
+             x="10.373693"
+             y="21.085972">2</tspan></text>
+      </g>
+      <rect
+         y="12.762227"
+         x="40.375378"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-1"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-5"
+         y="18.015743"
+         x="42.998257"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4697"
+           sodipodi:role="line"
+           x="42.998257"
+           y="18.015743">3</tspan></text>
+      <rect
+         y="12.762227"
+         x="51.171169"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-17"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-1"
+         y="18.015743"
+         x="53.794048"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4699"
+           sodipodi:role="line"
+           x="53.794048"
+           y="18.015743">4</tspan></text>
+      <rect
+         y="12.762227"
+         x="8.8378124"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-0"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:0.5, 1.5;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-1-1"
+         y="5.8980632"
+         x="7.5672297"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           y="5.8980632"
+           x="7.5672297"
+           id="tspan4719"
+           sodipodi:role="line">5</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path5370"
+         d="m 10.585133,5.8815268 c 0.39075,-0.030891 0.426521,0.3725415 0.661458,0.5291666 0.08205,0.054696 0.19486,0.062568 0.264583,0.1322917 0.139449,0.1394476 0.125135,0.3897191 0.264584,0.5291666 0.06972,0.069724 0.20542,0.053408 0.264583,0.1322917 0.08367,0.1115581 0.04862,0.2853169 0.132292,0.396875 0.05916,0.078883 0.19486,0.062568 0.264583,0.1322917 0.0085,0.00848 0.248155,0.5045244 0.264583,0.5291666 0.08029,0.120427 0.338249,0.2796199 0.396875,0.396875 0.01971,0.039442 -0.01971,0.09285 0,0.1322917 0.05578,0.1115581 0.208804,0.1530252 0.264584,0.2645833 0.03944,0.078883 -0.06236,0.2022205 0,0.2645833 0.03118,0.031182 0.10111,-0.031181 0.132291,0 0.03118,0.031182 -0.01971,0.09285 0,0.1322917 0.02789,0.055779 0.104402,0.076513 0.132292,0.1322917 0.03588,0.071767 -0.0362,0.4929686 0,0.5291666 0.03118,0.03118 0.101111,-0.03118 0.132292,0 0.03118,0.03118 0,0.08819 0,0.132292 0,0.0441 0,0.08819 0,0.132291 0,0.48507 0,0.970139 0,1.455209 0,0.352777 0,0.705555 0,1.058333 0,0.0441 0,0.08819 0,0.132292 0,0.0441 0.03118,0.10111 0,0.132291 -0.03118,0.03118 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0,0.0882 0,0.132292 -0.0441,0 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.01971,0.09285 0,0.132292 -0.02789,0.05578 -0.104402,0.07651 -0.132291,0.132291 -0.01971,0.03944 0.01971,0.09285 0,0.132292 -0.02789,0.05578 -0.104402,0.07651 -0.132292,0.132292 -0.01971,0.03944 0.03118,0.10111 0,0.132291 -0.06236,0.06236 -0.202221,-0.06236 -0.264583,0 -0.06236,0.06236 0.06236,0.202221 0,0.264584 -0.03118,0.03118 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.03118,0.10111 0,0.132291 -0.03118,0.03118 -0.09285,-0.01972 -0.132292,0 -0.05578,0.02789 -0.07651,0.104402 -0.132291,0.132292 -0.03944,0.01972 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.03118,0.10111 0,0.132292 -0.17639,0.176389 -0.132292,-0.220486 -0.132292,0.132291"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <rect
+         y="30.288921"
+         x="9.1368599"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-5"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="30.288921"
+         x="19.932652"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-8-9"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="30.288921"
+         x="30.728443"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-1-0"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="30.288921"
+         x="41.524235"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-17-0"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="30.290302"
+         x="51.751995"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-5-0"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text328"
+         y="27.959188"
+         x="9.473011"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Android Emoji';-inkscape-font-specification:'Android Emoji, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           y="27.959188"
+           x="9.473011"
+           id="tspan77"
+           sodipodi:role="line">新しい配列の確保(要素数に比例した時間がかかる)</tspan></text>
+      <rect
+         y="47.199554"
+         x="9.7035179"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-5-04"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         transform="translate(12.474611,31.367789)"
+         id="g4549-9">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10-6"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544-10"><tspan
+             sodipodi:role="line"
+             id="tspan4542-4"
+             x="10.373693"
+             y="21.085972"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';stroke-width:0.26458332">1</tspan></text>
+      </g>
+      <g
+         id="g4549-3-2"
+         transform="translate(23.270404,31.367789)">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10-8-2"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544-2-2"><tspan
+             id="tspan4689-0"
+             sodipodi:role="line"
+             x="10.373693"
+             y="21.085972">2</tspan></text>
+      </g>
+      <rect
+         y="47.200245"
+         x="41.817009"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-1-5"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-5-5"
+         y="52.453762"
+         x="44.439888"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4697-2"
+           sodipodi:role="line"
+           x="44.439888"
+           y="52.453762"
+           style="stroke-width:0.26458332">3</tspan></text>
+      <rect
+         y="47.200245"
+         x="52.612801"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-17-9"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-1-0"
+         y="52.453762"
+         x="55.23568"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4699-2"
+           sodipodi:role="line"
+           x="55.23568"
+           y="52.453762"
+           style="stroke-width:0.26458332">4</tspan></text>
+      <text
+         id="text328-8"
+         y="44.740528"
+         x="15.339425"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Android Emoji';-inkscape-font-specification:'Android Emoji, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           y="44.740528"
+           x="15.339425"
+           id="tspan75"
+           sodipodi:role="line">元々の要素のコピー</tspan></text>
+      <rect
+         y="65.908768"
+         x="9.9949274"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-5-04-9"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <g
+         transform="translate(12.766024,50.077002)"
+         id="g4549-9-3">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10-6-5"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544-10-7"><tspan
+             sodipodi:role="line"
+             id="tspan4542-4-0"
+             x="10.373693"
+             y="21.085972"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック';stroke-width:0.26458332">1</tspan></text>
+      </g>
+      <g
+         id="g4549-3-2-8"
+         transform="translate(23.561813,50.077002)">
+        <rect
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect10-8-2-1"
+           width="6.9490075"
+           height="7.2162771"
+           x="7.7508163"
+           y="15.832457" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="10.373693"
+           y="21.085972"
+           id="text4544-2-2-9"><tspan
+             id="tspan4689-0-9"
+             sodipodi:role="line"
+             x="10.373693"
+             y="21.085972">2</tspan></text>
+      </g>
+      <rect
+         y="65.909462"
+         x="42.108421"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-1-5-7"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-5-5-8"
+         y="71.162979"
+         x="44.7313"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4697-2-2"
+           sodipodi:role="line"
+           x="44.7313"
+           y="71.162979"
+           style="stroke-width:0.26458332">3</tspan></text>
+      <rect
+         y="65.909462"
+         x="52.904213"
+         height="7.2162771"
+         width="6.9490075"
+         id="rect10-17-9-5"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:1.10000002;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4544-1-0-3"
+         y="71.162979"
+         x="55.527092"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4699-2-4"
+           sodipodi:role="line"
+           x="55.527092"
+           y="71.162979"
+           style="stroke-width:0.26458332">4</tspan></text>
+      <text
+         id="text4544-1-1-9"
+         y="58.516972"
+         x="10.883324"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'木漏れ日ゴシック';-inkscape-font-specification:'木漏れ日ゴシック, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           y="58.516972"
+           x="10.883324"
+           id="tspan4719-0"
+           sodipodi:role="line"
+           style="stroke-width:0.26458332">5</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path5370-2"
+         d="m 13.901227,58.500435 c 0.39075,-0.03089 0.426521,0.372541 0.661458,0.529167 0.08205,0.0547 0.19486,0.06257 0.264583,0.132291 0.139449,0.139448 0.125135,0.389719 0.264584,0.529167 0.06972,0.06972 0.20542,0.05341 0.264583,0.132292 0.08367,0.111558 0.04862,0.285316 0.132292,0.396875 0.05916,0.07888 0.19486,0.06257 0.264583,0.132291 0.0085,0.0085 0.248155,0.504525 0.264583,0.529167 0.08029,0.120427 0.338249,0.27962 0.396875,0.396875 0.01971,0.03944 -0.01971,0.09285 0,0.132292 0.05578,0.111558 0.208804,0.153025 0.264584,0.264583 0.03944,0.07888 -0.06236,0.20222 0,0.264583 0.03118,0.03118 0.10111,-0.03118 0.132291,0 0.03118,0.03118 -0.01971,0.09285 0,0.132292 0.02789,0.05578 0.104402,0.07651 0.132292,0.132292 0.03588,0.07177 -0.0362,0.492968 0,0.529166 0.03118,0.03118 0.10111,-0.03118 0.132292,0 0.03118,0.03118 0,0.08819 0,0.132292 0,0.0441 0,0.08819 0,0.132291 0,0.48507 0,0.970139 0,1.455209 0,0.352777 0,0.705555 0,1.058333 0,0.0441 0,0.08819 0,0.132292 0,0.0441 0.03118,0.10111 0,0.132291 -0.03118,0.03118 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0,0.0882 0,0.132292 -0.0441,0 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.01971,0.09285 0,0.132292 -0.02789,0.05578 -0.104402,0.07651 -0.132291,0.132291 -0.01971,0.03944 0.01971,0.09285 0,0.132292 -0.02789,0.05578 -0.104402,0.07651 -0.132292,0.132292 -0.01971,0.03944 0.03118,0.10111 0,0.132291 -0.06236,0.06236 -0.202221,-0.06236 -0.264583,0 -0.06236,0.06236 0.06236,0.202221 0,0.264584 -0.03118,0.03118 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.03118,0.10111 0,0.132291 -0.03118,0.03118 -0.09285,-0.01972 -0.132292,0 -0.05578,0.02789 -0.07651,0.104402 -0.132291,0.132292 -0.03944,0.01972 -0.101111,-0.03118 -0.132292,0 -0.03118,0.03118 0.03118,0.10111 0,0.132292 -0.17639,0.176389 -0.132292,-0.220486 -0.132292,0.132291"
+         style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
