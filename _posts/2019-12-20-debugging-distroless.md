@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Kubernetes + distrolessはデバック可能か？
+title: kubernetes + distrolessはデバック可能か？
 date: '2019-12-20T00:00:00.000+09:00'
 author: s sato
 tags:
