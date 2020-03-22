@@ -1,6 +1,6 @@
 ---
 layout: post
-title: kubernetes + distrolessはデバック可能か？
+title: kubernetes + distrolessはデバッグ可能か？
 date: '2019-12-20T00:00:00.000+09:00'
 author: s sato
 tags:
@@ -13,7 +13,7 @@ tags:
 全く入っていない軽量なDockerイメージ。殆どなにも入っていないので、デプロイ／ビルドが高速で行えて
 セキュリティ的にも堅牢な所からGoogleを含むいろいろなところで採用されている。  
 
-だが個人的にはデバックに対してかなり不安があった。netstat,tcpdump,ps,nslookup,ping...などのデバックに必要な
+だが個人的にはデバッグに対してかなり不安があった。netstat,tcpdump,ps,nslookup,ping...などのデバッグに必要な
 コマンドが何1つ入っていないし,パッケージマネージャーも入っていないのであとからインストールするのも難しい。  
 またシェルすら入っていないので、distrolessで作成されたPodに`kubectl exec`で乗り込む事もできない。  
 
@@ -23,26 +23,26 @@ OCI runtime exec failed: exec failed: container_linux.go:348: starting container
 command terminated with exit code 126
 ```
 
-ログやメトリクスを適切に仕込んでおき、本番環境のPodに乗り込んでデバックするような状況をなくすべきという主張はもっともだが、
-個人的には何かあった時に備えてPodに入ってデバックする手段は最低限確保しておきたい。  
+ログやメトリクスを適切に仕込んでおき、本番環境のPodに乗り込んでデバッグするような状況をなくすべきという主張はもっともだが、
+個人的には何かあった時に備えてPodに入ってデバッグする手段は最低限確保しておきたい。  
 
 
-### alpineやdistrolessのデバックイメージを使う?
+### alpineやdistrolessのデバッグイメージを使う?
 
 alpineはdistrolessと同じく必要なパッケージが殆ど何も入っていないDockerイメージだが、BusyBox
-とパッケージマネージャーが入っている。同じくdistrolessにはデバックイメージがよういされており
+とパッケージマネージャーが入っている。同じくdistrolessにはデバッグイメージがよういされており
 こちらもBusyBoxが入っている。  
-1つの解決策としてdistrolessそのものを使わずにこういったイメージを使うことで、デバックには困らずにすむだろう。
+1つの解決策としてdistrolessそのものを使わずにこういったイメージを使うことで、デバッグには困らずにすむだろう。
 だがBusyBoxが入っていないdistrolessを使うことで、特にコマンドインジェクション系の脆弱性を防止できるのは
 かなり利益が大きい気がした。セキュリティスキャンにひっかかってもほとんどの場合、誤検出だと胸をはって言えるはずだ。(そもそもコマンドが入ってない。)
 
 
 ### Ephemeral Containerを使う
 
-Ephemeral Containerはkubernetesの機能で実行中のPodに一時的なコンテナを追加してデバックするための仕組み。
+Ephemeral Containerはkubernetesの機能で実行中のPodに一時的なコンテナを追加してデバッグするための仕組み。
 一番妥当な解決策だが、かなり新しい機能でKubernetes 1.16からしか使うことは出来無い。(現時点でalpha機能)  
 また、事前に[shareProcessNamespace](https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/)
-が有効化され、コンテナ内のプロセスやファイルシステムがポッド内の他のコンテナと共有されていなければ、デバックはできない。
+が有効化され、コンテナ内のプロセスやファイルシステムがポッド内の他のコンテナと共有されていなければ、デバッグはできない。
 
 ### kubectl cpでBusyBoxを送ってデバッグ
 
