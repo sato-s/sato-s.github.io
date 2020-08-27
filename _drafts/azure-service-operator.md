@@ -1,5 +1,12 @@
-Azure Service Operatorがすごい
---------------
+---
+layout: post
+title: Azure Service Operatorがすごい
+date: '2020-08-27T00:00:00.000+09:00'
+author: s sato 
+tags:
+- kubernetes
+- azure
+---
 
 １年ほどAWS eksのkubernetesクラスター上のアプリを開発、運用する仕事を続けてきたが、
 kubernetesの運用に関する最も大きな不満はほかのAWSのマネージドサービスとの連携部分だった。  
@@ -108,7 +115,8 @@ PostgreSQLのようなメジャーなものであれば、
 まずはAzure Service Operatorを使うには[手順](https://github.com/Azure/azure-service-operator#quickstart)
 に従って、kubernetesクラスタにインストールする必要がある  
 
-kubernetes上の資産は`kubectl api-resources`で参照できるので、これでAzure Service Operatorで管理できる資産も参照することができる。
+kubernetesは`kubectl api-resources`でkubernetes上のオブジェクトの一覧を参照できるので
+、これでAzure Service Operatorでインストールされた資産も参照することができる。
 
 ```bash
 $ kubectl api-resources | grep 'azure.microsoft.com'
@@ -184,7 +192,7 @@ NAME                       PROVISIONED   MESSAGE
 azure-operator-test-1231   true          successfully provisioned
 ```
 
-このとき、同時に同じ名前でSecretが作成される。
+このとき、同時に同じ名前でsecretが作成される。
 
 ```
 $ kubectl describe secret azure-operator-test-1231
@@ -215,6 +223,7 @@ kubernetes上でpostgresqlserversを作成すると、それに対応した同�
 このためWebアプリを作りたい場合には以下のようにyaml上で、Postgresサーバーに対応する
 secretの必要なキーをWebアプリのdeploymentの環境変数に入れることで、Webアプリ側で作成したPostgresサーバーを
 使えるようにできる。
+(あるいはsecretをマウントしてもよい)
 
 ```yaml
 # Postgresサーバー
@@ -261,7 +270,7 @@ spec:
           - name: DB_HOST # ホスト
             valueFrom:
               secretKeyRef:
-								# これはPostgreSQLServerのmetadata.nameと同じになる
+                # これはPostgreSQLServerのmetadata.nameと同じになる
                 name: azure-operator-test-1233
                 key: postgreSqlServerName
           - name: DB_PASSWORD # パスワード
@@ -273,5 +282,5 @@ spec:
 
 ## 感想
 
-Infrastructure as Codeを大きく進めるかなりよい機能だと思う。
+マネージドサービスの恩恵を受けつつInfrastructure as Codeを大きく進めるかなりよい機能だと思う。
 AWS EKSよりAzureのkubernetes(AKS)を採用する理由の1つになると思う。(Azure Service Operator自体はEKS上でも動作する)
