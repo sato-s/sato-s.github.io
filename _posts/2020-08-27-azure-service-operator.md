@@ -8,7 +8,7 @@ tags:
 - azure
 ---
 
-１年ほどAWS eksのkubernetesクラスター上のアプリを開発、運用する仕事を続けてきたが、
+１年ほどAWS EKSのkubernetesクラスター上のアプリを開発、運用する仕事を続けてきたが、
 kubernetesの運用に関する最も大きな不満はほかのAWSのマネージドサービスとの連携部分だった。  
 
 > Kubernetesを使うとデプロイしたコンテナのあるべき状態を記述することができ、制御されたスピードで実際の状態をあるべき状態に変更することができます。
@@ -74,11 +74,17 @@ spec:
 ```
 
 このような場合、その接続のための情報を上のように環境変数としてyamlに定義する必要がある。
+例えば、RDBとDynamoDBとS3を利用するWebアプリを作りたい場合、kubernetes用のyaml
+を書く前に、AWS上でRDSのインスタンスとそのユーザーやDB、DynamoDBのテーブル、
+S3のバケットなどの作成を済ませ、yamlにはそれらの情報を環境変数として記載しなければならない。
+(実際にはConfigMapやSecretに記載するかも)   
+
+
 これがInfrastructure as Codeへの大きな足かせになった。Podの定義をyamlとして一貫した形で
-コードにできても、結局それが依存するAWSのマネージドサービスの定義はAWSのコンソールから直接作ったりCloud formationで
-作成されていたりする。
-これでは、kubernetes用のyamlを見てもインフラ構成をすべて把握することもできないし、
-変更するのにもkubernetesとawsの両方の領域を意識して行う必要がある。
+コードにできても、結局それが依存するAWSのマネージドサービスの定義はAWSのコンソールから
+直接作ったりCloud formationで作成しなければならない。
+これでは、kubernetes用のyamlを見てもインフラ構成全体を把握することもできないし、
+変更するのにもkubernetesとAWSの両方の領域を意識して行う必要がある。
 さらに悪いことに、自分の所属していたプロジェクトでは、AWS側とkubernetesで管理するチームが分かれていたので
 資産構成の変更は複数のチームで協調しながら行わなければならなかった。
 (AWSチームに頼んで作ってもらったＤＢをkubernetesチームがyamlに書いたりする)　
@@ -192,7 +198,7 @@ NAME                       PROVISIONED   MESSAGE
 azure-operator-test-1231   true          successfully provisioned
 ```
 
-このとき、同時に同じ名前でsecretが作成される。
+このとき、同時に同じ名前でSecretが作成される。
 
 ```
 $ kubectl describe secret azure-operator-test-1231
@@ -218,12 +224,12 @@ fullyQualifiedServerName:  52 bytes
 
 ### postgresqlserversを利用したWebアプリを作ってみる
 
-kubernetes上でpostgresqlserversを作成すると、それに対応した同名のsecret内にDBの接続のための
-パスワードやホスト名のような情報が格納さる。
+kubernetes上でpostgresqlserversを作成すると、それに対応した同名のSecret内にDBの接続のための
+パスワードやホスト名のような情報が格納される。
 このためWebアプリを作りたい場合には以下のようにyaml上で、Postgresサーバーに対応する
-secretの必要なキーをWebアプリのdeploymentの環境変数に入れることで、Webアプリ側で作成したPostgresサーバーを
+Secretの必要なキーをWebアプリのdeploymentの環境変数に入れることで、Webアプリ側で作成したPostgresサーバーを
 使えるようにできる。
-(あるいはsecretをマウントしてもよい)
+(あるいはSecretをマウントしてもよい)
 
 ```yaml
 # Postgresサーバー
@@ -265,11 +271,12 @@ spec:
       - name: nginx
         image: nginx:latest
         env:
-          # ここで、PostgreSQLServerに対応するsecret内の
+          # ここで、PostgreSQLServerに対応するSecret内の
           # DB接続情報を環境変数に入れる。
           - name: DB_HOST # ホスト
             valueFrom:
               secretKeyRef:
+                # nameはSecretの名前
                 # これはPostgreSQLServerのmetadata.nameと同じになる
                 name: azure-operator-test-1233
                 key: postgreSqlServerName
@@ -283,4 +290,6 @@ spec:
 ## 感想
 
 マネージドサービスの恩恵を受けつつInfrastructure as Codeを大きく進めるかなりよい機能だと思う。
-AWS EKSよりAzureのkubernetes(AKS)を採用する理由の1つになると思う。(Azure Service Operator自体はEKS上でも動作する)
+AWS EKSよりAzureのkubernetes(AKS)を採用する理由の1つになると思う。
+(Azure Service Operator自体はEKS上でも動作するが、やはりマネージドサービスと
+kubernetesクラスタを同じクラウドに乗せるほうが楽)
