@@ -71,13 +71,14 @@ $on-laptop:        800px;
 // post title border
 
 .post-link{
-  border-bottom: groove;
+  border-bottom: solid;
   border-bottom-color: #424242;
+  // border-bottom-color: #F8F8FF;
 }
 
 .post-title{
-  border-bottom: groove;
-  border-bottom-color: #424242;
+  border-bottom: 4px solid white;
+  // border-color: #white;
 }
 
 // Import partials from `sass_dir` (defaults to `_sass`)
