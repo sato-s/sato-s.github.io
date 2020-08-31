@@ -292,4 +292,7 @@ spec:
 マネージドサービスの恩恵を受けつつInfrastructure as Codeを大きく進めるかなりよい機能だと思う。
 AWS EKSよりAzureのkubernetes(AKS)を採用する理由の1つになると思う。
 (Azure Service Operator自体はEKS上でも動作するが、やはりマネージドサービスと
-kubernetesクラスタを同じクラウドに乗せるほうが楽)
+kubernetesクラスタを同じクラウドに乗せるほうが楽)   
+
+追記: AWSも[こういうの]( https://github.com/aws/aws-controllers-k8s)出してた。。。(まだDeveloper Previewとのことだけど)
+
