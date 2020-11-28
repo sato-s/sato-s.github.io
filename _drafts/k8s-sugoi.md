@@ -13,13 +13,13 @@ tags:
 - (凄まじく)高い拡張性
 - 外部オブジェクトとkubernetesオブジェクトのマッピング
 - 便利なkubernetesオブジェクト
+- sidecar
 
 ## 背景
 
 Heroku、AWS ECS、Azure Web AppのようなPaaSはアプリケーションエンジニアにとって、インフラのことを意識することのない
 完璧なサービスに見える。なぜ世間はわざわざ高いインフラ管理と学習のコストを払ってk8sに移行しているんだろうか。   
-アプリケーションエンジニアとして１年ほどk8sに携わり、やっと世間がk8sを祭り上げる理由がわかってきた気がするので、その理由について書いてみる。
-
+アプリケーションエンジニアとして１年ほどk8sに携わり、やっと世間がk8sを祭り上げる理由がわかってきた気がするので、k8s知らん勢に向けて、その理由について書いてみるよー
 
 ## やってみよう
 
@@ -46,7 +46,7 @@ minikube   Ready    master   2m59s   v1.19.4
 ```
 
 ここまでできてれば、もうk8sにアプリケーションをデプロイすることができる  
-こんな感じで、deployment.yamlを定義してデプロイしてみよう！
+こんな感じで、deployment.yamlを定義してnginxをデプロイしてみよう！
 
 ```
 $ cat << EOF > deployment.yaml
@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2
+        image: nginx:1.18.0-alpine
         ports:
         - containerPort: 80
 EOF
@@ -76,10 +76,103 @@ EOF
 $ kubectl apply -f deployment.yaml
 ```
 
+このdeployment.yamlは、簡単に言うとどのようなPod(コンテナの集まり)を何個つくるかをきめるDeploymentというものの設定だ。
+以下からわかるように、このDeploymentはPodを３つ作るものになる。
+
+```yaml
+spec:
+  replicas: 3
+```
+
+その下の部分ではPodに入るコンテナが宣言されていて、今回の場合は 1.18.0-alpine になっている。
+
+```yaml
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.18.0-alpine
+        ports:
+        - containerPort: 80
+```
+
+このコマンドが終わったら、下のコマンドで、このDeploymentの状態を確認してみよう
+
+```
+$ kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3/3     3            3           5d9h
+```
+
+READYが3/3ということは、３つのPodすべてが動いているということになる。Podの状態を見てみよう。
+
 ```
 $ kubectl get pod
-NAME                                READY   STATUS              RESTARTS   AGE
-nginx-deployment-66b6c48dd5-cxgq8   0/1     ContainerCreating   0          20s
-nginx-deployment-66b6c48dd5-dz7mr   0/1     ContainerCreating   0          20s
-nginx-deployment-66b6c48dd5-qrq2h   0/1     ContainerCreating   0          20s
+nginx-deployment-66b6c48dd5-cxgq8   1/1     Running   1          5d9h
+nginx-deployment-66b6c48dd5-dz7mr   1/1     Running   1          5d9h
+nginx-deployment-66b6c48dd5-qrq2h   1/1     Running   1          5d9h
+```
+
+生きているのが確認できたなら、実際にアクセスしてみよう。以下のコマンドで、localhost:8080への通信を今作ったDeploymentの80番ポート(nginxが動いてる)
+にフォワードすることができる。
+
+```
+$ kubectl port-forward deployment/nginx-deployment 8080:80
+```
+
+localhost:8080を参照してみるとnginxが動いていることがわかるはず。
+
+![nginx-welcome]({{ site.url }}/assets/nginx.png)
+
+
+## 宣言的設定とコントロールループ
+
+Deploymentはk8sでアプリケーションを管理するために利用される基本的なオブジェクトでおもに
+①どんなPodがほしいか②何個ほしいかを宣言するものになっている。  
+これが崩れたときに何が起こるかを見てみよう。  
+いま、下のようなDeploymentによって３つのPodが作成されている。
+
+```
+$ kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3/3     3            3           5s
+
+$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-5cb95ccc7-6hl8g   1/1     Running   0          5s
+nginx-deployment-5cb95ccc7-6vk6m   1/1     Running   0          5s
+nginx-deployment-5cb95ccc7-rxgj9   1/1     Running   0          5s
+```
+
+このPodの中の１つを削除してみよう。
+
+```
+$ kubectl delete pod nginx-deployment-5cb95ccc7-6vk6m
+```
+
+そうすると、削除したPodは、Terminating状態になる、とほぼ同時に、新しいPodが立ち上がりはじめる。
+(AGEが１つだけ、8sのがあるので新しいPodができたことがわかる。)
+
+```
+$ kubectl get pod
+NAME                               READY   STATUS        RESTARTS   AGE
+nginx-deployment-5cb95ccc7-6hl8g   1/1     Running       0          20s
+nginx-deployment-5cb95ccc7-6vk6m   0/1     Terminating   0          20s
+nginx-deployment-5cb95ccc7-rxgj9   1/1     Running       0          20s
+nginx-deployment-5cb95ccc7-z4wbf   1/1     Running       0          8s
+```
+
+もうしばらくすると、Terminating状態のPodはなくなり、Podの数は３つになる。
+
+```
+$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-5cb95ccc7-6hl8g   1/1     Running   0          34s
+nginx-deployment-5cb95ccc7-rxgj9   1/1     Running   0          34s
+nginx-deployment-5cb95ccc7-z4wbf   1/1     Running   0          22s
+```
+
+
+```yaml
+spec:
+  replicas: 3
 ```
