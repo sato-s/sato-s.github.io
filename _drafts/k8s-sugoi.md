@@ -126,9 +126,9 @@ localhost:8080を参照してみるとnginxが動いていることがわかる�
 
 ## 宣言的設定とコントロールループ
 
-Deploymentはk8sでアプリケーションを管理するために利用される基本的なオブジェクトでおもに
+Deploymentはk8sでアプリケーションを管理するために利用される基本的なオブジェクトで、おもに
 ①どんなPodがほしいか②何個ほしいかを宣言するものになっている。  
-これが崩れたときに何が起こるかを見てみよう。  
+さっき作成したのとおなじdeployment.yamlをつかって、これが崩れたときに何が起こるかを見てみよう。  
 いま、下のようなDeploymentによって３つのPodが作成されている。
 
 ```
@@ -156,9 +156,9 @@ $ kubectl delete pod nginx-deployment-5cb95ccc7-6vk6m
 $ kubectl get pod
 NAME                               READY   STATUS        RESTARTS   AGE
 nginx-deployment-5cb95ccc7-6hl8g   1/1     Running       0          20s
-nginx-deployment-5cb95ccc7-6vk6m   0/1     Terminating   0          20s
+nginx-deployment-5cb95ccc7-6vk6m   0/1     Terminating   0          20s ★消されているPod
 nginx-deployment-5cb95ccc7-rxgj9   1/1     Running       0          20s
-nginx-deployment-5cb95ccc7-z4wbf   1/1     Running       0          8s
+nginx-deployment-5cb95ccc7-z4wbf   1/1     Running       0          8s  ★新しいPod
 ```
 
 もうしばらくすると、Terminating状態のPodはなくなり、Podの数は３つになる。
@@ -168,11 +168,153 @@ $ kubectl get pod
 NAME                               READY   STATUS    RESTARTS   AGE
 nginx-deployment-5cb95ccc7-6hl8g   1/1     Running   0          34s
 nginx-deployment-5cb95ccc7-rxgj9   1/1     Running   0          34s
-nginx-deployment-5cb95ccc7-z4wbf   1/1     Running   0          22s
+nginx-deployment-5cb95ccc7-z4wbf   1/1     Running   0          22s    ★新しいPod
 ```
 
+deployment.yamlで下のように、Podの数(レプリカ)を３つと宣言しているので、Deploymentは
+それを保つためにPodが削除された時に、新しいPodを作り直してくれた。
 
 ```yaml
 spec:
   replicas: 3
 ```
+
+今度は、逆にDeploymentのreplicasの数を5に変えてみよう。Deploymentの定義は以下のようにkubectl editを使うとエディタで編集することができる。
+
+![edit-replicas]({{ site.url }}/assets/k8s_deployment_edit_replicas.gif)
+
+しばらくして、参照するとPodの数は５つに増えている。
+
+```
+$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-5cb95ccc7-6hl8g   1/1     Running   0          89m
+nginx-deployment-5cb95ccc7-dd8dc   1/1     Running   0          57s
+nginx-deployment-5cb95ccc7-rp55x   1/1     Running   0          57s
+nginx-deployment-5cb95ccc7-rxgj9   1/1     Running   0          89m
+nginx-deployment-5cb95ccc7-z4wbf   1/1     Running   0          89m
+```
+
+もう少し別な変更の仕方をしてみよう。今度はreplicasの数を5から１に変更し、同時に
+使用するイメージを nginx:1.18.0-alpine から nginx:1.19.5-alpine に変更してみる。
+
+![edit-version]({{ site.url }}/assets/k8s_deployment_edit_version.gif)
+
+すると、5つのPodの内の４つがTerminating状態になり、あたらしく１つのPodが作られ始める。
+
+```
+$ kubectl get pod
+NAME                               READY   STATUS              RESTARTS   AGE
+nginx-deployment-5cb95ccc7-6hl8g   1/1     Running             0          113m
+nginx-deployment-5cb95ccc7-b8qtj   0/1     Terminating         0          2m48s
+nginx-deployment-5cb95ccc7-psmk7   0/1     Terminating         0          2m48s
+nginx-deployment-5cb95ccc7-t8t7f   0/1     Terminating         0          2m48s
+nginx-deployment-5cb95ccc7-wz7s9   0/1     Terminating         0          2m48s
+nginx-deployment-8dbdfb87c-r8dqt   0/1     ContainerCreating   0          8s      ★新しく作られているPod
+```
+
+最終的には、Podは１つだけになる。
+
+```
+$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-8dbdfb87c-r8dqt   1/1     Running   0          26s
+```
+
+このPodのイメージを参照してみると nginx:1.19.5-alpine になっている。
+```
+$ kubectl get pod nginx-deployment-8dbdfb87c-r8dqt -o yaml
+# (kubectl get に -o yaml オプションをつけるとk8s上のPodの全定義がyaml形式で見れる)
+
+# 略
+spec:
+  containers:
+  - image: nginx:1.19.5-alpine
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    ports:
+# 略
+```
+
+このDeploymentの例では、Podが削除された時に、新たに足りないPodが立ち上がり、逆にDeploymentが修正された時には、
+それに合わせた、数、イメージのPodが立ち上がった。
+Deploymentは望ましい状態(Podの数、イメージのバージョン) を宣言するためのオブジェクトで、現在の状態が
+そこからずれてしまった場合には、k8sは自動的にそのズレを修正してくれるようになっている。
+このように、現在の状態を望ましい状態に近づけてくれるためのk8sの仕組みをコントロールループ(Reconcilerループとも)と呼ばれている。  
+(制御工学っぽい)  
+
+![control loop]({{ site.url }}/assets/2880px-Feedback_loop_with_descriptions.svg.png)
+
+*[wikipedia](https://en.wikipedia.org/wiki/Control_theory) より*
+
+現実のWebアプリケーションでは、マシンの障害でPodがいきなり消えたり、負荷の増大でスケールアウトが必要になったり、
+バグの修正のため新しいバージョンをリリースしたりする必要がある。こういったときは、まさに上で試してきたようなことが必要になる。
+k8sでは、それぞれの要件に対して別々の機構を持っているわけではなく、全てこのコントロールループの作用によって対応されるんだ。(すごい！すごくない？)
+
+## (凄まじく)高い拡張性 
+
+k8sはコンテナをホスティングするためのプラットフォームだ。PodやDeploymentは、その基本となるオブジェクトでAWSでいうとEC2に相当するものだ。
+しかし、AWSでいう、RDS,ELB,Elastic Cache,S3....のようなサービスはk8sには入っていない。
+なぜかというと、そのようなサービスは自由に付け足すことができるためだ。    
+
+これを実現するためのオブジェクトがCustomResourceDefinition(CRD)だ。CRDはその名の通りユーザーが
+カスタムしたオブジェクトをk8s上に定義するためのオブジェクトだ。   
+以下のような、crd.yamlを用いることで、k8s上にHogeという種類のオブジェクトを定義できるようになる。
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: hoges.stable.example.com
+spec:
+  group: stable.example.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                fuga:
+                  type: string
+  scope: Namespaced
+  names:
+    plural: hoges
+    singular: hoge
+    kind: Hoge
+    shortNames:
+      - hg
+```
+
+以下のように適用することができる。
+
+```
+$ kubectl apply -f crd.yaml
+```
+
+例えば、以下のような hoge.yaml を作成すれば、上記と同様に`kubectl apply -f hoge.yaml`でこのHogeという種類の
+オブジェクトを作成することができる。
+
+```yaml
+apiVersion: stable.example.com/v1
+kind: Hoge
+metadata:
+  name: test-hoge
+spec:
+  fuga: hugahuga
+```
+
+定義したHogeのオブジェクトはPodやDeploymentと同様に`kubectl get`で参照することができる。
+
+```
+$ kubectl get hoge
+NAME        AGE
+test-hoge   80s
+```
+
+ここだけであれば、ただのオブジェクトが見れるだけで、なんの意味もない。
+しかし、このオブジェクトに対応するコントロールループを作ることができる。
