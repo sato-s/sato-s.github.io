@@ -7,19 +7,21 @@ tags:
 - kubernetes
 ---
 
+## 背景
+
+アプリケーションエンジニアとして新規立ち上げのプロジェクトで１年ほどk8sに携わってきた。
+知識ゼロのところからだったので、はじめは戸惑うことばかりだったが、なれるうちにk8sはインフラの未来だ、googleすげーと思うようになってきた。
+Heroku、AWS ECS、Azure Web AppのようなPaaSはアプリケーションエンジニアにとって、インフラのことを意識することのない
+完璧なサービスに見える。なぜ世間はわざわざ高いインフラ管理と学習のコストを払ってk8sに移行しているんだろうか。   
+
+やっと世間がk8sを祭り上げる理由がわかってきた気がするので、k8s知らん勢に向けて、その理由について書いてみるよー
+
 ## tldr
 
 - 宣言的設定とコントロールループ
 - (凄まじく)高い拡張性
 - 外部オブジェクトとkubernetesオブジェクトのマッピング
-- 便利なkubernetesオブジェクト
 - sidecar
-
-## 背景
-
-Heroku、AWS ECS、Azure Web AppのようなPaaSはアプリケーションエンジニアにとって、インフラのことを意識することのない
-完璧なサービスに見える。なぜ世間はわざわざ高いインフラ管理と学習のコストを払ってk8sに移行しているんだろうか。   
-アプリケーションエンジニアとして１年ほどk8sに携わり、やっと世間がk8sを祭り上げる理由がわかってきた気がするので、k8s知らん勢に向けて、その理由について書いてみるよー
 
 ## やってみよう
 
@@ -240,22 +242,53 @@ spec:
 それに合わせた、数、イメージのPodが立ち上がった。
 Deploymentは望ましい状態(Podの数、イメージのバージョン) を宣言するためのオブジェクトで、現在の状態が
 そこからずれてしまった場合には、k8sは自動的にそのズレを修正してくれるようになっている。
-このように、現在の状態を望ましい状態に近づけてくれるためのk8sの仕組みをコントロールループ(Reconcilerループとも)と呼ばれている。  
+このように、現在の状態を望ましい状態に近づけてくれるためのk8sの仕組みはコントロールループ(Reconciliationループとも)と呼ばれている。  
 (制御工学っぽい)  
 
 ![control loop]({{ site.url }}/assets/2880px-Feedback_loop_with_descriptions.svg.png)
 
 *[wikipedia](https://en.wikipedia.org/wiki/Control_theory) より*
 
+PodやDeploymentだけでなくk8sの他のオブジェクトも、基本的にこのコントロールループによって実現されている。
+例えば、[Horizontal Pod Autoscaler(HPA)](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+は、負荷に合わせたPodのスケールアウトを実現するためのオブジェクトで下の様に対象のDeploymentと平均CPU使用率のしきい値(`averageUtilization`)を記載することができる。
+
+```yaml
+# 略
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: [デプロイメントの名前]
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+```
+
+HPAは、特定のDeploymentに所属するPodの平均CPU使用率を監視し、それが特定の値を超えた場合、
+Deploymentで以下の様に宣言していたreplicasの値を書き換える。
+
+```yaml
+spec:
+  replicas: 3
+```
+
+そうするとDeploymentはPodの数を増やすので、結果としてPodの平均CPU使用率が下がるという仕掛けだ。
+
 現実のWebアプリケーションでは、マシンの障害でPodがいきなり消えたり、負荷の増大でスケールアウトが必要になったり、
-バグの修正のため新しいバージョンをリリースしたりする必要がある。こういったときは、まさに上で試してきたようなことが必要になる。
-k8sでは、それぞれの要件に対して別々の機構を持っているわけではなく、全てこのコントロールループの作用によって対応されるんだ。(すごい！すごくない？)
+バグの修正のため新しいバージョンをリリースしたりする必要がある。こういったときは、上でPodを削除したり、replicasを増やしたり、imageをアップデートしたのと同じ
+ことをしなければならない。
+k8sでは、それぞれの要件に対して別々の機構を持っているわけではなく、全てこのコントロールループの作用によって対応される。(すごい！すごくない？)
 
 ## (凄まじく)高い拡張性 
 
 k8sはコンテナをホスティングするためのプラットフォームだ。PodやDeploymentは、その基本となるオブジェクトでAWSでいうとEC2に相当するものだ。
 しかし、AWSでいう、RDS,ELB,Elastic Cache,S3....のようなサービスはk8sには入っていない。
-なぜかというと、そのようなサービスは自由に付け足すことができるためだ。    
+なぜかというと、そのようなサービスはk8s自体のソースコードを変更することなく自由に付け足すことができるためだ。    
 
 これを実現するためのオブジェクトがCustomResourceDefinition(CRD)だ。CRDはその名の通りユーザーが
 カスタムしたオブジェクトをk8s上に定義するためのオブジェクトだ。   
@@ -297,7 +330,7 @@ $ kubectl apply -f crd.yaml
 ```
 
 例えば、以下のような hoge.yaml を作成すれば、上記と同様に`kubectl apply -f hoge.yaml`でこのHogeという種類の
-オブジェクトを作成することができる。
+オブジェクトを作成することができる。(`kind: Hoge` のオブジェクトになっている)
 
 ```yaml
 apiVersion: stable.example.com/v1
@@ -316,5 +349,34 @@ NAME        AGE
 test-hoge   80s
 ```
 
-ここだけであれば、ただのオブジェクトが見れるだけで、なんの意味もない。
-しかし、このオブジェクトに対応するコントロールループを作ることができる。
+ここだけであれば、ただのカスタムしたオブジェクトが見れるだけで、なんの意味もない。
+しかし、このオブジェクトに対応するコントロールループが実装できたらどうだろうか？
+実はk8sではコントロールループを実装したPodをクラスタ上にデプロイすることで、これが実現できてしまう。
+コントロールループ内で、CRDを参照し、その定義に従ってk8s内の他のオブジェクトを作ったり消したり設定
+変更することによって、好みのオブジェクトを作ることができる。  
+例えば、databaseという名前のCRDを作って、その定義に従ってPostgreSQLやMYSQLのイメージからPodを作り出す
+コントロールループを実装すれば、AWSでいうRDS相当の機能が実現できてしまう。
+このようなCRDに対するコントロールループは特にOperatorと呼ばれ、CRDとOperatorを作って、k8sを拡張することは
+[Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
+と呼ばれている。
+いろんなk8sのOperatorが作られていて、例えば以下のようなものがあるよ。   
+
+- [zalando/postgres-operator](https://github.com/zalando/postgres-operator)
+はその名の通りPostgreSQLを作ってくれるオペレーターで、AWSで言うところのRDSに相当するものになる。
+レプリケーション、バックアップ、ポイントインタイムリカバリ、コネクションプーリングなどなどのデータベースサービスに期待される
+機能が一通り揃っている。
+- [knative](https://knative.dev/)
+はFaaS(Function as a service)を実現するオペレーターでAWSで言うところのLambdaだ。リクエストが来るとPodを立ち上げて
+それをさばき、暇な時はPodを落としてくれる。アプリケーションによってはリソース効率を大きく上げることができる。
+- [Istio](https://istio.io/)
+はマイクロサービス用のサービスメッシュの代表格で、これもOperatorを使って実現されている。
+
+他にもいろんなOperatorが[OperatorHub](https://operatorhub.io/)
+で公開されている。
+
+もちろん、このような仕組みは[kubebuilder](https://github.com/kubernetes-sigs/kubebuilder)
+などのフレームワークを使うことで自分で実装することができる。
+(自分もatコマンド相当のOperatorを作ったことがあるので良かったら[過去記事](http://sato-s.github.io/2020/03/20/k8s-at.html)
+を読んでね。)   
+
+このようなコントロールループを利用したOperatorのエコシステムがあり、便利なものが作られ続けることがk8sの利点の一つだ。
