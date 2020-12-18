@@ -78,7 +78,7 @@ EOF
 $ kubectl apply -f deployment.yaml
 ```
 
-このdeployment.yamlは、簡単に言うとどのようなPod(コンテナの集まり)を何個つくるかをきめるDeploymentというものの設定だ。
+このdeployment.yamlは、簡単に言うとどのようなPod(コンテナの集まり)の定義とそれを何個つくるかをきめるDeploymentというものの設定だ。
 以下からわかるように、このDeploymentはPodを３つ作るものになる。
 
 ```yaml
