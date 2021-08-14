@@ -25,5 +25,5 @@ Goで個人的に使うサーバープロセスを立てたかったので、こ
 
 ## epollとfsnotify
 
-aaa
 
+## epollとfsnotify
