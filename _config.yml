@@ -6,7 +6,7 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: sato_no_memo
+title: "Sato no Memo"
 email: s.sato.desu@gmail.com
 description: > # サトウのメモ用
 baseurl: "" # the subpath of your site, e.g. /blog
