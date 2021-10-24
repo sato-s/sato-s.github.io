@@ -5,12 +5,14 @@ date: '2021-08-01T00:17:00.000+09:00'
 author: s sato
 tags:
 - go
+- linux
 ---
 
 大抵のサーバープログラムはなんらんかの設定ファイルをもっている。
-PostgreSQLでいうとpostgresql.confやpg_hba.conf、nginxでいうとnginx.confだ。  
+PostgreSQLでいうとpostgresql.confやpg_hba.conf、nginxでいうとnginx.confがある。  
 これらのプログラムはシグナルをつかって設定ファイルをサーバープロセスの再起動なしで反映するための仕組みを用意してくれていて、
 いずれもSIGHUPをメインのプロセスに送ることで設定ファイルを再度読み込んでくれる。
+例えば、postgresqlなら`pg_ctl reload`で、nginxなら`nginx -s reload`コマンドでシグナルを送ると設定ファイルを再度読み込んでくれる。
 これによってサーバーのダウンタイムなしでパラメーターを変更することができる。  
 
 一方でRails(developmentモード)やwebpack-dev-serverの場合、ファイルを変更するとそれだけで
@@ -19,11 +21,71 @@ Railsやwebpack-dev-serverの場合、ダウンタイムを防ぐのではなく
 設定が反映されるようになっている。  
 
 このように設定を勝手に反映してくれるのは、意図せぬ変更が発生する可能性があるので、プロダクション環境のサーバーには不向きだが、
-個人的に使うようなサーバーが必要な場合にはとても便利だ。  
+個人的に使うような場合にはとても便利だ。  
 Goで個人的に使うサーバープロセスを立てたかったので、これを試してみた。
 
 
-## epollとfsnotify
+## inotifyとfsnotify
+
+ファイルの変更の監視は、もちろんポーリングすることでもできるが、あまり効率的ではない。
+Linuxの場合[inotify](https://linuxjm.osdn.jp/html/LDP_man-pages/man7/inotify.7.html)
+で取得したファイルディスクリプタを
+[epoll](https://linuxjm.osdn.jp/html/LDP_man-pages/man7/epoll.7.html)
+などで監視することによって、
+OS側からファイルへの変更があった場合に通知してもらうことができる。  
+これらのシステムコールを直接使って監視を行うこともできるが、
+Goでは[fsnotify](https://github.com/fsnotify/fsnotify)
+というライブラリがあり、うまくラップしてくれている。
+しかも、Linux以外のOSでも別のシステムコールを使うことで動作してくれる。
+
+## fsnotifyの使い方
+
+基本的な使い方としては以下のような形になる
+
+```go
+package main
+
+import (
+	"github.com/fsnotify/fsnotify"
+	"log"
+)
+
+func main() {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		panic(err)
+	}
+  # sample_fileを監視
+	if err := watcher.Add("sample_file"); err != nil {
+		panic(err)
+	}
+
+	for {
+		select {
+		case event := <-watcher.Events:
+			log.Printf("EVENT: %+v\n", event.Op)
+		}
+	}
+}
+
+```
+
+上を動作させた状態で`sample_file`に対して以下の操作を行ってみよう。
 
 
-## epollとfsnotify
+```shell
+$ echo "test" >> sample_file
+$ touch sample_file
+$ rm sample_file
+```
+
+そうすると各操作が行われるごとに、以下のようにイベントの種類を出力してくれる。
+
+```
+2021/10/24 15:49:33 EVENT: WRITE
+2021/10/24 15:49:39 EVENT: CHMOD
+2021/10/24 15:49:56 EVENT: REMOVE
+```
+
+
+
