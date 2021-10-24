@@ -111,6 +111,7 @@ type Config struct {
 	B string
 }
 
+// Yamlから設定内容を読み込みConfigを返却する
 func NewConfig(filename string) (*Config, error) {
 	c := &Config{}
 	data, err := ioutil.ReadFile(filename)
@@ -123,7 +124,11 @@ func NewConfig(filename string) (*Config, error) {
 
 	return c, nil
 }
+```
 
+上のような`Config`型は以下のように、使用することでYamlないの設定内容の読み出しに使用することができる。
+
+```go
 func main() {
 	config, err := NewConfig("config.yaml")
 	if err != nil {
@@ -131,6 +136,7 @@ func main() {
 	}
 	fmt.Printf("%+v", config)
 }
+
 ```
 
 上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)に変更が
@@ -139,4 +145,15 @@ func main() {
 
 ## fsnotifyによるyamlの再読み込み
 
+`Config`型の自動更新の自動更新を行う場合には、fsnotifyによってファイルの変更を検知した際に
+ファイルを再度読み込んで、それを`Config`型の属性に再度反映させてやるという操作が必要になる。
+再度のyamlの読み込みに備えてファイル名を記憶しておく必要があるのでstructのprivateな属性として`filename`
+を用意しておく
 
+```go
+type Config struct {
+	A        int
+	B        string
+	filename string
+}
+```
