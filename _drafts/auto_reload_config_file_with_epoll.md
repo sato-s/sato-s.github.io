@@ -134,16 +134,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%+v", config)
+	fmt.Printf("%d", config.A) // => 1
+	fmt.Printf("%s", config.B) // => "test"
 }
 
 ```
 
 上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)に変更が
-ある場合に自動で変更されるようにしてみる。
+ある場合に自動で検知し変更内容が反映されるようにしてみる。
 
 
-## fsnotifyによるyamlの再読み込み
+## 変更の自動検知と反映
 
 `Config`型の自動更新の自動更新を行う場合には、fsnotifyによってファイルの変更を検知した際に
 ファイルを再度読み込んで、それを`Config`型の属性に再度反映させてやるという操作が必要になる。
@@ -157,3 +158,83 @@ type Config struct {
 	filename string
 }
 ```
+
+また、元のコードからYamlの読み出しと構造体へのマッピングを行っている箇所を`loadFile`
+として切り出しておく。
+こうすることで`Config`型を初期化するときだけでなく後にfsnofityで変更を検知した際にも
+同じ`loadFile`を呼び出すことで変更を検知することができる。
+
+```go
+func (c *Config) loadFile() error {
+	data, err := ioutil.ReadFile(c.filename)
+	if err != nil {
+		return err
+	}
+	err = yaml.Unmarshal([]byte(data), &c)
+	return err
+}
+```
+
+fsnotifyによる変更の検知はchannelを使って行うことができる。
+この変更の検知を行うメソッド`run`を以下のように定義する。
+
+```go
+func (c *Config) run() error {
+	watcher, err := fsnotify.NewWatcher()
+	defer watcher.Close()
+	if err != nil {
+		return err
+	}
+	if err := watcher.Add(c.filename); err != nil {
+		return err
+	}
+
+	for {
+		select {
+		case event := <-watcher.Events:
+			// 書き込みがあったタイミングでloadFileによる更新を行う
+			if event.Op&fsnotify.Write == fsnotify.Write {
+				err := c.loadFile()
+				if err != nil {
+					log.Printf("Error: $s", err)
+				} else {
+					log.Printf("Refreshed setting from %s", c.filename)
+				}
+			}
+		case err := <-watcher.Errors:
+			log.Printf("Error: $s", err)
+		}
+	}
+	return nil
+}
+```
+
+あとは`NewConfig`内で`run`をgoroutineで呼び出すようにしておけば、
+自動で更新される型ができる。
+
+```go
+func NewConfig(filename string) (*Config, error) {
+	config := &Config{filename: filename}
+
+	if err := config.loadFile(); err != nil {
+		return nil, err
+	}
+  go config.run()
+	return config, nil
+}
+```
+
+最終的なソースは[これ](https://github.com/sato-s/fsnotify_config/blob/master/main.go)
+
+
+## 使い方
+
+変更の自動検知と反映を行う前と同様に
+`config, err := NewConfig("config.yaml")`
+のように変数に代入して使用することができる。  
+`config.A`や`config.B`のような形式で属性にアクセスすると
+その時にYamlに記載されている最新の値を読みだすことができる。  
+ただし、このままだと設定の読み書きと、自動検知時の属性の更新の間で競合が発生する可能性
+があるので、きちんとしたものを作る際にはmutexなどでアクセスのされ方を制御す必要がある。
+
+
