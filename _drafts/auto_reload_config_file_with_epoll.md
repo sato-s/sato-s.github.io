@@ -103,37 +103,41 @@ b: "test"
 [[package]] main
 
 import (
-  "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
-  "fmt"
+	"fmt"
 )
 
 type Config struct {
-  A int
-  B string
+	A int
+	B string
 }
 
 func NewConfig(filename string) (*Config) {
 	data, err := ioutil.ReadFile(filename)
-  if err != nil {
-    panic(err)
-  }
+	if err != nil {
+		panic(err)
+	}
 
-  c := Config{}
+	c := Config{}
 	err = yaml.Unmarshal([]byte(data), &c)
-  if err != nil {
-    panic(err)
-  }
-  return &c
+	if err != nil {
+		panic(err)
+	}
+	return &c
 }
 
 func main(){
-  config := NewConfig("config.yaml")
-  // ここでconfigの中身が参照できる。
-  fmt.Printf("%+v", config)
+	config := NewConfig("config.yaml")
+	// ここでconfigの中身が参照できる。
+	fmt.Printf("%+v", config)
 }
 ```
 
 上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)に変更が
 ある場合に自動で変更されるようにしてみる。
+
+
+## fsnotifyによるyamlの再読み込み
+
 
