@@ -100,12 +100,10 @@ b: "test"
 してから使用するケースがほとんどだと思う。
 
 ```go
-[[package]] main
-
 import (
+	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"fmt"
 )
 
 type Config struct {
@@ -113,23 +111,24 @@ type Config struct {
 	B string
 }
 
-func NewConfig(filename string) (*Config) {
+func NewConfig(filename string) (*Config, error) {
+	c := &Config{}
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
-		panic(err)
+		return nil, err
+	}
+	if err := yaml.Unmarshal([]byte(data), &c); err != nil {
+		return nil, err
 	}
 
-	c := Config{}
-	err = yaml.Unmarshal([]byte(data), &c)
+	return c, nil
+}
+
+func main() {
+	config, err := NewConfig("config.yaml")
 	if err != nil {
 		panic(err)
 	}
-	return &c
-}
-
-func main(){
-	config := NewConfig("config.yaml")
-	// ここでconfigの中身が参照できる。
 	fmt.Printf("%+v", config)
 }
 ```
