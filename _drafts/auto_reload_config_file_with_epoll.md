@@ -10,33 +10,40 @@ tags:
 
 大抵のサーバープログラムはなんらんかの設定ファイルをもっている。
 PostgreSQLでいうとpostgresql.confやpg_hba.conf、nginxでいうとnginx.confがある。  
-これらのプログラムはシグナルをつかって設定ファイルをサーバープロセスの再起動なしで反映するための仕組みを用意してくれていて、
-いずれもSIGHUPをメインのプロセスに送ることで設定ファイルを再度読み込んでくれる。
-例えば、postgresqlなら`pg_ctl reload`で、nginxなら`nginx -s reload`コマンドでシグナルを送ると設定ファイルを再度読み込んでくれる。
-これによってサーバーのダウンタイムなしでパラメーターを変更することができる。  
+これらにはシグナルをつかって設定ファイルをサーバープロセスの再起動なしで反映するための仕組みがある。  
+例えば、postgresqlなら`pg_ctl reload`で、nginxなら`nginx -s reload`コマンドを実行すると
+SIGHUPがメインのプロセスに送られ、サーバーの設定を再度読み込んでくれる。
+これによってサーバーのダウンタイムなしで
+`work_mem`(SQLのソート等に利用可能なメモリの量)などの値を
+変更することができる。  
 
 一方でRails(developmentモード)やwebpack-dev-serverの場合、ファイルを変更するとそれだけで
-設定を反映してくれる。(これは設定ファイルというよりもソースコードそのものの変更を自動で検出して反映してくれる)  
-Railsやwebpack-dev-serverの場合、ダウンタイムを防ぐのではなく開発中の確認作業を便利にするために、シグナルを明に受けなくても
-設定が反映されるようになっている。  
+設定を反映してくれる。(これは設定ファイルというよりもソースコードそのものの変更)  
+Railsやwebpack-dev-serverの場合、開発中の確認作業を便利にするために、シグナルを明に受けなくても
+設定が反映されるようになっているのだろう。  
 
-このように設定を勝手に反映してくれるのは、意図せぬ変更が発生する可能性があるので、プロダクション環境のサーバーには不向きだが、
+このようにファイルが変わっただけで設定を勝手に反映してくれるのは、意図せぬ変更が発生する可能性があるので、プロダクション環境のサーバーには不向きだが、
 個人的に使うような場合にはとても便利だ。  
 Goで個人的に使うサーバープロセスを立てたかったので、これを試してみた。
 
 
 ## inotifyとfsnotify
 
-ファイルの変更の監視は、もちろんポーリングすることでもできるが、あまり効率的ではない。
+ファイルの中身を定期的ポーリングし
+変更を検知することもできるが、このような方法は
+あまり効率的ではない。
+できれば、ファイルへの変更があった場合にのみ設定ファイルを再度読み込む
+ようなサーバープロセスにしたい。  
 Linuxの場合[inotify](https://linuxjm.osdn.jp/html/LDP_man-pages/man7/inotify.7.html)
 で取得したファイルディスクリプタを
 [epoll](https://linuxjm.osdn.jp/html/LDP_man-pages/man7/epoll.7.html)
 などで監視することによって、
 OS側からファイルへの変更があった場合に通知してもらうことができる。  
+
 これらのシステムコールを直接使って監視を行うこともできるが、
 Goでは[fsnotify](https://github.com/fsnotify/fsnotify)
 というライブラリがあり、うまくラップしてくれている。
-しかも、Linux以外のOSでも別のシステムコールを使うことで動作してくれる。
+しかもLinux以外のOSも別のシステムコールを使うことでサポートしてくれている。
 
 ## fsnotifyの使い方
 
@@ -55,7 +62,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-  // sample_fileを監視
+	// sample_fileを監視
 	if err := watcher.Add("sample_file"); err != nil {
 		panic(err)
 	}
@@ -126,7 +133,7 @@ func NewConfig(filename string) (*Config, error) {
 }
 ```
 
-上のような`Config`型は以下のように、使用することでYamlないの設定内容の読み出しに使用することができる。
+上のような`Config`型は以下のように使用することでYamlないの設定内容を読みだすことができる。
 
 ```go
 func main() {
@@ -140,13 +147,13 @@ func main() {
 
 ```
 
-上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)に変更が
-ある場合に自動で検知し変更内容が反映されるようにしてみる。
+上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)への変更を
+自動で検知し変更内容が反映されるようにしてみる。
 
 
 ## 変更の自動検知と反映
 
-`Config`型の自動更新の自動更新を行う場合には、fsnotifyによってファイルの変更を検知した際に
+`Config`型の自動更新を行う場合には、fsnotifyによってファイルの変更を検知した際に
 ファイルを再度読み込んで、それを`Config`型の属性に再度反映させてやるという操作が必要になる。
 再度のyamlの読み込みに備えてファイル名を記憶しておく必要があるのでstructのprivateな属性として`filename`
 を用意しておく
@@ -192,17 +199,17 @@ func (c *Config) run() error {
 	for {
 		select {
 		case event := <-watcher.Events:
-			// 書き込みがあったタイミングでloadFileによる更新を行う
 			if event.Op&fsnotify.Write == fsnotify.Write {
-				err := c.loadFile()
+				// 書き込み(fsnotify.Write)があるとここを通る
+				err := c.loadFile() // 設定の読み出し
 				if err != nil {
-					log.Printf("Error: $s", err)
+					log.Printf("Error: %s", err)
 				} else {
 					log.Printf("Refreshed setting from %s", c.filename)
 				}
 			}
 		case err := <-watcher.Errors:
-			log.Printf("Error: $s", err)
+			log.Printf("Error: %s", err)
 		}
 	}
 	return nil
@@ -210,7 +217,7 @@ func (c *Config) run() error {
 ```
 
 あとは`NewConfig`内で`run`をgoroutineで呼び出すようにしておけば、
-自動で更新される型ができる。
+`run`内の`for`ループが走り続けるので、自動更新が行われる。
 
 ```go
 func NewConfig(filename string) (*Config, error) {
@@ -219,7 +226,8 @@ func NewConfig(filename string) (*Config, error) {
 	if err := config.loadFile(); err != nil {
 		return nil, err
 	}
-  go config.run()
+	// runをgoroutineで呼び出し
+	go config.run()
 	return config, nil
 }
 ```
@@ -231,7 +239,7 @@ func NewConfig(filename string) (*Config, error) {
 
 変更の自動検知と反映を行う前と同様に
 `config, err := NewConfig("config.yaml")`
-のように変数に代入して使用することができる。  
+のように変数に代入して使用する。
 `config.A`や`config.B`のような形式で属性にアクセスすると
 その時にYamlに記載されている最新の値を読みだすことができる。  
 ただし、このままだと設定の読み書きと、自動検知時の属性の更新の間で競合が発生する可能性
