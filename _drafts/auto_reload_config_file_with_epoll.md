@@ -55,7 +55,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-  # sample_fileを監視
+  // sample_fileを監視
 	if err := watcher.Add("sample_file"); err != nil {
 		panic(err)
 	}
@@ -87,5 +87,53 @@ $ rm sample_file
 2021/10/24 15:49:56 EVENT: REMOVE
 ```
 
+## Goにおける設定ファイル
 
+サーバープロセスの設定ファイルとしては以下のようなYamlに値を書いていくことにしたい。
+
+```yaml
+a: 1
+b: "test"
+```
+
+このようなYamlをGoの内部で使用しようとする場合、以下のような感じでYamlをstructにマッピング
+してから使用するケースがほとんどだと思う。
+
+```go
+[[package]] main
+
+import (
+  "gopkg.in/yaml.v2"
+	"io/ioutil"
+  "fmt"
+)
+
+type Config struct {
+  A int
+  B string
+}
+
+func NewConfig(filename string) (*Config) {
+	data, err := ioutil.ReadFile(filename)
+  if err != nil {
+    panic(err)
+  }
+
+  c := Config{}
+	err = yaml.Unmarshal([]byte(data), &c)
+  if err != nil {
+    panic(err)
+  }
+  return &c
+}
+
+func main(){
+  config := NewConfig("config.yaml")
+  // ここでconfigの中身が参照できる。
+  fmt.Printf("%+v", config)
+}
+```
+
+上のような`Config`型が最初に与えられたファイル(上の場合は`config.yaml`)に変更が
+ある場合に自動で変更されるようにしてみる。
 
