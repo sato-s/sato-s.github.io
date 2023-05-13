@@ -30,4 +30,7 @@ end
 
 accounts = Accounts.new((1...5).map{Account.new(rand(100))})
 
+
 accounts.select(&:child?).class # => Array
+[].each do |a|
+end
